@@ -1,4 +1,68 @@
 <?php 
+
+
+function selectLayoutTemplate( $meta_boxes ) {
+	$prefix = '';
+
+	$meta_boxes[] = array(
+		'id' => 'layout_template',
+		'title' => esc_html__( 'Layout Template', 'metabox-online-generator' ),
+		'post_types' => array('guide'),
+		'context' => 'side',
+		'priority' => 'default',
+		'autosave' => 'false',
+		'fields' => array(
+		array(
+				'id' => $prefix . 'page_layout_template',
+				'name' => esc_html__( 'Page Layout Template', 'metabox-online-generator' ),
+				'type' => 'select',
+				'placeholder' => esc_html__( 'Select an Item', 'metabox-online-generator' ),
+				'options' => array(
+					'default' => esc_html__( 'Default', 'metabox-online-generator' ),
+                    'two_column' => esc_html__( 'Two Column', 'metabox-online-generator' ),
+                    'front_page' => esc_html__( 'Front Page', 'metabox-online-generator' ),
+				),
+				'std' => 'default',
+            ),
+            	array(
+				'id' => $prefix . 'full_bleed',
+				'name' => esc_html__( 'Full Bleed', 'metabox-online-generator' ),
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Page has no margins', 'metabox-online-generator' ),
+			),
+                
+		),
+	);
+
+	return $meta_boxes;
+}
+add_filter( 'rwmb_meta_boxes', 'selectLayoutTemplate' );
+
+function selectHeroImage( $meta_boxes ) {
+	$prefix = '';
+
+	$meta_boxes[] = array(
+		'id' => 'hero',
+		'title' => esc_html__( 'Hero Image', 'metabox-online-generator' ),
+		'post_types' => array('post', 'page','resource','profile','guide' ),
+		'context' => 'side',
+		'priority' => 'default',
+		'autosave' => 'false',
+		'fields' => array(
+			array(
+				'id' => $prefix . 'hero',
+				'type' => 'image_advanced',
+				'name' => esc_html__( 'Hero Image', 'metabox-online-generator' ),
+				'desc' => esc_html__( '', 'metabox-online-generator' ),
+			),
+		),
+	);
+
+	return $meta_boxes;
+}
+add_filter( 'rwmb_meta_boxes', 'selectHeroImage' );
+
+
     function video_meta( $meta_boxes ) {
         $prefix = '';
 

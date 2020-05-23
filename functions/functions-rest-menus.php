@@ -140,6 +140,7 @@ if ( ! class_exists( 'WP_REST_Menus' ) ) :
                     $url = str_replace("http:","",$value->url);
                     $url = str_replace("https:","",$value->url);
                     $url = str_replace(get_site_url(),"",$value->url);
+                    
                     array_push($custom_items,
                         array(
                             "ID"=>$value->ID,
@@ -150,7 +151,11 @@ if ( ! class_exists( 'WP_REST_Menus' ) ) :
                             "title"=>$value->title,
                             "url"=>$url,
                             "slug"=>$value->post_name,
-                            "post_parent" => $value->post_parent                        )
+                            "post_parent" => $value->post_parent,
+                            "classes" => implode(" ",$value->classes),       
+                            "description" => $value->description,
+                            'target' => $value->target
+                            )
                     );
                 }
               
@@ -426,7 +431,7 @@ if ( ! class_exists( 'WP_REST_Menus' ) ) :
                 'order'       => (int) $item['menu_order'],
                 'parent'      => abs( $item['menu_item_parent'] ),
                 'title'       => $item['title'],
-                'slug'       => $item['slug']."this",
+                'slug'       => $item['slug'],
                 'url'         => $item['url'],
                 'attr'        => $item['attr_title'],
                 'target'      => $item['target'],

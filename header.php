@@ -4,10 +4,20 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="profile" href="http://gmpg.org/xfn/11">
-
+    <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri();?>/images/icons/favicon.ico" />
 <?php wp_head(); 
     $url = wp_upload_dir();
 ?>
+    <link href="<?php echo get_stylesheet_directory_uri();?>/assets/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+   
+   
+    <link href="<?php echo get_stylesheet_directory_uri();?>/assets/lib/animate.css/animate.css" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri();?>/assets/lib/components-font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri();?>/assets/lib/flexslider/flexslider.css" rel="stylesheet">
+
+    <!-- Main stylesheet and color file-->
+    <link href="<?php echo get_stylesheet_directory_uri();?>/style.css" rel="stylesheet">
   <script>
       // Wordpress PHP variables to render into JS at outset.
       var active_id = <?=$post->ID?>,
@@ -18,45 +28,70 @@
       data_path = "<?=get_stylesheet_directory_uri()?>/data/",
       useWheelNav = false,
       uploads_path =  "<?=$url['baseurl']?>/"
-     
       
+      var hero_slides = [
+          <?php $slides = get_slides($post->ID);
+          $slide_version_list = array();
+        foreach ($slides as $key => $media_id) {
+          $src= wp_get_attachment_image_src( $media_id,"Full");
+          //var_dump($src);//var_dump(get_media_data($media_id));
+          $media_data = get_media_data($media_id);
+        //  var_dump($media_data);
+          $versions = getThumbnailVersions($media_id);
+          $version_list = array();
+          foreach($versions as $v => $version){
+              array_push($version_list,"'".$v."'".": '".$version."'");
+
+          }
+          array_push($slide_version_list,"{".implode(",",$version_list)."}
+          ");
+          
+        
+        // print "<BR>";
+          // var_dump($versions);
+            extract((array) get_media_data($media_id));
+        }
+        print implode(",",$slide_version_list);
+      
+        ?>
+         ]
       <?php
           if(function_exists('icl_object_id')){
               global $sitepress;
+
               print "var languages = ".json_encode(getLanguageList());
             
 
           }
       ?>
-
+     
   </script>
   <link rel="stylesheet" type="text/css" media="print" href="<?=get_stylesheet_directory_uri()?>/print.css">
 </head>
 
 
 
-  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="<?php echo $class_bg;?>">
+  <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60" class="<?php echo @$class_bg;?>">
 
 
-      <div class="page-loader">
+        <div class="page-loader">
         <div class="loader">Loading...</div>
       </div>
-            
-        <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
-        <div class="container">   
-          <div id="pinned-nav"></div>   
-          <?php
-         if ( is_active_sidebar('register')){
-            dynamic_sidebar("register");
-            }
-         ?>
-          <div id="logo" class="onpage-navigation"><img src="<?=get_stylesheet_directory_uri()?>/images/logo/logo.svg"></div> 
+<header id="header" class="navbar navbar-custom navbar-fixed-top navbar-transparent" role="navigation">
+        <div class="container">
+         
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="logo" class="onpage-navigation"><a class="navbar-brand" href="/"><img src="<?=get_stylesheet_directory_uri()?>/images/logo/logo.svg"></a></div>
+          </div>
+          <div class="collapse navbar-collapse" id="custom-collapse">
+         
 
                     <div id="site-title" class="onpage-navigation"><?=bloginfo("description");?></div>
                     <div id="main-menu"></div>
                   
-            </div>wow
+            </div>
       </div>
+</header>
       
       
 <?php

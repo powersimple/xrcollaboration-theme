@@ -13,9 +13,9 @@ Hence, the REST_post_filter variable below.
 $GLOBALS['REST_post_filter'] = "filter[orderby]=ID&order=asc&per_page=100";// handles order and pagination
 
 $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
-            "posts"=>"fields=id,type,title,content,slug,excerpt,languages,featured_media,screen_images,video,type,cats,tags&".$GLOBALS['REST_post_filter'],
-            "pages"=>"fields=id,type,title,content,slug,excerpt,languages,featured_media,screen_images,featured_video,cats,tags,type&".$GLOBALS['REST_post_filter'],
-            "profile"=>"fields=id,type,title,content,slug,excerpt,languages,info,seo,featured_media,screen_images,featured_video,type,industry,feature,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter'],
+            "posts"=>"fields=id,type,title,content,slug,excerpt,languages,post_media,featured_media,screen_images,video,type,cats,tags&".$GLOBALS['REST_post_filter'],
+            "pages"=>"fields=id,type,title,content,slug,excerpt,languages,post_media,featured_media,screen_images,featured_video,cats,tags,type&".$GLOBALS['REST_post_filter'],
+            "profile"=>"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screen_images,featured_video,type,industry,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter'],
          //   "resource"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
            // "event"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             //"product"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
@@ -30,7 +30,7 @@ $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
             
             "tags"=>"fields=id,name,slug,posts&".$GLOBALS['REST_post_filter'],
             "menus"=>"menus",
-            "media"=>"fields=id,data&".$GLOBALS['REST_post_filter']
+           "media"=>"fields=id,data&".$GLOBALS['REST_post_filter']
         );
 
 // for WPML Comment this out if you aren't using it.

@@ -25,4 +25,23 @@ function socials_to_cpt() {
     register_post_type( 'social', $args );
 }
 
+function getPostByCategory($cat,$post_type,$template){
+
+    global $post;
+    $args = array( 'category_name' => $cat, 'post_type'=>$post_type );
+    $posts = get_posts( $args );
+    // var_dump($posts);
+    foreach( $posts as $post ){
+        var_dump($post);
+    }
+
+
+
+
+
+
+}
+//getPostByCategory("sponsor","profile","sponsor-footer");
+
+
 ?>

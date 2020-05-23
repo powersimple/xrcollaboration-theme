@@ -26,9 +26,42 @@
 		'fields' => array(
 			array(
 				'id' => 'device_name',
-				'type' => 'textarea',
+				'type' => 'text',
 				'name' => esc_html__( 'Device', 'metabox-online-generator' ),
-			)
+			),
+			array(
+				'id' => 'fov',
+				'type' => 'text',
+				'name' => esc_html__( 'Field of View', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'resolution',
+				'type' => 'text',
+				'name' => esc_html__( 'Resolution Per Eye', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'refresh_rate',
+				'type' => 'text',
+				'name' => esc_html__( 'Refresh Rate', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'untethered',
+				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Untethered', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'hand_tracking',
+				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Hand Tracking', 'metabox-online-generator' )
+			),
+			array(
+				'id' => 'gaze_tracking',
+				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Gaze Tracking', 'metabox-online-generator' )
+			),
 		
 		),
 	);
@@ -97,6 +130,11 @@ function setProfileContactInfo( $meta_boxes ) { // this shows the box were
 		'priority' => 'low',
 		'autosave' => 'false',
 		'fields' => array(
+				array(
+				'id' => 'company',
+				'type' => 'text',
+				'name' => esc_html__( 'Company', 'metabox-online-generator' ),
+			),
 			array(
 				'id' => 'contact_name',
 				'type' => 'text',
@@ -160,6 +198,35 @@ function setProfileContactInfo( $meta_boxes ) { // this shows the box were
 }
 add_filter( 'rwmb_meta_boxes', 'setProfileContactInfo' );
 
+
+function selectThis( $meta_boxes ) {
+	$prefix = '';
+
+	$meta_boxes[] = array(
+		'id' => 'hardware',
+		'title' => esc_html__( 'HARDWARE', 'metabox-online-generator' ),
+		'post_types' => array('post', 'page','resource','profile'),
+		'context' => 'side',
+		'priority' => 'default',
+		'autosave' => 'false',
+		'fields' => array(
+			array(
+				'id' => $prefix . 'speakers',
+				'type' => 'post',
+				'name' => esc_html__( 'Hardware', 'metabox-online-generator' ),
+				'post_type' => 'profile',
+				'field_type' => 'checkbox_list',
+				'query_args' => array(
+					'post_category' => 'author',
+				),
+			),
+		),
+	);
+
+	return $meta_boxes;
+}
+add_filter( 'rwmb_meta_boxes', 'selectThis' );
+
 function setProfileURL( $meta_boxes ) { // this shows the box were 
 	$prefix = '';
 
@@ -178,7 +245,7 @@ function setProfileURL( $meta_boxes ) { // this shows the box were
 				'desc' => esc_html__( 'Enter URL for the Resource to Profile', 'omniscience-profiler' ),
 			),
 			array(
-				'id' => $prefix . 'profile_logo',
+				'id' => $prefix . 'logo',
 				'type' => 'image_advanced',
 				'name' => esc_html__( 'Logo', 'omniscience-profiler' ),
 				//'desc' => esc_html__( 'Size to 1920x1280', 'metabox-online-generator' ),

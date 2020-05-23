@@ -1,0 +1,27 @@
+input[type=checkbox].form-checkbox {
+    width: 22px;
+    height: 22px;
+    border: 3px solid $light_blue;
+    background-color: #10161a;
+    margin-right: 5px;
+}
+
+.filters {
+    padding: 1em;
+    border-radius: 1em;
+    h3 {
+        color: $light_blue;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
+}
+
+.data-filter {
+    display: inline-block;
+    border: 1px solid gray;
+    width: 50%;
+    .data-label {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}

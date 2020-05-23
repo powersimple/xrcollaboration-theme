@@ -10,16 +10,21 @@ require_once("functions/functions-rest-endpoints.php");
 // special class to register the restapi
 
 //enqueues scripts and styles
-//require_once("functions/functions-post-types.php");
+require_once("functions/functions-post-types.php");
 
 
 require_once("functions/functions-rest-menus.php");
 // custom functions to register fields into the restapi
 require_once("functions/functions-rest-register.php");
 require_once("functions/functions-navigation.php");
-require_once("functions/functions-print.php");
+	   
 require_once("functions/parsers.php");
 require_once("profiler/profiler.php");
+
+require_once("scraper/simple_html_dom.php");
+require_once("functions/functions-print.php");
+
+
 add_theme_support('post-thumbnails', array(
 'post',
 'page',
@@ -37,8 +42,11 @@ add_theme_support('post-thumbnails', array(
 			
 			
 			$img = wp_get_attachment_image_src(  $id, $use);
-			if($img[0] !=""){
-			} 
+			if(is_array($img)){
+				if($img[0] !=""){
+					return $img[0];
+				} 
+			}
 			return $img;//$img[0];
 			
 		}
@@ -64,7 +72,9 @@ add_theme_support('post-thumbnails', array(
 	
 	
 	
-	
+	 function get_slides( $id ) {
+		return get_post_meta($id,"top_slider") ;//from functions.php,
+		}
 		//Embed Video  Shortcode
 	
 		function video_shortcode( $atts, $content = null ) {

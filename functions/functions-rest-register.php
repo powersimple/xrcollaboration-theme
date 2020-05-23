@@ -26,7 +26,7 @@ function register_posts_by_tag() {
 function get_posts_by_tag( $object ) {
 
 	$args = array(
-    'post_type'      => array('project','post','page'), 
+    'post_type'      => array('profile','post','page'), 
     'posts_per_page' => -1,
     'post_status'    => 'publish',
     'fields' => 'ids',
@@ -103,7 +103,7 @@ function get_cat_children( $object ) {// this returns the child categories to th
 function get_posts_by_category( $object ) {
 
 	$args = array(
-    'post_type'      => array('post','page','project'), // where post types are represented
+    'post_type'      => array('post','page','profile'), // where post types are represented
     'posts_per_page' => -1,
     'post_status'    => 'publish',
     'fields' => 'ids',
@@ -142,6 +142,50 @@ add_action( 'rest_api_init', function () {
 /* 
 	media
 */
+
+add_action( 'rest_api_init', 'register_post_media' );
+ function register_post_media() {
+ 
+
+	register_rest_field( ['post','page','profile'], 'post_media', array(
+		'get_callback' => 'get_post_media'
+
+		)
+	);
+}
+
+function get_post_media( $object ) { 
+
+	$postmeta_media_fields = "hero,_thumbnail_id,featured_video,screen_image,logo";
+
+	
+	foreach(explode(",",$postmeta_media_fields) as $key  => $field){
+		$media_id = get_post_meta($object['id'],$field,false);// returns Array, not string!!
+		$post_media_data = array();
+		foreach($media_id as $key => $value){
+			array_push($post_media_data,get_media_data_by_id($value));
+			
+		}
+
+		$post_media_urls[$field] = $post_media_data;
+	
+	}
+
+
+
+
+	return $post_media_urls;
+
+
+
+}
+
+
+
+
+
+
+
 add_action( 'rest_api_init', 'register_media_data' );
  function register_media_data() {
  
@@ -153,16 +197,16 @@ add_action( 'rest_api_init', 'register_media_data' );
 	);
 }
 
-function get_media_data( $object ) { //this function builds the data for a lean json packet of media
-   
-	$data = array();   
+function get_media_data_by_id($id){//this function builds the data for a lean json packet of media
+		$data = array();   
 	$url = wp_upload_dir();
 	$upload_path = $url['baseurl']."/";
-	$file_path = str_replace($upload_path,'',wp_get_attachment_url($object['id']));
+	$file_path = str_replace($upload_path,'',wp_get_attachment_url($id));
 	$file = basename($file_path);
 	$path = str_replace($file,"",$file_path);
-	$mime = get_post_mime_type( $object['id'] );
-	$meta  = (array) wp_get_attachment_metadata( $object['id'],true);
+	$mime = get_post_mime_type( $id );
+	$meta  = (array) wp_get_attachment_metadata( $id,true);
+	$full_path = wp_upload_dir();
 
 
 	$meta_data = array();
@@ -179,8 +223,11 @@ function get_media_data( $object ) { //this function builds the data for a lean 
 				$meta_data['h'] = $value;
 			} else if($key == 'sizes'){
 				$meta_data['sizes'] = array();
-				foreach($meta[$key] as $size_name => $props){
-					$meta_data['sizes'][$size_name] = $meta[$key][$size_name]['file'];
+
+				if(get_post_mime_type( $id ) != 'image/svg+xml'){// no need to size
+					foreach($meta[$key] as $size_name => $props){
+						$meta_data['sizes'][$size_name] = $meta[$key][$size_name]['file'];
+					}
 				}
 			}
 
@@ -192,19 +239,25 @@ function get_media_data( $object ) { //this function builds the data for a lean 
 	}
 	$data = array(
 	
-		'alt' => get_post_meta($object['id'],"_wp_attachment_image_alt",true),
-		'caption' => wp_get_attachment_caption($object['id']),
-		'title'=> get_the_title($object['id']),
-		'desc' => wpautop(get_the_content($object['id'])),
+		'alt' => get_post_meta($id,"_wp_attachment_image_alt",true),
+		'caption' => wp_get_attachment_caption($id),
+		'title'=> get_the_title($id),
+		'desc' => wpautop(get_the_content($id)),
 		'path'=> $path,
 		'file' => $file,
 		'mime' => $mime,
-		'meta' => $meta_data
+		'meta' => $meta_data,
+		'full_path' => "/wp-content/uploads/".$path.$file
 		
 	);
 
  return $data;//from functions.php,
 
+}
+
+function get_media_data( $object ) { 
+   
+	return get_media_data_by_id($object['id']); // because this is a callback which passes in the full object and we want to be able to get the data elsewhere with just the id. 
 }
 
 
@@ -237,7 +290,7 @@ add_action( 'rest_api_init', 'register_thumbnail_url' );
 function register_thumbnail_url() {
  
 
-	register_rest_field( ['project','page','post'], 'thumbnail_url', array(
+	register_rest_field( ['profile','page','post'], 'thumbnail_url', array(
 		'get_callback' => 'get_thumbnail_url',
 		'schema' => null,
 		)
@@ -258,7 +311,7 @@ add_action( 'rest_api_init', 'register_thumbnail_url_versions' );
  function register_thumbnail_url_versions() {
  
 
-	register_rest_field( array('project','page','post'), 'thumbnail_versions', array(
+	register_rest_field( array('profile','page','post'), 'thumbnail_versions', array(
 		'get_callback' => 'get_thumbnail_versions',
 		'schema' => null,
 		)
@@ -278,7 +331,7 @@ add_action( 'rest_api_init', 'register_screen_images' );
  function register_screen_images() {
  
 
-	register_rest_field( array('project','page','post'), 'screen_images', array(
+	register_rest_field( array('profile','page','post'), 'screen_images', array(
 		'get_callback' => 'get_screen_images'
 
 		)
@@ -299,7 +352,7 @@ add_action( 'rest_api_init', 'register_featured_video' );
  function register_featured_video() {
  
 
-	register_rest_field( array('project','post','page'), 'featured_video', array(
+	register_rest_field( array('profile','post','page'), 'featured_video', array(
 		'get_callback' => 'get_featured_video',
 		'schema' => null,
 		)
@@ -331,7 +384,7 @@ add_action( 'rest_api_init', 'register_post_cats' );
 
 function register_post_cats() {
 
-		register_rest_field( array('project','post','page'), 'cats', array(
+		register_rest_field( array('profile','post','page'), 'cats', array(
 			'get_callback' => 'get_post_cats',
 			'schema' => null,
 		)
@@ -349,7 +402,7 @@ add_action( 'rest_api_init', 'register_post_tags' );
 
 function register_post_tags() {
 
-		register_rest_field( array('project','post','page'), 'tags', array(
+		register_rest_field( array('profile','post','page'), 'tags', array(
 			'get_callback' => 'get_post_tags',
 			'schema' => null,
 		)
@@ -457,7 +510,7 @@ function get_post_tags($object){
 
 
 
-/*WP REST API CUSTOM ENDPOINT. RETURNS SPECIFIC OBJECT OF PROJECT INFO*/ 
+/*WP REST API CUSTOM ENDPOINT. RETURNS SPECIFIC OBJECT OF profile INFO*/ 
 
 	add_action( 'rest_api_init', 'register_project_info' );
 		

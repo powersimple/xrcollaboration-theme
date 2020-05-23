@@ -36,6 +36,24 @@ function css() {
         .pipe(browserSync.stream())
 }
 
+function print_css() {
+    return src(['app/sass/print.scss'], {
+            sourcemaps: true
+        })
+        .pipe(sass())
+        .pipe(dest('./'))
+        .pipe(minifyCSS())
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(cssnano())
+        .pipe(dest('./'))
+        .pipe(notify({
+            message: 'SCSS converted to SCSS '
+        }))
+        .pipe(browserSync.stream())
+}
+
 function xr_css() {
     return src(['xr/css/xr.scss'], {
             sourcemaps: true
@@ -147,6 +165,11 @@ function xr_clean() {
 
 }
 
+function print_clean() {
+    return del(['./print.css', './print.min.css'])
+
+}
+
 function browser() {
     browserSync.init({
         proxy: localhost,
@@ -161,6 +184,10 @@ function browser() {
     watch('./app/sass/**/*.scss', css).on('change', browserSync.reload);
     watch('./app/js/custom/**/*.js', js).on('change', browserSync.reload);
     watch('./app/js/vendor/**/*.js', vendor).on('change', browserSync.reload);
+
+
+    watch('./app/sass/print.scss', print_clean);
+    watch('./app/sass/print.scss', print_css).on('change', browserSync.reload);
 
     //until I put this in webpack.
     watch('./xr/css/**/*.scss', xr_clean);

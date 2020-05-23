@@ -12,37 +12,12 @@
           
  <div class="row"><?php
 
-displaySponsors($current_sponsor_parent_id,'Terrabit');
+displaySponsors($current_sponsor_parent_id,'Lead');
 ?>
  <div class="row"><?php
 displaySponsors($current_sponsor_parent_id,'Gigabit');
 ?></div>
- <div class="row"><?php
-displaySponsors($current_sponsor_parent_id,'Megabit');
-?></div>
- <div class="row"><?php
-displaySponsors($current_sponsor_parent_id,'Partner');
-?></div>
- <div class="row"><?php
-displaySponsors($current_sponsor_parent_id,'Community Partner');
-?></div>
 
- <div class="row">
-  
- <?php
-displaySponsors($current_sponsor_parent_id,'Community');
-       ?></div> 
-        <div class="row">
-
- <?php
-displaySponsors($current_sponsor_parent_id,'Production');
-       ?></div>   
- <?php
-displaySponsors($current_sponsor_parent_id,'Streaming');
-       ?></div>   
- <?php
-displaySponsors($current_sponsor_parent_id,'Printing');
-       ?></div>   
 
 </div>
 

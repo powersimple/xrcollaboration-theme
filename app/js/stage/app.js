@@ -7,8 +7,8 @@ a.setAttribute('href', 'https://twitter.com/steeevg');
 a.setAttribute('target', '_blank');
 a.innerHTML = icon;
 
-//  document.body.appendChild(a);
 
+//  document.body.appendChild(a);
 
 
 

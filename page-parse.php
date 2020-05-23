@@ -379,8 +379,8 @@ print "NEW POST ID =".$new_post = wp_insert_post( $profile_post );
                insert_term_rel($new_post,$post_categories);
 
           if($svg_url != ''){ // svg logo
-                $profile_logo = addImageToLibrary($company."svg-logo",$svg_url);
-                 add_post_meta( $new_post,'profile_logo',$profile_logo, false );
+                $logo = addImageToLibrary($company."svg-logo",$svg_url);
+                 add_post_meta( $new_post,'profile_logo',$logo, false );
             }
 
             foreach($profile_meta as $meta_key => $meta_value){ // profile info

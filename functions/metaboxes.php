@@ -41,14 +41,15 @@ function selectScreenImage( $meta_boxes ) {
 
 	return $meta_boxes;
 }
-add_filter( 'rwmb_meta_boxes', 'selectScreenImage' );
+
+
 function selectHeroImage( $meta_boxes ) {
 	$prefix = '';
 
 	$meta_boxes[] = array(
 		'id' => 'hero',
 		'title' => esc_html__( 'Hero Image', 'metabox-online-generator' ),
-		'post_types' => array('post', 'page','resource','profile','conference','award','sdg' ),
+		'post_types' => array('post', 'page','resource','profile','guide'),
 		'context' => 'side',
 		'priority' => 'default',
 		'autosave' => 'false',
