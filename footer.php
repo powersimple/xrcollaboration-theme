@@ -5,7 +5,8 @@
          
             <div class="row">
              <div class="container">
-              <p>Made possible by the generous support of our sponsors:
+              <span class="full-center">Made possible by the generous support of our sponsors:</span>
+              <div class="row"><div class="col-xs-offset-4 col-xs-4 col-sm-offset-5 col-sm-2"><img src="http://xrcollab.staging.wpengine.com/wp-content/uploads/2020/05/XRC-Logos_telekomm.svg" alt="Deutsche Telekom logo"></div><div class="col-xs-4 col-sm-5"></div></div>
                 <div id="sponsor-footer">
               </div>
             </div>

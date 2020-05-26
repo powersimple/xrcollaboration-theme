@@ -4,9 +4,9 @@
 
  $author_menu = sectionMenu("authors",'thumbnail','4');
  $sponsor_menu = sectionMenu("sponsors",'logo','4');
-
-$guide_parent = 620;
-$guide_content = compileGuide($guide_parent);
+ $sponsor_menu = sectionMenu("video_conf",'logo','3');
+ $guide_parent = 620;
+ $guide_content = compileGuide($guide_parent);
 
 
 
@@ -37,7 +37,7 @@ foreach($guide_content as $key => $value){
         }
 
         ?>
-  <section class="<?=$print_template?> <?=$bleed?>" id="<?php echo @sanitize_title($value->post_title);?>" role="region"> 
+  <section class="<?=$print_template?> <?=$bleed?>" id="<?php echo @sanitize_title($value->post_title);?>" role="region">
         
         <img src="<?php print getThumbnail($hero);?>">
         
@@ -46,40 +46,31 @@ foreach($guide_content as $key => $value){
 
     } else {
 ?>
-  <section class="module <?=$print_template?>" id="<?php echo @sanitize_title($value->post_title);?>" role="region">
+  <section class="module <?=$print_template?>" id="<?php echo $value->post_name;?>" role="region">
 <div class="row">
 <div class="container">
 
     <?php
     echo do_blocks($value->post_content);
     ?>
+    
 
 </div>
 
 </div>
+<div class="row page-footer">&copy;2020 XR IGNITE INC - PLEASE SHARE THIS PUBLICATION! - <a href="https://xrcollaboration.com"><strong>XR</strong>COLLABORATION.COM</a><br><span class="dots"><?php include "images/footer-dots-01.svg";?></div>
+
 </section>
 
 <?php
     }
 }
-$content = ob_get_clean();
-
-
-$content = str_replace("{{TOC}}",getTOC($content,"compiled","anchor"),$content,);
-
-$content = auto_id_headings($content);
-
-$content = str_replace("{{sponsor_menu}}",$sponsor_menu,$content);
-$content = str_replace("{{authors}}",$author_menu,$content);
-
-?>
-
-
-<?php
+echo $content = replace_vars(ob_get_clean(),"compiled");
 
 
 
-echo $content;
+
+
 ?>
 
 </main>

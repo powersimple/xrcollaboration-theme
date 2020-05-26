@@ -127,7 +127,7 @@ function sponsorFooter() {
         //     console.log("profile =" + menu_data[i].title, menu_data[i].object_id, profiles[menu_data[i].object_id])
         logo = profiles[menu_data[i].object_id].post_media.logo[0].full_path
         url = profiles[menu_data[i].object_id].url
-        menu_links += "<a class='sponsor col-x2-2 col-sm-1' href='" + url + "' target='_new' title='" + menu_data[i].title + "'> "
+        menu_links += "<a class='sponsor col-xs-2 col-sm-1' href='" + url + "' target='_new' title='" + menu_data[i].title + "'> "
         menu_links += '<img src="' + logo + '" alt="' + menu_data[i].title + ' logo">'
         menu_links += "</a>"
 

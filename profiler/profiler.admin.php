@@ -30,6 +30,27 @@
 				'name' => esc_html__( 'Device', 'metabox-online-generator' ),
 			),
 			array(
+				'id' => 'url',
+				'type' => 'text',
+				'name' => esc_html__( 'Website URL', 'metabox-online-generator' ),
+			),
+
+			array(
+				'id' => 'specs_url',
+				'type' => 'text',
+				'name' => esc_html__( 'Specs URL', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'MSRP',
+				'type' => 'text',
+				'name' => esc_html__( 'MSRP', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'os',
+				'type' => 'text',
+				'name' => esc_html__( 'Operating System', 'metabox-online-generator' ),
+			),
+			array(
 				'id' => 'fov',
 				'type' => 'text',
 				'name' => esc_html__( 'Field of View', 'metabox-online-generator' ),
@@ -40,9 +61,34 @@
 				'name' => esc_html__( 'Resolution Per Eye', 'metabox-online-generator' ),
 			),
 			array(
+				'id' => 'optics',
+				'type' => 'text',
+				'name' => esc_html__( 'Optics', 'metabox-online-generator' ),
+			),
+			array(
 				'id' => 'refresh_rate',
 				'type' => 'text',
 				'name' => esc_html__( 'Refresh Rate', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'connectivity',
+				'type' => 'text',
+				'name' => esc_html__( 'Connectivity (port)', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'weight',
+				'type' => 'text',
+				'name' => esc_html__( 'Weight', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'controllers',
+				'type' => 'text',
+				'name' => esc_html__( 'Controllers', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'sensors',
+				'type' => 'textarea',
+				'name' => esc_html__( 'Sensors (SLAM)', 'metabox-online-generator' ),
 			),
 			array(
 				'id' => 'untethered',
@@ -61,6 +107,22 @@
 				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
 				'type' => 'checkbox',
 				'desc' => esc_html__( 'Gaze Tracking', 'metabox-online-generator' )
+			),
+			array(
+				'id' => 'spatial_audio',
+				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Spatial Audio', 'metabox-online-generator' )
+			),
+			array(
+				'id' => 'acccessories',
+				'type' => 'textarea',
+				'name' => esc_html__( 'Accessories', 'metabox-online-generator' ),
+			),
+			array(
+				'id' => 'system_requirements',
+				'type' => 'textarea',
+				'name' => esc_html__( 'System Requirements', 'metabox-online-generator' ),
 			),
 		
 		),

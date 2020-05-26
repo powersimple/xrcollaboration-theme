@@ -45,7 +45,7 @@
         $meta_boxes[] = array(
             'id' => 'print_styles',
             'title' => esc_html__( 'Print Styles', 'ps_metabox' ),
-            'post_types' => array( 'page' ),
+            'post_types' => array( 'page', 'guide', 'hardware' ),
             'context' => 'side',
             'priority' => 'high',
             'autosave' => true,
@@ -71,7 +71,13 @@
 				'name' => esc_html__( 'Full Bleed', 'metabox-online-generator' ),
 				'type' => 'checkbox',
 				'desc' => esc_html__( 'Page has no margins', 'metabox-online-generator' ),
-			),
+            ),
+            array(
+				'id' => 'page_break_after',
+				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Page Break After', 'metabox-online-generator' )
+			)
                 
             
             ),
@@ -83,19 +89,19 @@
 function compileGuide($guide_parent){
     global $wpdb;
 
-    $sql = "select ID, post_title, post_content, post_name from wp_posts where post_parent = $guide_parent and post_status = 'publish' order by menu_order";
+    $sql = "select ID, post_title, post_content, post_name from wp_posts where post_parent = $guide_parent and post_status = 'publish' and post_type='guide' order by menu_order";
     
     return $wpdb->get_results($sql); 
 
 }
 
-function getTOC($content,$slug,$link_type="anchor"){
+function getTOC($content,$slug,$link_type="anchor",$page_break="benefits"){
     $html = str_get_html($content);
 
     $toc = '';
     $last_level = 0;
-
-    foreach($html->find('h1,h2, h3') as $h){// add back,h4,h5 if needed
+    $counter = 1;
+    foreach($html->find('h1,h2') as $h){// add back,h4,h5 if needed
         $innerTEXT = trim($h->innertext);
         $id =  str_replace(' ','-',sanitize_title(strtolower($innerTEXT)));
         $h->id= $id; // add id attribute so we can jump to this element
@@ -107,14 +113,22 @@ function getTOC($content,$slug,$link_type="anchor"){
             $toc .= str_repeat('</li></ul>', $last_level - $level);
             $toc .= '</li>';
         }
+        if($id == 'xr-collaboration-use-cases'){
+            $toc .= "<!--nextpage-->";
+            $toc .= '<li class="newpage">';
+        } else {
+            $toc .= '<li>';
+        }
         if($link_type=="anchor"){
-        $toc .= "<li><a  class='toc-h".$level."' href='#{$id}'>";
+        $toc .= "<a  class='toc-h".$level."' href='#{$id}'>";
         } else{
              $toc .= "<li><a  class='toc-h".$level."' href='/guide/$slug'>";
         }
         $toc .= "{$innerTEXT}</a>";
+       
 
         $last_level = $level;
+        $counter++;
     }
 
     $toc .= str_repeat('</li></ul>', $last_level);
@@ -137,9 +151,11 @@ function auto_id_headings( $content ) {
 }
 
 function wp_get_menu_array($current_menu) {
- 
-    $array_menu = wp_get_nav_menu_items($current_menu);
+   
+    $array_menu = wp_get_nav_menu_items($current_menu); 
     $menu = array();
+
+       if(is_array($array_menu)){
     foreach ($array_menu as $m) {
         if (empty($m->menu_item_parent)) {
             $menu[$m->ID] = array();
@@ -155,6 +171,9 @@ function wp_get_menu_array($current_menu) {
         }
     }
     $submenu = array();
+ 
+    
+    
     foreach ($array_menu as $m) {
         if ($m->menu_item_parent) {
             $submenu[$m->ID] = array();
@@ -167,6 +186,7 @@ function wp_get_menu_array($current_menu) {
 
         }
     }
+}
     return $menu;
      
 }
@@ -183,7 +203,7 @@ function sectionMenu($menu,$image_field,$cols){
         ob_start();
 
 
-        print "<table class='section_menu'><tr>";
+        print "<table align='center' class='$menu section_menu'><tr>";
         $counter = 1;
         foreach($section_menu as $key){
             $colspan = '';
@@ -241,16 +261,85 @@ function sectionMenu($menu,$image_field,$cols){
         return ob_get_clean();
       
 }
-function replace_vars($content,$slug,$link_type="link"){
-     $author_menu = sectionMenu("authors",'thumbnail','4');
- $sponsor_menu = sectionMenu("sponsors",'logo','4');
-    $content = do_blocks($content);
-    $content = str_replace("{{TOC}}",getTOC($content,$slug,$link_type),$content);
+function getHardwareGroup($parent_id){
+    $hardware_list = getHardwareListing($parent_id);
+   
+    $page_break = false;
+    $new_page = "";
+    $hardware = "<div class='hardware-listing'>";
+    foreach($hardware_list as $key => $value){
+        extract($value);
+        $page_break_after = get_post_meta($id,"page_break_after",true);
+        
+       $hardware .= "<div class='row $new_page'>";//newpage gets set below
+       $hardware .= '<h4>'.$title.'</h4>';
+       $hardware .= "<div class='col-sm-7 col-print-7'>";
 
-    $content = auto_id_headings($content);
+       $hardware .= $content;
+       $hardware .= "</div>";
+    
+       $hardware .= "<div class='col-print-5 col-sm-5 hardware-thumbnail'>";
+        if($thumbnail !=''){
+       $hardware .= "<img src='$thumbnail' alt='image of $title'>";
+       }
+       $hardware .= "</div>";
+     $hardware .= '</div>';//row
+       if($page_break_after == 1){
+           $page_break = true;
+           $new_page = ' newpage';
+           $hardware .= '<!--nextpage-->';
+        } else {
+           $page_break = false;
+       }
 
-    $content = str_replace("{{sponsor_menu}}",@$sponsor_menu,$content);
-    $content = str_replace("{{authors}}",@$author_menu,$content);
-return $content;
+    }
+   $hardware .= "</div>";
+
+    return $hardware;
 }
+
+
+
+function replace_vars($content,$slug,$link_type="link"){
+    
+    $content = do_blocks($content);
+    
+    $author_menu = sectionMenu("authors",'thumbnail','4');
+    $content = str_replace("{{authors}}",@$author_menu,$content);
+     
+    $sponsor_menu = sectionMenu("sponsors",'logo','4');
+    $content = str_replace("{{sponsor_menu}}",@$sponsor_menu,$content);
+    
+    $video_conf_menu = sectionMenu("video-conferencing",'logo','3');
+    $content = str_replace("{{video_conf}}",$video_conf_menu,$content);
+    
+    $ar_hmd = getHardwareGroup("693");
+    $content = str_replace("{{AR_HMD}}",$ar_hmd,$content);
+        
+    $untethered_vr_hmd = getHardwareGroup("820");
+    $content = str_replace("{{STANDALONE_VR_HMD}}",$untethered_vr_hmd,$content);
+        
+    $tethered_vr_hmd = getHardwareGroup("845");
+    $content = str_replace("{{TETHERED_VR_HMD}}",$tethered_vr_hmd,$content);
+
+    if($slug == 'compiled'){
+        $link_type = 'anchor';
+    }
+
+    $content = str_replace("{{TOC}}",getTOC($content,$slug,$link_type),$content);
+    $content = auto_id_headings($content);
+    
+
+
+    
+
+
+
+    $content = str_replace("<!--nextpage-->",'<hr class="page-break">',$content); 
+    
+    
+    return $content;
+}
+
+
 ?>

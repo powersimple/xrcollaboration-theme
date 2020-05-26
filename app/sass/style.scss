@@ -51,8 +51,50 @@ DO NOT EDIT IN STYLE.CSS
 @import "partials/wpml-languages";
 */
     
+    @media screen {
+        .page-footer {
+            display: none;
+        }
+    }
+    
+    .caption-top {
+        figure {
+            display: table;
+        }
+        figcaption {
+            display: table-caption;
+            caption-side: top;
+            text-align: center;
+            font-weight: 600;
+        }
+    }
+    
+    table.video-conferencing {
+        width: 61.8%;
+        left: 50%;
+        margin-left: -30.9%;
+        position: relative;
+        td a strong {
+            font-size: 10pt;
+        }
+    }
+    
+    ul {
+        padding-left: .25in;
+    }
+    
+    li {
+        list-style-type: disc;
+    }
+    
+    .full-center {
+        display: block;
+        text-align: center;
+    }
+    
     .section_menu {
         width: 100%;
+        margin-top: 2rem;
         td {
             a {
                 img {

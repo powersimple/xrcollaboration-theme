@@ -48,6 +48,8 @@ ob_start();
 </div>
 
 </div>
+<div class="page-footer">&copy;2020 XR IGNITE INC - PLEASE SHARE THIS PUBLICATION!<br><span class="dots"><?php include "images/footer-dots-01.svg";?></div>
+
 </section>
 
 <?php

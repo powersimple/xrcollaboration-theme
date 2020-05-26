@@ -166,7 +166,7 @@ h4,
 h5,
 h6 {
   line-height: 120%;
-  margin-bottom: 1em;
+  margin-bottom: .5em;
   color: #1b7d8e; }
 
 h1 {
@@ -200,6 +200,10 @@ blockquote {
   margin: 0 0 20px;
   font-size: 1em; }
 
+main p,
+li {
+  font-size: 1rem; }
+
 a {
   color: #1b7d8e;
   font-size: 1em; }
@@ -207,7 +211,7 @@ a {
 blockquote {
   border: 0;
   font-style: italic;
-  font-size: 15px;
+  font-size: 1.2rem;
   padding: 0; }
 
 .font-alt {
@@ -332,6 +336,10 @@ body#guide {
     list-style: none;
     margin: 0;
     padding: 0; }
+  #megamenu li,
+  #megamenu li {
+    font-size: 1em !important;
+    list-style: none; }
   #megamenu a,
   #megamenu a:hover,
   #megamenu a.active,
@@ -1038,8 +1046,40 @@ input[type=checkbox].form-checkbox {
 //languages
 @import "partials/wpml-languages";
 */
+@media screen {
+  .page-footer {
+    display: none; } }
+
+.caption-top figure {
+  display: table; }
+
+.caption-top figcaption {
+  display: table-caption;
+  caption-side: top;
+  text-align: center;
+  font-weight: 600; }
+
+table.video-conferencing {
+  width: 61.8%;
+  left: 50%;
+  margin-left: -30.9%;
+  position: relative; }
+  table.video-conferencing td a strong {
+    font-size: 10pt; }
+
+ul {
+  padding-left: .25in; }
+
+li {
+  list-style-type: disc; }
+
+.full-center {
+  display: block;
+  text-align: center; }
+
 .section_menu {
-  width: 100%; }
+  width: 100%;
+  margin-top: 2rem; }
   .section_menu td {
     padding-bottom: 1em; }
     .section_menu td a {

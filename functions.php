@@ -174,4 +174,60 @@ function display_videos($videos){
 	return ob_get_clean();	
 }
 
+function getHardwareProperties($hardware){
+		extract($hardware);
+		$thumbnail_id = get_post_meta($ID,"_thumbnail_id",true);
+	return array("id"=>"$ID",
+				"title" => $post_title,
+				"content" => do_blocks($post_content),
+				"excerpt" => $post_excerpt,
+				"slug" => $post_name,
+				"thumbnail"=>getThumbnail($thumbnail_id),
+				"acccessories" => get_post_meta($ID,"acccessories",true),
+				"connectivity" => get_post_meta($ID,"connectivity",true),
+				"controllers" => get_post_meta($ID,"controllers",true),
+				"device_name" => get_post_meta($ID,"device_name",true),
+				"fov" => get_post_meta($ID,"fov",true),
+				"gaze_tracking" => get_post_meta($ID,"gaze_tracking",true),
+				"hand_tracking" => get_post_meta($ID,"hand_tracking",true),
+				"MSRP" => get_post_meta($ID,"MSRP",true),
+				"optics" => get_post_meta($ID,"optics",true),
+				"os" => get_post_meta($ID,"os",true),
+				"refresh_rate" => get_post_meta($ID,"refresh_rate",true),
+				"resolution" => get_post_meta($ID,"resolution",true),
+				"sensors" => wpautop(get_post_meta($ID,"sensors",true)),
+				"spatail_audio" => get_post_meta($ID,"spatial_audio",true),
+				"specs_url" => get_post_meta($ID,"specs_url",true),
+				"system_requirements" => get_post_meta($ID,"acccessories",true),
+				"untethered" => get_post_meta($ID,"untethered",true),
+				"url" => get_post_meta($ID,"url",true),
+				"weight" => get_post_meta($ID,"weight",true),
+
+
+
+				
+			
+			);
+
+
+
+
+}
+
+function getHardwareListing($parent_id){
+	
+$children = get_children( array("post_parent"=>$parent_id,'post_type'=>'hardware','orderby' => 'menu_order ASC','order' => 'ASC') );
+		$child_list = array();
+		
+        $counter = 0;
+		foreach ($children as $key => $value) {
+            
+            $child_list[$counter] = getHardwareProperties((array) $value);
+			$counter++;
+		}
+	//	var_dump($child_list);
+		return $child_list;
+
+}
+
 ?>
