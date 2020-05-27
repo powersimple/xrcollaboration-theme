@@ -30,6 +30,12 @@ function selectLayoutTemplate( $meta_boxes ) {
 				'type' => 'checkbox',
 				'desc' => esc_html__( 'Page has no margins', 'metabox-online-generator' ),
 			),
+			array(
+				'id' => 'page_break_after',
+				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
+				'type' => 'checkbox',
+				'desc' => esc_html__( 'Page Break After', 'metabox-online-generator' )
+			)
                 
 		),
 	);

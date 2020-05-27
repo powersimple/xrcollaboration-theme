@@ -20,7 +20,7 @@ ob_start();
  $properties = get_page_properties_print($post);
     extract((array) $properties);
 
-    if($print_template == 'front_page'){
+    if($page_layout_template == 'front_page'){
         $bleed = "";
         if(@$full_bleed == "1"){
             $bleed = 'full-bleed';
@@ -28,7 +28,7 @@ ob_start();
         }
 
         ?>
-  <section class="<?=$print_template?> <?=$bleed?>" id="<?php echo @sanitize_title($value->post_title);?>" role="region"> 
+  <section class="<?=$page_layout_template?> <?=$bleed?>" id="<?php echo @sanitize_title($value->post_title);?>" role="region"> 
         
         <img src="<?php print getThumbnail($hero);?>">
         
@@ -37,7 +37,7 @@ ob_start();
 
     } else {
 ?>
-  <section class="module <?=$print_template?>" id="<?php echo @sanitize_title($post->post_title);?>" role="region">
+  <section class="module <?=$page_layout_template?>" id="<?php echo @sanitize_title($post->post_title);?>" role="region">
 <div class="row">
 <div class="container">
         

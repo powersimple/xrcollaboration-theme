@@ -4,7 +4,7 @@
                 "title"=>$value->post_title,
                 "content"=>do_blocks($value->post_content),
                 "slug"=>$value->post_name,
-                "print_template"=>get_post_meta($value->ID,"print_template",true),
+                "page_layout_template"=>get_post_meta($value->ID,"page_layout_template",true),
                 "full_bleed"=>get_post_meta($value->ID,"full_bleed",true),
                 "hero"=>get_post_meta($value->ID,"hero",true),
                 
@@ -85,7 +85,7 @@
 
         return $meta_boxes;
     }
-    add_filter( 'rwmb_meta_boxes', 'print_styles' );
+  //  add_filter( 'rwmb_meta_boxes', 'print_styles' );
 function compileGuide($guide_parent){
     global $wpdb;
 
@@ -272,13 +272,13 @@ function getHardwareGroup($parent_id){
         $page_break_after = get_post_meta($id,"page_break_after",true);
         
        $hardware .= "<div class='row $new_page'>";//newpage gets set below
-       $hardware .= '<h4>'.$title.'</h4>';
-       $hardware .= "<div class='col-sm-7 col-print-7'>";
-
+      
+       $hardware .= "<div class='col-sm-8 col-print-8'>";
+ $hardware .= '<h4>'.$title.'</h4>';
        $hardware .= $content;
        $hardware .= "</div>";
     
-       $hardware .= "<div class='col-print-5 col-sm-5 hardware-thumbnail'>";
+       $hardware .= "<div class='col-print-4 col-sm-4 hardware-thumbnail'>";
         if($thumbnail !=''){
        $hardware .= "<img src='$thumbnail' alt='image of $title'>";
        }
@@ -334,11 +334,20 @@ function replace_vars($content,$slug,$link_type="link"){
     
 
 
-
     $content = str_replace("<!--nextpage-->",'<hr class="page-break">',$content); 
     
     
     return $content;
+}
+function print_footer(){
+    global $page_counter;
+    ob_start();
+    print '<div class="row page-footer">&copy;2020 XR IGNITE INC - PLEASE SHARE THIS PUBLICATION! - <a href="https://xrcollaboration.com"><strong>XR</strong>COLLABORATION.COM</a><br><span class="dots">';
+    include __DIR__."/../images/footer-dots-01.svg";
+    print "<span class='page_number'>$page_counter</span>";
+    print '</div>';
+    $page_counter++;
+    return ob_get_clean();
 }
 
 
