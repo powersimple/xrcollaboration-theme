@@ -1046,6 +1046,9 @@ input[type=checkbox].form-checkbox {
 //languages
 @import "partials/wpml-languages";
 */
+.wp-block-image img {
+  width: 100%; }
+
 @media screen {
   .page-footer {
     display: none; } }
@@ -1058,6 +1061,16 @@ input[type=checkbox].form-checkbox {
   caption-side: top;
   text-align: center;
   font-weight: 600; }
+
+.col-left {
+  padding-left: 0px; }
+
+.col-right {
+  padding-right: 0px; }
+
+.clear {
+  clear: both;
+  position: relative; }
 
 table.video-conferencing {
   width: 61.8%;

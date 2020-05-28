@@ -51,6 +51,10 @@ DO NOT EDIT IN STYLE.CSS
 @import "partials/wpml-languages";
 */
     
+    .wp-block-image img {
+        width: 100%;
+    }
+    
     @media screen {
         .page-footer {
             display: none;
@@ -67,6 +71,19 @@ DO NOT EDIT IN STYLE.CSS
             text-align: center;
             font-weight: 600;
         }
+    }
+    
+    .col-left {
+        padding-left: 0px;
+    }
+    
+    .col-right {
+        padding-right: 0px;
+    }
+    
+    .clear {
+        clear: both;
+        position: relative;
     }
     
     table.video-conferencing {

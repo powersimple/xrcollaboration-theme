@@ -7,7 +7,7 @@ function selectLayoutTemplate( $meta_boxes ) {
 	$meta_boxes[] = array(
 		'id' => 'layout_template',
 		'title' => esc_html__( 'Layout Template', 'metabox-online-generator' ),
-		'post_types' => array('guide'),
+		'post_types' => array('guide','hardware'),
 		'context' => 'side',
 		'priority' => 'default',
 		'autosave' => 'false',

@@ -29,6 +29,12 @@ tr {
 
 section {
   clear: both;
+  page-break-after: always;
+  max-width: 8.5in;
+  position: relative; }
+
+section:last-child {
+  clear: both;
   page-break-before: always;
   max-width: 8.5in;
   position: relative; }
@@ -165,6 +171,13 @@ li {
   width: 100%;
   float: left; }
 
+h1,
+h2,
+h3,
+h4 {
+  position: relative;
+  clear: both; }
+
 h1 {
   font-size: 24pt;
   font-weight: 700;
@@ -260,3 +273,13 @@ a.toc-h4 {
 
 #pojo-a11y-toolbar {
   display: none; }
+
+.col-left {
+  padding-left: 0px; }
+
+.col-right {
+  padding-right: 0px; }
+
+.clear {
+  clear: both;
+  position: relative; }

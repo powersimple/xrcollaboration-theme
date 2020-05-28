@@ -274,13 +274,13 @@ function getHardwareGroup($parent_id){
        $hardware .= "<div class='row $new_page'>";//newpage gets set below
       
        $hardware .= "<div class='col-sm-8 col-print-8'>";
- $hardware .= '<h4>'.$title.'</h4>';
+       $hardware .= '<h4>'.$title.'</h4>';
        $hardware .= $content;
        $hardware .= "</div>";
     
        $hardware .= "<div class='col-print-4 col-sm-4 hardware-thumbnail'>";
         if($thumbnail !=''){
-       $hardware .= "<img src='$thumbnail' alt='image of $title'>";
+        $hardware .= "<img src='$thumbnail' alt='image of $title'>";
        }
        $hardware .= "</div>";
      $hardware .= '</div>';//row
@@ -288,9 +288,14 @@ function getHardwareGroup($parent_id){
            $page_break = true;
            $new_page = ' newpage';
            $hardware .= '<!--nextpage-->';
+           
+           $page_break_after = false;
+
         } else {
-           $page_break = false;
-       }
+            $new_page = '';
+              $page_break = false;
+        }
+        $page_break_after = false;
 
     }
    $hardware .= "</div>";
