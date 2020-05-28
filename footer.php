@@ -11,7 +11,7 @@
               </div>
             </div>
 
-            <div class="row bg-dark">
+            <div class="row bg-dark" id="bottom-bar">
              <div class="container">
               <div class="col-xs-10">
               <img class="xri-logo" src="/wp-content/uploads/2020/05/XR-Ignite-logodarkbg.svg" alt="XR Ignite Logo">

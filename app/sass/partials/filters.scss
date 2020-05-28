@@ -17,11 +17,19 @@ input[type=checkbox].form-checkbox {
 }
 
 .data-filter {
-    display: inline-block;
-    border: 1px solid gray;
-    width: 50%;
+    display: block;
     .data-label {
         display: inline-block;
         vertical-align: middle;
     }
+}
+
+#profile_logos {
+    div {
+        a {}
+    }
+}
+
+.accordion-drawer {
+    overflow-y: auto;
 }

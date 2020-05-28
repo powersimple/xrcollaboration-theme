@@ -8,54 +8,20 @@ $conf_year = "6th";
 //global $conf_year = "6th";
 
 get_header(); 
-
-
+$featured_video = get_post_meta($post->ID,"featured_video",true);
+$thumbnail = getThumbnail(get_post_meta($post->ID,"_thumbnail_id",true));
                     
 ?>
 
-<section class="home-section home-parallax home-fade home-full-height" id="home">
-<div id="particles-js"></div>
+<section class="home-section home-parallax home-fade  id="home">
+
       <div id="bg-video" class="hero-video">
-          <video id="video" controls="true " autoplay="autoplay" muted="muted" preload="auto" loop="loop">
-              <source src="#" type="video/mp4">
-          </video>
           
+          <video   playsinline autoplay muted loop poster="<?=$thumbnail?>" id="bgvideo" name="media"><source src="/wp-content/uploads/2020/05/XRC-HeroVideo.mp4" type="video/mp4"></video>
+</video>
       </div>
 
-        <div class="hero-slider">
        
-          <ul class="slides">
-          <?php
-          
-    $slides = get_slides($post->ID);
-    foreach ($slides as $key => $media_id) {
-       $src= wp_get_attachment_image_src( $media_id,"Full");
-       //var_dump($src);//var_dump(get_media_data($media_id));
-       $media_data = get_media_data($media_id);
-      // var_dump($media_data);
-        extract((array) get_media_data($media_id));
-        
-        ?>
-
-          
-            <li id="slide-<?=$key?>" class="bg-dark-30 bg-dark">
-              <!--
-              <div class="titan-caption">
-                <div class="caption-content">
-                 <div class="font-alt mb-30 titan-title-size-2"></div>
-                  <div class="font-alt mb-40 titan-title-size-4"><?php echo $title?></div><a class="section-scroll btn btn-border-w btn-round" href="#about"><?php echo wpautop($desc) ?></a>
-
-                </div>
-              </div>-->
-            </li>
-            <?php
-            }
-          ?>
-
-
-          </ul>
-          
-        </div>
       </section>
       <main class="main" role="main">
 

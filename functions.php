@@ -16,6 +16,7 @@ require_once("functions/functions-post-types.php");
 require_once("functions/functions-rest-menus.php");
 // custom functions to register fields into the restapi
 require_once("functions/functions-rest-register.php");
+require_once("functions/functions-rest-taxonomy.php");
 require_once("functions/functions-navigation.php");
 	   
 require_once("functions/parsers.php");

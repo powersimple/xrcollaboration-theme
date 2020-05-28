@@ -24,10 +24,10 @@ $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
             //"social"=>"fields=id,type,title,content,slug,excerpt,featured_media,social_url&".$GLOBALS['REST_post_filter'],
             "categories"=>"fields=id,name,count,slug,description,posts,children",
             "feature"=>"fields=id,name,count,slug,description,posts,children",
-            "collaboration_type"=>"fields=id,name,count,slug,description,posts,children",
-            "platform"=>"fields=id,name,count,slug,description,posts,children",
+            "collaboration_type"=>"fields=id,name,count,slug,description,posts",
+            "platform"=>"fields=id,name,count,slug,description,posts",
             "industry"=>"fields=id,name,count,slug,description,posts,children",
-            
+            "integration"=>"fields=id,name,count,slug,description,posts",
             "tags"=>"fields=id,name,slug,posts&".$GLOBALS['REST_post_filter'],
             "menus"=>"menus",
            "media"=>"fields=id,data&".$GLOBALS['REST_post_filter']

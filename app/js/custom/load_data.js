@@ -21,7 +21,9 @@ var posts = {},
     data_loaded = [],
     state = {},
     social = {},
-    data_loaded = false
+    data_loaded = false,
+
+    profile_posts = {}
 
 state.featured = {
     'transition': {
@@ -92,7 +94,11 @@ function setData(data) { //sets all content arrays
     posts = setPosts(data.posts)
     pages = setPosts(data.pages)
     profiles = setPosts(data.profile)
-
+    for (p in profiles) {
+        if (profiles[p].type == 'profile') {
+            profile_posts[profiles[p].id] = profiles[p]
+        }
+    }
     //  setPosts(data.social)
     setCategories(data.categories)
     setTaxonomy(data, "industry")
@@ -149,7 +155,7 @@ function setPosts(data) { // special function for the any post type
     }
 
 
-    // console.log("posts", posts)
+    //console.log("posts", posts)
 
 
     return posts

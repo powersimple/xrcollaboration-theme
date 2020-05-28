@@ -5,7 +5,6 @@ footer {
     bottom: -100px;
     color: $darkest_gray;
     text-align: center;
-    margin-bottom: 0.5em;
     padding: 10px 0;
     .xri-logo {
         width: 100px;
@@ -33,4 +32,32 @@ footer {
         position: absolute;
         height: 50px;
     }
+}
+
+.page-footer {
+    display: block;
+    position: absolute;
+    top: 10.25in;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    padding: 0px;
+    .dots {
+        width: 25%;
+        left: 50%;
+        margin-left: -12.5%;
+        display: block;
+        position: absolute;
+    }
+    a {
+        color: blue;
+    }
+    strong {
+        font-weight: 700;
+    }
+}
+
+#bottom-bar {
+    //position: fixed;
+    //top: 50vh;
 }

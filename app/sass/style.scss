@@ -51,6 +51,10 @@ DO NOT EDIT IN STYLE.CSS
 @import "partials/wpml-languages";
 */
     
+    .row {
+        padding: 0px !important;
+    }
+    
     .wp-block-image img {
         width: 100%;
     }
@@ -1447,7 +1451,6 @@ General Styles - Owlcarousel
         background-position: center center;
         width: 100%;
         z-index: 0;
-        background-size: cover;
     }
     
     .titan-title-size-1 {

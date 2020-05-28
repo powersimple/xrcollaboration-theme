@@ -816,7 +816,6 @@ footer {
   bottom: -100px;
   color: #101619;
   text-align: center;
-  margin-bottom: 0.5em;
   padding: 10px 0; }
   footer .xri-logo {
     width: 100px;
@@ -840,6 +839,25 @@ footer {
     position: absolute;
     height: 50px; }
 
+.page-footer {
+  display: block;
+  position: absolute;
+  top: 10.25in;
+  text-align: center;
+  width: 100%;
+  left: 0;
+  padding: 0px; }
+  .page-footer .dots {
+    width: 25%;
+    left: 50%;
+    margin-left: -12.5%;
+    display: block;
+    position: absolute; }
+  .page-footer a {
+    color: blue; }
+  .page-footer strong {
+    font-weight: 700; }
+
 input[type=checkbox].form-checkbox {
   width: 22px;
   height: 22px;
@@ -856,12 +874,13 @@ input[type=checkbox].form-checkbox {
     text-transform: uppercase; }
 
 .data-filter {
-  display: inline-block;
-  border: 1px solid gray;
-  width: 50%; }
+  display: block; }
   .data-filter .data-label {
     display: inline-block;
     vertical-align: middle; }
+
+.accordion-drawer {
+  overflow-y: auto; }
 
 #agenda {
   background: linear-gradient(to bottom, #12133c 0%, #06173b 25%, #06173b 75%, #12133c 100%);
@@ -994,7 +1013,8 @@ input[type=checkbox].form-checkbox {
         background: transparent; } }
 
 #bg-video video {
-  width: 100vw; }
+  width: 100vw;
+  margin-top: 50px; }
 
 .sponsor {
   margin-bottom: 1em; }
@@ -1046,6 +1066,9 @@ input[type=checkbox].form-checkbox {
 //languages
 @import "partials/wpml-languages";
 */
+.row {
+  padding: 0px !important; }
+
 .wp-block-image img {
   width: 100%; }
 
@@ -2204,8 +2227,7 @@ General Styles - Owlcarousel
   background-repeat: no-repeat;
   background-position: center center;
   width: 100%;
-  z-index: 0;
-  background-size: cover; }
+  z-index: 0; }
 
 .titan-title-size-1 {
   letter-spacing: 4px;

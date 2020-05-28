@@ -45,8 +45,8 @@ function initSite() {
     if (menus == undefined) {
         window.setTimeout(initSite(), 100);
     }
-
-    setFilterAccordion("feature,industry,collaboration_type,platform");
+    var filters = "feature,industry,collaboration_type,platform"
+    setFilterAccordion(filters); //directory.js
 
 
 
@@ -86,32 +86,7 @@ jQuery(function() {
 }); //ready func.
 
 
-function setFilterAccordion(lists) {
-    var accordion_filters = ''
-    jQuery.each(lists.split(','), function(i, v) {
-        //   console.log("tax", taxonomies[v])
-        accordion_filters += '<h3>' + v + '</h3>';
-        accordion_filters += '<div>'
-        for (i in taxonomies[v]) {
-            accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" value=""><span class="data-label">' + taxonomies[v][i].name + '</span></span>'
-        }
 
-        accordion_filters += '</div>'
-
-
-    })
-
-    jQuery("#filter-accordion").html(accordion_filters)
-
-
-
-}
-
-jQuery(document).ready(function() {
-
-
-
-});
 
 function sponsorFooter() {
 
