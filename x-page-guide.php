@@ -31,7 +31,6 @@ foreach($pages as $key => $value){
 
 </section>
   <section class="module" id="<?php echo @$slug?>">
-
   <?php
 
   print do_blocks($post->post_content);

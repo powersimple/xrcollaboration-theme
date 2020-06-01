@@ -38,7 +38,7 @@ THE SOFTWARE.
                 r = Math.sqrt(n * n + i * i + o * o);
             t.vectorPosition.x /= r, t.vectorPosition.y /= r, t.vectorPosition.z /= r, t.vectorPosition.x *= e, t.vectorPosition.y *= e, t.vectorPosition.z *= e }
 
-        function s(t, e, n, i, o) { var r = {}; return r.element = document.createElementNS(E, "text"), r.element.setAttribute("x", 0), r.element.setAttribute("y", 0), r.element.setAttribute("fill", p.fontColor), r.element.setAttribute("font-family", p.fontFamily), r.element.setAttribute("font-size", p.fontSize), r.element.setAttribute("font-weight", p.fontWeight), r.element.setAttribute("font-style", p.fontStyle), r.element.setAttribute("font-stretch", p.fontStretch), r.element.setAttribute("text-anchor", "middle"), r.element.textContent = p.fontToUpperCase ? e.label.toUpperCase() : e.label, r.link = document.createElementNS(E, "a"), r.link.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", e.url), r.link.setAttribute("target", e.target), r.link.addEventListener("mouseover", f, !0), r.link.addEventListener("mouseout", h, !0), r.link.appendChild(r.element), r.index = t, r.mouseOver = !1, r.vectorPosition = { x: n, y: i, z: o }, r.vector2D = { x: 0, y: 0 }, A.appendChild(r.link), r }
+        function s(t, e, n, i, o) { var r = {}; return r.element = document.createElementNS(E, "text"), r.element.setAttribute("x", 0), r.element.setAttribute("y", 0), r.element.setAttribute("fill", p.fontColor), r.element.setAttribute("font-family", p.fontFamily), r.element.setAttribute("font-size", p.fontSize), r.element.setAttribute("font-weight", p.fontWeight), r.element.setAttribute("font-style", p.fontStyle), r.element.setAttribute("font-stretch", p.fontStretch), r.element.setAttribute("text-anchor", "middle"), r.element.textContent = p.fontToUpperCase ? e.label.toUpperCase() : e.label, r.link = document.createElementNS(E, "a"), r.link.setAttributeNS("https://www.w3.org/1999/xlink", "xlink:href", e.url), r.link.setAttribute("target", e.target), r.link.addEventListener("mouseover", f, !0), r.link.addEventListener("mouseout", h, !0), r.link.appendChild(r.element), r.index = t, r.mouseOver = !1, r.vectorPosition = { x: n, y: i, z: o }, r.vector2D = { x: 0, y: 0 }, A.appendChild(r.link), r }
 
         function a() { for (var t = 1, e = p.entries.length + 1; e > t; t++) { var n = Math.acos(-1 + (2 * t - 1) / e),
                     i = Math.sqrt(e * Math.PI) * n,
@@ -82,6 +82,6 @@ THE SOFTWARE.
             O = { x: 0, y: 0 },
             D = { sx: 0, cx: 0, sy: 0, cy: 0 },
             k = Math.PI / 180,
-            E = "http://www.w3.org/2000/svg";
+            E = "https://www.w3.org/2000/svg";
         window.requestAnimFrame = function() { return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(t) { window.setTimeout(t, 1e3 / 60) } }(), n() }
     window.SVG3DTagCloud = t }(), "undefined" != typeof jQuery && ! function(t) { t.fn.svg3DTagCloud = function(e) { return this.each(function() { t.data(this, "plugin_SVG3DTagCloud") || t.data(this, "plugin_SVG3DTagCloud", new SVG3DTagCloud(this, e)) }) } }(jQuery);

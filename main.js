@@ -31,6 +31,10 @@ function getVideo() {
 
 }
 
+
+
+
+
 function setVideoPath(video_path) {
     console.log('set video', video_path)
     jQuery("#bg-video" + ' video source').attr("src", video_path);
@@ -45,7 +49,9 @@ function initSite() {
     if (menus == undefined) {
         window.setTimeout(initSite(), 100);
     }
-    var filters = "feature,industry,collaboration_type,platform"
+    //var filters = "collaboration_type,platform"
+
+    var filters = "collaboration_type,platform"
     setFilterAccordion(filters); //directory.js
 
 
@@ -56,6 +62,9 @@ function initSite() {
         autoHeight: false,
         navigation: true
     });
+
+
+
 }
 jQuery(function() {
     jQuery('#main-menu').on("click", "a.toggle-menu", function() {
@@ -95,20 +104,25 @@ function sponsorFooter() {
     var menu_links = ''
     var url = '';
     var logo = '';
-    // console.log(menu_data, menu_data.length)
-    //  console.log("profiles", profiles);
+    var slug = '';
+    console.log(menu_data, menu_data.length)
+    console.log("profiles", profiles);
     for (var i = 0; i < menu_data.length; i++) {
 
-        //     console.log("profile =" + menu_data[i].title, menu_data[i].object_id, profiles[menu_data[i].object_id])
+        console.log("profile =" + menu_data[i].title, menu_data[i].object_id, profiles[menu_data[i].object_id])
         logo = profiles[menu_data[i].object_id].post_media.logo[0].full_path
-        url = profiles[menu_data[i].object_id].url
-        menu_links += "<a class='sponsor col-xs-2 col-sm-1' href='" + url + "' target='_new' title='" + menu_data[i].title + "'> "
+        url = profiles[menu_data[i].object_id].info.url
+        slug = profiles[menu_data[i].object_id].slug
+        console.log(url)
+        menu_links += "<div class='sponsor col-xs-2 col-sm-1' id='sponsor-footer-" + slug.toLowerCase() + "'><a href='" + url + "' target='_new' title='" + menu_data[i].title + "'> "
         menu_links += '<img src="' + logo + '" alt="' + menu_data[i].title + ' logo">'
-        menu_links += "</a>"
+        menu_links += "</a></div>"
 
     }
+
     jQuery('#sponsor-footer').html(menu_links);
     //    console.log("sponsor-footer", menu_links)
+    jQuery('#sponsor-footer-area').attr('class', 'sponsor col-xs-offset-2 col-sm-offset-0 col-xs-2 col-sm-1')
 
 
 
@@ -117,7 +131,7 @@ var directory_list = []
 var active_filters = {}
 
 function displayDirectory(display_filters, filter_posts) {
-    console.log("FILTERS", display_filters, filter_posts)
+    // console.log("FILTERS", display_filters, filter_posts)
     var bootstap_tiles = 'col-xs-6 col-sm-4 col-md-3 col-lg-2'
     var logo_display = '<div>'
     for (p in filter_posts) {
@@ -184,13 +198,9 @@ function buildFilters(action, tax, value) {
                     this_post = taxonomies[a][f].posts[p]
                     console.log(p, profile_posts[this_post])
                     if (profile_posts[this_post].post_media.logo[0] != undefined) {
-                        post_data = {
-                            'logo': profile_posts[this_post].post_media.logo[0].full_path,
-                            'title': profile_posts[this_post].title,
-                            'url': profile_posts[this_post].info.url
-                        }
 
-                        filter_posts[this_post] = post_data
+
+                        filter_posts[this_post] = getFilterPosts(this_post)
                     }
                 }
 
@@ -200,21 +210,41 @@ function buildFilters(action, tax, value) {
     displayDirectory(display_filters, filter_posts)
 
 
+}
 
+function getFilterPosts(this_post) {
+    return post_data = {
+        'logo': profile_posts[this_post].post_media.logo[0].full_path,
+        'title': profile_posts[this_post].title,
+        'url': profile_posts[this_post].info.url
+    }
+}
 
+function getStatPosts() {
+    //console.log("profile posts", profile_posts)
+    var spectator_lists = [];
+    var lists_lists = [];
+    for (i in spectators) {
+        //  console.log(spectators[i]);
 
+        for (p = 0; p < spectators[i].length; p++) {
+            filter_posts[this_post] = getFilterPosts(spectators[i][p])
+            console.log("spectator_posts", i, profile_posts[spectators[i][p]].title)
+        }
+    }
+    for (i in collaborators) {
+        //  console.log(collaboratorsi]);
 
+        for (p = 0; p < collaborators[i].length; p++) {
 
-    // console.log("filters", active_filters, action, tax, value)
+            console.log("collaborators_posts", i, profile_posts[collaborators[i][p]].title)
+        }
+    }
+
 }
 
 
 
-jQuery(document).ready(function() {
-
-
-
-});
 
 
 $(document).on('click', '#filters :checkbox', function() {
@@ -286,7 +316,7 @@ function getStaticJSON(filename, callback, dest) {
         url: json_data, // the url
         data: '',
         success: function(data, textStatus, request) {
-            console.log("load json", data);
+            //  console.log("load json", data);
             //      data_loaded.push(callback);
             return data,
 
@@ -824,11 +854,12 @@ function getMegaMenu(items, parent_classes) {
             }
             //    console.log(this_item)
 
-            if (this_item.target != '') {
-                target = 'target="_blank"'
-            }
             if (this_item.url == '') {
                 //menu_items += '<' + outer + ' ' + classes + '><span>' + this_item.title + '</span>' this needs to open the dropdown
+                if (this_item.target != '') {
+                    target = 'target="_blank"'
+                }
+
                 menu_items += '<' + outer + ' ' + classes + '><a href="' + link + '"' + target + '>' + this_item.title + '</a>'
             } else {
                 menu_items += '<' + outer + ' ' + classes + '><a href="' + this_item.url + '">' + this_item.title + '</a>'

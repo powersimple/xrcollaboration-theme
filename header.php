@@ -18,7 +18,25 @@
 
     <!-- Main stylesheet and color file-->
     <link href="<?php echo get_stylesheet_directory_uri();?>/style.css" rel="stylesheet">
-  <script>
+<?php if(is_front_page()){
+  $page_title= '';
+} else {
+  $page_title = $post->post_title . " | ";
+}
+
+  if(strpos($_SERVER['HTTP_HOST'],'192.168')){
+    $page_title = '🅳🅴🆅 '.$page_title;
+  } else if (strpos($_SERVER['HTTP_HOST'],'staging')){
+    $page_title = '🆂🆃🅰🅶🅸🅽🅶 '.$page_title;// doesn't work
+  }
+
+?>
+
+
+
+
+    <title><?=$page_title?><?=get_bloginfo('name')?> - <?=bloginfo("description");?></title>
+ <script>
       // Wordpress PHP variables to render into JS at outset.
       var active_id = <?=$post->ID?>,
       active_object = "<?=$post->post_type?>",
@@ -81,16 +99,17 @@
         <div class="container">
          
           <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div id="logo" class="onpage-navigation"><a class="navbar-brand" href="/"><img src="<?=get_stylesheet_directory_uri()?>/images/logo/logo.svg"></a></div>
+           <div id="logo" class="onpage-navigation"><a class="navbar-brand" href="/"><img src="<?=get_stylesheet_directory_uri()?>/images/logo/logo.svg"></a></div>
           </div>
           <div class="collapse navbar-collapse" id="custom-collapse">
          
 
                     <div id="site-title" class="onpage-navigation"><?=bloginfo("description");?></div>
-                    <div id="main-menu"></div>
+                  
                   
             </div>
-      </div>
+            <div id="main-menu"></div>
+      </div>  
 </header>
       
       

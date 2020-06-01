@@ -40,11 +40,11 @@ ob_start();
   <section class="module <?=$page_layout_template?>" id="<?php echo @sanitize_title($post->post_title);?>" role="region">
 <div class="row">
 <div class="container">
-        
+         <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-offset-3 col-md-6 ">
     <?php
-    echo replace_vars($post->post_content,$post->post_name);
+    echo replace_vars(do_blocks($post->post_content),$post->post_name);
     ?>
-    
+    </div>
 </div>
 
 </div>

@@ -70,7 +70,12 @@ add_theme_support('post-thumbnails', array(
 				return $thumbnail_versions;
 			
 		}
-	
+	function my_wpcf7_form_elements($html) {
+    $text = 'Select Option';
+    $html = str_replace('Select Primary Industry',  $text , $html);
+    return $html;
+}
+add_filter('wpcf7_form_elements', 'my_wpcf7_form_elements');
 	
 	
 	 function get_slides( $id ) {

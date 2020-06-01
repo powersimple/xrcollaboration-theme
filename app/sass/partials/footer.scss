@@ -9,13 +9,24 @@ footer {
     .xri-logo {
         width: 100px;
         margin-top: 10px;
+        display: inline-block;
     }
     span.copyright {
         display: inline-block;
-        line-height: 52px;
+        line-height: 120%;
         vertical-align: top;
         margin: 0;
         font-size: .8em;
+        margin-top: 15px;
+        padding-bottom: .5em;
+        span {
+            margin-top: 5px;
+            display: inline-block;
+            @media(max-width: 768px) {
+                display: block;
+                margin-top: 0px;
+            }
+        }
     }
     .footer-social-links {
         text-align: right;

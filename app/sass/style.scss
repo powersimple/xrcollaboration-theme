@@ -1444,6 +1444,33 @@ General Styles - Owlcarousel
 	Header
 --------------------------------------------------------------*/
     
+    .darkbg {
+        background-color: $darkest_gray;
+        color: #fff;
+        h2 {
+            color: $blue;
+        }
+        input,
+        textarea,
+        select option {
+            color: $dark_blue;
+            padding: 5px;
+            font-weight: 600;
+            max-width: 100%;
+        }
+        .wpcf7-submit {
+            background-color: $blue;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        form {
+            p {
+                text-align: center;
+            }
+        }
+    }
+    
     .home-section {
         position: relative;
         background-color: #fff;
@@ -2771,45 +2798,6 @@ Google map
     /*--------------------------------------------------------------
 	Responsive Styles - Media Queries
 --------------------------------------------------------------*/
-    
-    @media (min-width: 768px) {
-        .navbar-transparent {
-            background: transparent;
-            padding-bottom: 15px;
-            padding-top: 15px;
-        }
-        .navbar-custom .dropdown-menu {
-            position: absolute;
-            display: block;
-            visibility: hidden;
-            opacity: 0;
-        }
-        .navbar-custom .open>.dropdown-menu {
-            visibility: visible;
-            opacity: 1;
-        }
-        .navbar-custom .dropdown-menu .dropdown-toggle:after {
-            position: absolute;
-            display: block;
-            right: 9px;
-            top: 50%;
-            margin-top: -6px;
-            font: normal normal normal 14px/1 FontAwesome;
-            font-size: 9px;
-            content: "\f105";
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-        .navbar-right .dropdown-menu {
-            right: auto;
-            left: 0;
-        }
-        /* Comments */
-        .comment .comment {
-            margin-left: 75px;
-        }
-    }
     
     @media (max-width: 1200px) {
         /* Features */

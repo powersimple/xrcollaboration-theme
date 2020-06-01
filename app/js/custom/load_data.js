@@ -50,7 +50,7 @@ function getStaticJSON(filename, callback, dest) {
         url: json_data, // the url
         data: '',
         success: function(data, textStatus, request) {
-            console.log("load json", data);
+            //  console.log("load json", data);
             //      data_loaded.push(callback);
             return data,
 

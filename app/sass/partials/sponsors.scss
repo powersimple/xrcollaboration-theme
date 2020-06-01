@@ -23,9 +23,12 @@
 }
 
 #sponsor-footer {
-    a {
-        display: inline-block;
-        width: 10%;
+    div {
+        padding: 0px;
+        a {
+            display: block;
+            width: 100%;
+        }
     }
 }
 
@@ -35,4 +38,9 @@
         font-weight: 700;
         padding: 3%;
     }
+}
+
+table.sponsors,
+table.authors {
+    max-width: 100%;
 }

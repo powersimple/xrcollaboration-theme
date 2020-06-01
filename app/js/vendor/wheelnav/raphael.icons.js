@@ -1,5 +1,5 @@
 //------------------------------------------------------------
-// Free icons from http://dmitrybaranovskiy.github.io/raphael/
+// Free icons from https://dmitrybaranovskiy.github.io/raphael/
 //------------------------------------------------------------
 
 var icon = {

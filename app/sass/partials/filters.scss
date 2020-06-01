@@ -33,3 +33,11 @@ input[type=checkbox].form-checkbox {
 .accordion-drawer {
     overflow-y: auto;
 }
+
+#directory-filters {
+    h4 {
+        color: $light_blue;
+        padding-top: .5em;
+        text-align: center;
+    }
+}

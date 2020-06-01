@@ -110,6 +110,33 @@ add_filter( 'rwmb_meta_boxes', 'selectHeroImage' );
     add_filter( 'rwmb_meta_boxes', 'video_meta' );
 
 
+    function section_class( $meta_boxes ) {
+        $prefix = '';
+
+        $meta_boxes[] = array(
+            'id' => 'section',
+            'title' => esc_html__( 'SECTION', 'section_class' ),
+            'post_types' => array( 'page' ),
+            'context' => 'side',
+            'priority' => 'default',
+            'autosave' => false,
+            'fields' => array(
+               
+                array(
+                    'id' => $prefix . 'section_class',
+                    'type' => 'text',
+                    'name' => esc_html__( 'section-class', 'ps-social' ),
+                ),
+                
+            ),
+        );
+
+        return $meta_boxes;
+    }
+    add_filter( 'rwmb_meta_boxes', 'section_class' );
+
+
+
     function social_meta( $meta_boxes ) {
         $prefix = '';
 

@@ -25,6 +25,7 @@ $thumbnail = getThumbnail(get_post_meta($post->ID,"_thumbnail_id",true));
       </section>
       <main class="main" role="main">
 
+
   <section class="module" id="<?php echo @$slug?>" role="region">
 <div class="row">
 <div class="container">
@@ -33,7 +34,7 @@ $thumbnail = getThumbnail(get_post_meta($post->ID,"_thumbnail_id",true));
   <h1><?=$post->post_title?></h1>
 <?php
 
-  print do_blocks($post->post_content);
+  print do_shortcode(do_blocks($post->post_content));
 ?>
 </div>
 </div>
@@ -44,17 +45,19 @@ $thumbnail = getThumbnail(get_post_meta($post->ID,"_thumbnail_id",true));
         
       <?php
  //require_once('lava.html');
-$pages = array();// get_home_children();
+$pages = get_home_children();
+ 
 foreach($pages as $key => $value){
-  //var_dump($value);
+  
   extract((array)$value);
 
   if(!get_post_meta($ID,"redirect",true)){ //don't render if external url.
 
+              $section_class = get_post_meta($ID,"section_class",true);
   
 
   ?>
-      <section class="module" id="<?php echo $slug?>">
+      <section class="module<?php print " $section_class";?>" id="<?php echo $slug?>">
           <div class="container">
             <?php
             if(file_exists (get_stylesheet_directory()."/page-$slug.php") ){
@@ -62,18 +65,18 @@ foreach($pages as $key => $value){
               require_once(get_stylesheet_directory()."/page-$slug.php"); // includes page-slug.php if it exists
             } else {
             ?>
-            <div class="row cols-sm-8 col-sm-offset-4">
-              <div class="section-thumbnail col-sm-4"></div>
-              <div class="section-content  col-sm-8">
-
+            
+              
                 <h2 class="module-title font-alt"><?php echo $title?></h2>
-                  <?php echo wpautop($content);?>
+                  <?php echo do_shortcode(do_blocks($content));
+                    
+                  ?>
                   
 
-                </div> <img  src="<?=$thumbnail?>">
+                </div> 
               </div>
             
-            </div>
+            
             
             <?php 
               } 

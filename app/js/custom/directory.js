@@ -2,7 +2,7 @@ var directory_list = []
 var active_filters = {}
 
 function displayDirectory(display_filters, filter_posts) {
-    console.log("FILTERS", display_filters, filter_posts)
+    // console.log("FILTERS", display_filters, filter_posts)
     var bootstap_tiles = 'col-xs-6 col-sm-4 col-md-3 col-lg-2'
     var logo_display = '<div>'
     for (p in filter_posts) {
@@ -69,13 +69,9 @@ function buildFilters(action, tax, value) {
                     this_post = taxonomies[a][f].posts[p]
                     console.log(p, profile_posts[this_post])
                     if (profile_posts[this_post].post_media.logo[0] != undefined) {
-                        post_data = {
-                            'logo': profile_posts[this_post].post_media.logo[0].full_path,
-                            'title': profile_posts[this_post].title,
-                            'url': profile_posts[this_post].info.url
-                        }
 
-                        filter_posts[this_post] = post_data
+
+                        filter_posts[this_post] = getFilterPosts(this_post)
                     }
                 }
 
@@ -85,21 +81,41 @@ function buildFilters(action, tax, value) {
     displayDirectory(display_filters, filter_posts)
 
 
+}
 
+function getFilterPosts(this_post) {
+    return post_data = {
+        'logo': profile_posts[this_post].post_media.logo[0].full_path,
+        'title': profile_posts[this_post].title,
+        'url': profile_posts[this_post].info.url
+    }
+}
 
+function getStatPosts() {
+    //console.log("profile posts", profile_posts)
+    var spectator_lists = [];
+    var lists_lists = [];
+    for (i in spectators) {
+        //  console.log(spectators[i]);
 
+        for (p = 0; p < spectators[i].length; p++) {
+            filter_posts[this_post] = getFilterPosts(spectators[i][p])
+            console.log("spectator_posts", i, profile_posts[spectators[i][p]].title)
+        }
+    }
+    for (i in collaborators) {
+        //  console.log(collaboratorsi]);
 
+        for (p = 0; p < collaborators[i].length; p++) {
 
-    // console.log("filters", active_filters, action, tax, value)
+            console.log("collaborators_posts", i, profile_posts[collaborators[i][p]].title)
+        }
+    }
+
 }
 
 
 
-jQuery(document).ready(function() {
-
-
-
-});
 
 
 $(document).on('click', '#filters :checkbox', function() {

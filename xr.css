@@ -10,7 +10,8 @@
   cursor: pointer;
   z-index: 10000;
   opacity: 1;
-  margin-left: -150px; }
+  margin-left: -150px;
+  display: none; }
   .webvr-ui-button :hover {
     color: #0f0; }
   .webvr-ui-button .webvr-ui-title {

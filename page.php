@@ -8,11 +8,15 @@ get_header();
   <section class="module" id="<?php echo @$slug?>" role="region">
 <div class="row">
 <div class="container">
-  <h1><?=$post->post_title?></h1>
+ 
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-offset-3 col-md-6 ">
+
+   <h1><?=$post->post_title?></h1>
 <?php
 
-  print do_blocks($post->post_content);
+  print do_blocks(do_shortcode($post->post_content));
 ?>
+</div>
 </section>
 </div>
 

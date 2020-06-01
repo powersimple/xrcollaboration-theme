@@ -30,7 +30,9 @@ $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
             "integration"=>"fields=id,name,count,slug,description,posts",
             "tags"=>"fields=id,name,slug,posts&".$GLOBALS['REST_post_filter'],
             "menus"=>"menus",
-           "media"=>"fields=id,data&".$GLOBALS['REST_post_filter']
+            "media"=>"fields=id,data&".$GLOBALS['REST_post_filter'],
+           // "collaborators"=>"fields=meta_value&".$GLOBALS['REST_post_filter'],
+           
         );
 
 // for WPML Comment this out if you aren't using it.

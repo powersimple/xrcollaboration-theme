@@ -3,17 +3,17 @@
 /*                                   wheelnav.js - v1.8.0                                  */
 /* ======================================================================================= */
 /* This is a small JavaScript library for animated SVG based wheel navigation.             */
-/* Requires Raphaël JavaScript Vector Library (http://dmitrybaranovskiy.github.io/raphael/)*/
+/* Requires Raphaël JavaScript Vector Library (https://dmitrybaranovskiy.github.io/raphael/)*/
 /* ======================================================================================= */
-/* Check http://wheelnavjs.softwaretailoring.net for samples.                              */
+/* Check https://wheelnavjs.softwaretailoring.net for samples.                              */
 /* Fork https://github.com/softwaretailoring/wheelnav for contribution.                    */
 /* ======================================================================================= */
-/* Copyright © 2014-2018 Gábor Berkesi (http://softwaretailoring.net)                      */
+/* Copyright © 2014-2018 Gábor Berkesi (https://softwaretailoring.net)                      */
 /* Licensed under MIT (https://github.com/softwaretailoring/wheelnav/blob/master/LICENSE)  */
 /* ======================================================================================= */
 
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/core.html          */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/core.html          */
 /* ======================================================================================= */
 
 wheelnav = function (divId, raphael, divWidth, divHeight) {
@@ -567,7 +567,7 @@ wheelnav.prototype.getMarkerId = function () {
 /* Parse html5 data- attributes, the onmouseup events and anchor links                     */
 /* ======================================================================================= */
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/html5.html         */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/html5.html         */
 /* ======================================================================================= */
 
 wheelnav.prototype.parseWheel = function (holderDiv) {
@@ -787,7 +787,7 @@ wheelnav.prototype.parseWheel = function (holderDiv) {
 /* Navigation item                                                                         */
 /* ======================================================================================= */
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/navItem.html       */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/navItem.html       */
 /* ======================================================================================= */
 
 wheelnavItem = function (wheelnav, title, itemIndex) {
@@ -1125,7 +1125,7 @@ wheelnavItem.prototype.addCurvedTitle = function (text) {
     this.navTitlePath.node.id = pathid;
 
     var thisnode = document.getElementById(this.navTitle.node.id);
-    var curvetextPath = window.document.createElementNS("http://www.w3.org/2000/svg", "textPath");
+    var curvetextPath = window.document.createElementNS("https://www.w3.org/2000/svg", "textPath");
     curvetextPath.setAttribute("id", pathid + "-text");
     curvetextPath.setAttribute("href", "#" + pathid);
     curvetextPath.setAttribute("startOffset", "50%");
@@ -1928,7 +1928,7 @@ wheelnavTitle.prototype.getTitleSizeTransform = function (titlewidth, titleheigh
 /* Default styles and available css classes                                                */
 /* ======================================================================================= */
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/css3.html          */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/css3.html          */
 /* ======================================================================================= */
 
 wheelnav.prototype.styleWheel = function () {
@@ -2015,7 +2015,7 @@ wheelnav.prototype.getMarkerCssClass = function () {
 /* Slice path helper functions                                                                  */
 /* ======================================================================================= */
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/slicePath.html     */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/slicePath.html     */
 /* ======================================================================================= */
 
 var pathHelper = function () {
@@ -2230,7 +2230,7 @@ var markerPathCustomization = function () {
 /* Slice path definitions.                                                                 */
 /* ======================================================================================= */
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/slicePath.html     */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/slicePath.html     */
 /* ======================================================================================= */
 
 slicePath = function () {
@@ -3180,7 +3180,7 @@ this.TutorialSlice = function (helper, percent, custom) {
 /* Slice transform definitions                                                              */
 /* ======================================================================================== */
 /* ======================================================================================== */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/sliceTransform.html */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/sliceTransform.html */
 /* ======================================================================================== */
 
 
@@ -3343,7 +3343,7 @@ var sliceTransformCustomization = function () {
 /* Spreader of wheel                                                                       */
 /* ======================================================================================= */
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/spreader.html      */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/spreader.html      */
 /* ======================================================================================= */
 
 spreader = function (wheelnav) {
@@ -3880,7 +3880,7 @@ this.LineSpreader = function (helper, percent, custom) {
 /* Marker of wheel                                                                         */
 /* ======================================================================================= */
 /* ======================================================================================= */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/marker.html        */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/marker.html        */
 /* ======================================================================================= */
 
 marker = function (wheelnav) {
@@ -4182,10 +4182,10 @@ this.DropMarker = function (helper, percent, custom) {
 
 ///#source 1 1 /js/source/wheelnav.colorPalettes.js
 /* ======================================================================================== */
-/* Color palettes for slices from http://www.colourlovers.com                               */
+/* Color palettes for slices from https://www.colourlovers.com                               */
 /* ======================================================================================== */
 /* ======================================================================================== */
-/* Documentation: http://wheelnavjs.softwaretailoring.net/documentation/colorPalettes.html  */
+/* Documentation: https://wheelnavjs.softwaretailoring.net/documentation/colorPalettes.html  */
 /* ======================================================================================== */
 
 var colorpalette = {

@@ -267,16 +267,16 @@ function selectThis( $meta_boxes ) {
 	$meta_boxes[] = array(
 		'id' => 'hardware',
 		'title' => esc_html__( 'HARDWARE', 'metabox-online-generator' ),
-		'post_types' => array('post', 'page','resource','profile'),
+		'post_types' => array('profile'),
 		'context' => 'side',
 		'priority' => 'default',
 		'autosave' => 'false',
 		'fields' => array(
 			array(
-				'id' => $prefix . 'speakers',
+				'id' => $prefix . 'hardware',
 				'type' => 'post',
 				'name' => esc_html__( 'Hardware', 'metabox-online-generator' ),
-				'post_type' => 'profile',
+				'post_type' => 'hardware',
 				'field_type' => 'checkbox_list',
 				'query_args' => array(
 					'post_category' => 'author',

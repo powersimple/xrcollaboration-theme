@@ -14,14 +14,16 @@ function get_menu() {
 }
 
 add_action( 'rest_api_init', function () {
-        register_rest_route( 'myroutes', '/menu', array(
-        'methods' => 'GET',
+		register_rest_route( 'myroutes', '/menu', array(
+		'methods' => 'GET',
 		'callback' => 'get_menu',
 		'schema' => null
-    ) );
+		) 
+
+
+	);
 } );
 
- 
 
 /* 
 	media
@@ -326,12 +328,89 @@ function get_post_tags($object){
 
 
 
+/*
 
 
+  function getMaxSpectators(){
+    global $wpdb;
+    $sql = "SELECT distinct meta_value  FROM `wp_postmeta` WHERE `meta_key` LIKE '%$max_spectators%' order by meta_value";
+    $q = $wpdb->get_results($sql);
+    $results = array();
+    foreach($q as $key => $value){
+      if($value->meta_value <> NULL){
+      $ids = "SELECT post_id  FROM `wp_postmeta` WHERE `meta_key` LIKE '%$max_spectators%' and meta_value = $value->meta_value order by post_id";
+      $r = $wpdb->get_results($ids);
+        $post_ids = array();
+        foreach($r as $meta => $post_results){
+          array_push($post_ids,$post_results->post_id);
+        }
+      
+      
+      
+      $results[$value->meta_value] = $post_ids;
+        }
 
 
+    }
+
+    return  $results;
+  }
+
+/* COLLABORATORS */
+/*
+ 
+add_action( 'rest_api_init', function () {
+		
+
+register_rest_route( 'collaborators', '/collaborators(?:/(?P<id>\d+))?', [
+   'methods' => WP_REST_Server::READABLE,
+   'callback' => 'getMaxCollaborators',
+   'args' => [
+        'max_collaborators'
+    ],
+] );
+	
+} );
+
+ 
+
+add_action( 'rest_api_init', 'register_max_collaborators' );
+function register_max_collaborators() {
+ 
+
+	register_rest_field( ['profile'], 'max_collaborators', array(
+		'get_callback' => 'getMaxCollaborators',
+		'schema' => null,
+		)
+	);
+}
+ 
+  function getMaxCollaborators(){
+    global $wpdb;
+    $sql = "SELECT distinct meta_value  FROM `wp_postmeta` WHERE `meta_key` LIKE '%$max_collaborators%' order by meta_value";
+    $q = $wpdb->get_results($sql);
+    $results = array();
+    foreach($q as $key => $value){
+      if($value->meta_value <> NULL){
+      $ids = "SELECT post_id  FROM `wp_postmeta` WHERE `meta_key` LIKE '%$max_collaborators%' and meta_value = $value->meta_value order by post_id";
+      $r = $wpdb->get_results($ids);
+        $post_ids = array();
+        foreach($r as $meta => $post_results){
+          array_push($post_ids,$post_results->post_id);
+        }
+      
+      
+      
+      $results[$value->meta_value] = $post_ids;
+        }
 
 
+    }
+
+    return  $results;
+  }
+
+*/
 
 
 

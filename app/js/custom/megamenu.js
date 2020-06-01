@@ -94,11 +94,12 @@ function getMegaMenu(items, parent_classes) {
             }
             //    console.log(this_item)
 
-            if (this_item.target != '') {
-                target = 'target="_blank"'
-            }
             if (this_item.url == '') {
                 //menu_items += '<' + outer + ' ' + classes + '><span>' + this_item.title + '</span>' this needs to open the dropdown
+                if (this_item.target != '') {
+                    target = 'target="_blank"'
+                }
+
                 menu_items += '<' + outer + ' ' + classes + '><a href="' + link + '"' + target + '>' + this_item.title + '</a>'
             } else {
                 menu_items += '<' + outer + ' ' + classes + '><a href="' + this_item.url + '">' + this_item.title + '</a>'
