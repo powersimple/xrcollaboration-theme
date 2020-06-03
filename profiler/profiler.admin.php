@@ -266,7 +266,7 @@ function selectThis( $meta_boxes ) {
 
 	$meta_boxes[] = array(
 		'id' => 'hardware',
-		'title' => esc_html__( 'HARDWARE', 'metabox-online-generator' ),
+		'title' => esc_html__( 'HARDWARE!', 'metabox-online-generator' ),
 		'post_types' => array('profile'),
 		'context' => 'side',
 		'priority' => 'default',

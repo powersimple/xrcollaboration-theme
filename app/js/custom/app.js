@@ -51,9 +51,10 @@ function initSite() {
     }
     //var filters = "collaboration_type,platform"
 
-    var filters = "collaboration_type,platform"
+    var filters = "hardware_support,collaboration_type,platform,feature,industry"
     setFilterAccordion(filters); //directory.js
-
+    //    console.log("profiles", profile_posts);
+    //  console.log("hardware", hardware_posts);
 
 
     jQuery("#filter-accordion").accordion({
@@ -99,21 +100,20 @@ jQuery(function() {
 
 function sponsorFooter() {
 
-
     var menu_data = menus['sponsor-footer'].menu_array
     var menu_links = ''
     var url = '';
     var logo = '';
     var slug = '';
-    console.log(menu_data, menu_data.length)
-    console.log("profiles", profiles);
+    // console.log(menu_data, menu_data.length)
+
     for (var i = 0; i < menu_data.length; i++) {
 
-        console.log("profile =" + menu_data[i].title, menu_data[i].object_id, profiles[menu_data[i].object_id])
+        //console.log("profile =" + menu_data[i].title, menu_data[i].object_id, profiles[menu_data[i].object_id])
         logo = profiles[menu_data[i].object_id].post_media.logo[0].full_path
         url = profiles[menu_data[i].object_id].info.url
         slug = profiles[menu_data[i].object_id].slug
-        console.log(url)
+            //        console.log(url)
         menu_links += "<div class='sponsor col-xs-2 col-sm-1' id='sponsor-footer-" + slug.toLowerCase() + "'><a href='" + url + "' target='_new' title='" + menu_data[i].title + "'> "
         menu_links += '<img src="' + logo + '" alt="' + menu_data[i].title + ' logo">'
         menu_links += "</a></div>"
@@ -122,8 +122,7 @@ function sponsorFooter() {
 
     jQuery('#sponsor-footer').html(menu_links);
     //    console.log("sponsor-footer", menu_links)
+    jQuery('#sponsor-footer-qualcomm').attr('class', 'sponsor  col-sm-offset-1 col-xs-2 col-sm-1')
     jQuery('#sponsor-footer-area').attr('class', 'sponsor col-xs-offset-2 col-sm-offset-0 col-xs-2 col-sm-1')
-
-
 
 }

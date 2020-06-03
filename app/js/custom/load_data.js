@@ -6,6 +6,7 @@
 var posts = {},
     pages = {},
     profiles = {},
+    hardware = {},
     taxonomies = {},
     categories = {},
     tags = {},
@@ -23,7 +24,8 @@ var posts = {},
     social = {},
     data_loaded = false,
 
-    profile_posts = {}
+    profile_posts = {},
+    hardware_posts = {}
 
 state.featured = {
     'transition': {
@@ -50,7 +52,7 @@ function getStaticJSON(filename, callback, dest) {
         url: json_data, // the url
         data: '',
         success: function(data, textStatus, request) {
-            //  console.log("load json", data);
+            console.log("load json", data);
             //      data_loaded.push(callback);
             return data,
 
@@ -94,10 +96,19 @@ function setData(data) { //sets all content arrays
     posts = setPosts(data.posts)
     pages = setPosts(data.pages)
     profiles = setPosts(data.profile)
-    for (p in profiles) {
+    for (p in posts) {
         if (profiles[p].type == 'profile') {
             profile_posts[profiles[p].id] = profiles[p]
+        } else if (profiles[p].type == 'hardware') {
+            hardwar_posts[profiles[p].id] = profiles[p]
         }
+    }
+    hardware = data.hardware
+    console.log("HRDWARE", hardware)
+    for (h in hardware) {
+
+        hardware_posts[hardware[h].id] = hardware[h]
+
     }
     //  setPosts(data.social)
     setCategories(data.categories)
@@ -105,7 +116,6 @@ function setData(data) { //sets all content arrays
     setTaxonomy(data, "feature")
     setTaxonomy(data, "collaboration_type")
     setTaxonomy(data, "platform")
-
 
 
 

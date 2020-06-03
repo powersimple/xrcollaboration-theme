@@ -21,6 +21,7 @@ input[type=checkbox].form-checkbox {
     .data-label {
         display: inline-block;
         vertical-align: middle;
+        margin-top: -15px;
     }
 }
 
@@ -32,6 +33,7 @@ input[type=checkbox].form-checkbox {
 
 .accordion-drawer {
     overflow-y: auto;
+    max-height: 350px;
 }
 
 #directory-filters {
@@ -40,4 +42,48 @@ input[type=checkbox].form-checkbox {
         padding-top: .5em;
         text-align: center;
     }
+}
+
+.profile-button {
+    clear: right;
+    display: table-cell;
+    position: relative;
+}
+
+.active-filters {
+    /*background-color: #eee;
+    position: absolute;
+    width: 100%;
+    border: 1px solid #333;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    */
+    span {
+        font-size: 8pt;
+        display: block;
+    }
+    ul {
+        li {
+            font-size: 8pt;
+        }
+    }
+}
+
+.filter-type {
+    text-decoration: underline;
+}
+
+.active-filters:hover {
+    visibility: visible;
+}
+
+.row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row.display-flex>[class*='col-'] {
+    display: flex;
+    flex-direction: column;
 }

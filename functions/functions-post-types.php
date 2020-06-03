@@ -44,4 +44,5 @@ function getPostByCategory($cat,$post_type,$template){
 //getPostByCategory("sponsor","profile","sponsor-footer");
 
 
+
 ?>

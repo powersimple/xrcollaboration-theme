@@ -167,6 +167,33 @@ function get_social_url( $object ) {
  return get_post_meta($object['id'],"social_url",true);//from functions.php,
 }
 
+/* 
+Social_url
+*/
+add_action( 'rest_api_init', 'register_hardware_profiles' );
+function register_hardware_profiles() {
+ 
+
+	register_rest_field( ['hardware'], 'profiles', array(
+		'get_callback' => 'get_hardware_profiles',
+		'schema' => null,
+		)
+	);
+}
+ 
+function get_hardware_profiles( $object ) {
+	
+global $wpdb;
+	$q = $wpdb->get_results("select post_id from wp_postmeta where meta_value = $object[id] order by post_id");
+	$posts = array();
+	foreach($q as $key=>$value){
+		array_push($posts,$value->post_id);
+	}
+
+
+ return $posts;//from functions.php,
+}
+
 
 
 /* 
@@ -324,7 +351,35 @@ function get_post_tags($object){
         }
 
         return $profile_info;
+	}
+	
+
+add_action( 'rest_api_init', 'register_support_hardware' );
+		
+	function register_support_hardware() {
+		
+		register_rest_field( 'profile', 'support_hardware', array(
+			'get_callback' => 'get_profile_hardware',
+			'schema' => null,
+			)
+		);
+	}
+		
+    function get_profile_hardware( $object ) {
+        $post_id = $object['id'];
+        $fields = "hardware";
+
+        $profile_info = array();
+
+        foreach(explode(",",$fields) as $key =>$value){
+            if(@get_post_meta($post_id,$value,true)  != ''){
+               
+            }
+        }
+
+        return  $profile_info[$value] = get_post_meta($post_id,$value);
     }
+
 
 
 

@@ -6,6 +6,11 @@
  * 
  */
 
+/*
+
+	hardware
+
+*/
 
 
 /*
@@ -122,13 +127,88 @@ function get_posts_by_platform( $object ) {
 }
 
 
+/*
+
+	feature
+
+*/
+add_action( 'rest_api_init', 'register_posts_by_feature' );
+ 
+function register_posts_by_feature() {
+ 
+
+	register_rest_field( 'feature', 'posts', array(
+		'get_callback' => 'get_posts_by_feature',
+		'schema' => null,
+		)
+	);
+}
+ 
+function get_posts_by_feature( $object ) {
+
+	$args = array(
+    'post_type'      => array('profile'), 
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'fields' => 'ids',
+    'tax_query' => array(
+			array(
+				'taxonomy' => 'feature',
+				'field'    => 'term_id',
+				'terms'    => $object['id']
+			)
+		)
+	);
+	
+		
+	return get_posts($args); 
+}
+
+
+/*
+
+	industry
+
+*/
+add_action( 'rest_api_init', 'register_posts_by_industry' );
+ 
+function register_posts_by_industry() {
+ 
+
+	register_rest_field( 'industry', 'posts', array(
+		'get_callback' => 'get_posts_by_industry',
+		'schema' => null,
+		)
+	);
+}
+ 
+function get_posts_by_industry( $object ) {
+
+	$args = array(
+    'post_type'      => array('profile'), 
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'fields' => 'ids',
+    'tax_query' => array(
+			array(
+				'taxonomy' => 'industry',
+				'field'    => 'term_id',
+				'terms'    => $object['id']
+			)
+		)
+	);
+	
+		
+	return get_posts($args); 
+}
+
 
 /*
 
 	feature
 
 */
-
+/*
 add_action( 'rest_api_init', 'register_posts_by_feature' );
  
 function register_posts_by_feature() {
@@ -188,8 +268,7 @@ function get_posts_by_feature( $object ) {
 		
 	return get_posts($args); 
 }
-
-
+*/
 
 
 
@@ -198,7 +277,7 @@ function get_posts_by_feature( $object ) {
 
 	industry
 
-*/
+
 
 add_action( 'rest_api_init', 'register_posts_by_industry' );
  
@@ -259,7 +338,7 @@ function get_posts_by_industry( $object ) {
 		
 	return get_posts($args); 
 }
-
+*/
 
 
 

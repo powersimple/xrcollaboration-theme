@@ -1,24 +1,25 @@
 <?php
-/**
- * The template for displaying all single projects
- */
 
-get_header(); ?>
+get_header(); 
+?>
 
-<div class="wrap">
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<main role="main">
 
-			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
+  <section class="module" id="<?php echo @$slug?>" role="region">
+<div class="row">
+<div class="container">
+ 
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-offset-3 col-md-6 ">
 
-			endwhile; // End of the loop.
-			?>
+   <h1><?=$post->post_title?></h1>
+<?php
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+  print do_blocks(do_shortcode($post->post_content));
+?>
+</div>
+</section>
+</div>
 
-</div><!-- .wrap -->
-
-<?php get_footer();?>
+</div>
+  </main>
+  <?php get_footer(); ?>
