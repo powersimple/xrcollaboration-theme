@@ -9,6 +9,7 @@ input[type=checkbox].form-checkbox {
 .filters {
     padding: 1em;
     border-radius: 1em;
+    margin-bottom: 2em;
     h3 {
         color: $light_blue;
         font-size: 1rem;
@@ -22,6 +23,15 @@ input[type=checkbox].form-checkbox {
         display: inline-block;
         vertical-align: middle;
         margin-top: -15px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+.filter-list {
+    margin-bottom: .1em;
+    .filter-type {
+        font-weight: 600;
     }
 }
 
@@ -31,9 +41,15 @@ input[type=checkbox].form-checkbox {
     }
 }
 
+.profile-link {
+    font-weight: 700;
+    font-size: 1.382em;
+}
+
 .accordion-drawer {
     overflow-y: auto;
-    max-height: 350px;
+    max-height: 400px;
+    height: auto;
 }
 
 #directory-filters {
@@ -41,6 +57,62 @@ input[type=checkbox].form-checkbox {
         color: $light_blue;
         padding-top: .5em;
         text-align: center;
+    }
+}
+
+.profile-label {
+    font-weight: 700;
+    text-align: center;
+    display: block;
+    border-bottom: 1px solid #333;
+    height: 50px;
+    span {
+        display: block;
+    }
+    span.profile-main {
+        font-weight: 700;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    span.profile-sub {
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+
+.form-checkbox:checked {
+    border-color: transparent;
+    background-color: currentColor;
+    background-size: 100% 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 00-1.414-1.414L7 8.586 5.707 7.293z'/%3E%3C/svg%3E");
+}
+
+body::-webkit-scrollbar {
+    width: 1em;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+
+.profile-data {
+    margin-top: -20px;
+    span.filter-type {
+        margin-left: -15px !important;
+    }
+    ul {
+        padding-left: 15px;
+        li {
+            list-style-type: disc;
+        }
     }
 }
 
@@ -86,4 +158,8 @@ input[type=checkbox].form-checkbox {
 .row.display-flex>[class*='col-'] {
     display: flex;
     flex-direction: column;
+}
+
+.info-holder {
+    padding-bottom: 2em;
 }

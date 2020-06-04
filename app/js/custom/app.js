@@ -126,3 +126,10 @@ function sponsorFooter() {
     jQuery('#sponsor-footer-area').attr('class', 'sponsor col-xs-offset-2 col-sm-offset-0 col-xs-2 col-sm-1')
 
 }
+
+function scrollToAnchor(div) {
+    var anchor = $(div);
+    $('html,body').animate({
+        scrollTop: anchor.offset().top - 100
+    }, 'slow');
+}

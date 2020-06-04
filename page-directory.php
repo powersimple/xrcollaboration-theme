@@ -37,6 +37,7 @@ get_header();
   var max = {}
   max.spectators = <?=$spectators?>;
   max.collaborators = <?=$collaborators?>;
+  var profile_mode = 'summary'
 
   console.log("spectators",max.spectators)
 
@@ -47,25 +48,45 @@ jQuery(document).ready(function() {
 });
 
 </script>
+   
+    <div id="profile-template" style="display:none;">
+      <div class="row">
+          <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 logo-holder">
+            <div class="profile-logo"></div>
+          </div>
+          <div class="col-xs-12 col-sm-9 col-md-9 col-lg-6 info-holder">
 
+            <div class="profile-info">
+              <div class="solution_name"><h4></h4></div>
+              <div class="company"><h5></h5></div>
+              <div class="blurb"></div>
+              <div class="use-cases"></div>
+              
+
+              <div class="view-profile"></div>
+
+            </div>
+
+          </div>
+          <div class="xs-col-12 col-sm-12 col-md-12 col-lg-4 tag-holder">
+            <div class="hardware filter-list"></div>
+            <div class="platform filter-list"></div>
+             <div class="feature filter-list"></div>
+              <div class="industry filter-list"></div>
+               <div class="collaboration_type filter-list"></div>
+          </div>
+      </div>
+  
+    </div><!--template-->
 
 <main role="main">
 
   <section class="module" id="<?php echo @$slug?>" role="region">
 <div class="row">
     <div class="container">
-        <div class="col-sm-3 bg-dark" id="directory-filters">
-            <h4>Choose Filters below</h4>
-            <div class="slider-container"><div id="collaborators">Collaborators</div>
-            <div id="max-collaborators" class="slider"></div>
-</div>
-<div class="slider-container"><div id="spectators">Spectators</div>
-              <div id="max-spectators" class="slider"></div>
-</div>
-            <div id="filter-accordion" class="filters"></div>
-        </div>
-        <div class="col-sm-9">
-        <h1><?=$post->post_title?></h1>
+        
+        <div class="col-sm-9" id="directory">
+        <h1>Directory of Collaborative XR Platforms</h1>
 
         <div id="active-profile"></div>
 
@@ -81,19 +102,7 @@ jQuery(document).ready(function() {
         
         
         
-        <div>
-<script>
-          <?php
-
-
-
- 
-
-
-?>
-</script>
-
-        </div>
+      
         
           <div id="active_filters"></div>
           <div id="profile_logos"></div>
@@ -102,8 +111,16 @@ jQuery(document).ready(function() {
         
         
         </div>
-        
-
+        <div class="col-sm-3 bg-dark" id="directory-filters">
+            <h4>Choose Filters below</h4>
+            <div class="slider-container"><div id="collaborators">Collaborators</div>
+            <div id="max-collaborators" class="slider"></div>
+</div>
+<div class="slider-container"><div id="spectators">Spectators</div>
+              <div id="max-spectators" class="slider"></div>
+</div>
+            <div id="filter-accordion" class="filters"></div>
+        </div>
 
 
 

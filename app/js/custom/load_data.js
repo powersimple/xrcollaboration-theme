@@ -97,26 +97,39 @@ function setData(data) { //sets all content arrays
     pages = setPosts(data.pages)
     profiles = setPosts(data.profile)
     for (p in posts) {
+
         if (profiles[p].type == 'profile') {
+            profiles[p].name = profiles[p].title.rendered
             profile_posts[profiles[p].id] = profiles[p]
+
         } else if (profiles[p].type == 'hardware') {
-            hardwar_posts[profiles[p].id] = profiles[p]
+            hardware_posts[profiles[p].id] = profiles[p]
         }
     }
+
     hardware = data.hardware
     console.log("HRDWARE", hardware)
     for (h in hardware) {
-
+        hardware[h].name = hardware[h].title.rendered
         hardware_posts[hardware[h].id] = hardware[h]
 
     }
-    //  setPosts(data.social)
+    console.log("HARDWARE", hardware_posts)
+        //  setPosts(data.social)
     setCategories(data.categories)
+
+    var taxonomies = "industry,feature,collaboration_type,platform"
+    var taxes = taxonomies.split(",")
+    for (var t = 0; t < taxes.length; t++) {
+        setTaxonomy(data, taxes[t])
+
+    }
+    /*
     setTaxonomy(data, "industry")
     setTaxonomy(data, "feature")
     setTaxonomy(data, "collaboration_type")
     setTaxonomy(data, "platform")
-
+    */
 
 
     setTags(data.tags)

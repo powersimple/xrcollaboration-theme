@@ -126,6 +126,13 @@ function sponsorFooter() {
     jQuery('#sponsor-footer-area').attr('class', 'sponsor col-xs-offset-2 col-sm-offset-0 col-xs-2 col-sm-1')
 
 }
+
+function scrollToAnchor(div) {
+    var anchor = $(div);
+    $('html,body').animate({
+        scrollTop: anchor.offset().top - 100
+    }, 'slow');
+}
 var directory_list = [],
     active_filters = {},
     filter_posts = {},
@@ -210,6 +217,9 @@ function getFilterPosts(this_post, filter, value, name) {
         'logo': logo,
         'max_collaborators': profile_posts[this_post].info.max_collaborators,
         'max_spectators': profile_posts[this_post].info.max_spectators,
+        'company': profile_posts[this_post].info.company,
+        'solution_name': profile_posts[this_post].info.solution_name,
+
         'title': profile_posts[this_post].title,
         'url': profile_posts[this_post].info.url,
         'route': '/' + profile_posts[this_post].type +
@@ -267,9 +277,6 @@ function buildFilters(action, tax, value) {
     buildRankedFilters()
 
 
-
-    //displayFilters()
-    //displayDirectory(display_filters, filter_posts)
 
 
 }
@@ -366,24 +373,43 @@ function getFilterInstances(instances) {
 
 }
 
+/**
+ * 
+ * 
+ * THIS MAKES THE DIRECTORY PRINT TO SCREEN
+ * 
+ * 
+ */
 
 function display_results(count, result_array) {
 
     var bootstrap_tiles = 'profile-button ' + getResultColumns(count)
 
     results = '<div class="row display-flex">'
-
+    var label = ''
     for (r = 0; r < result_array.length; r++) {
         this_post = result_array[r].id;
+        if (result_array[r].company == result_array[r].solution_name) {
+            label = '<span class="profile-main" title="' + result_array[r].solution_name + '">' + result_array[r].solution_name + '</span>'
+            label = result_array[r].company
+        } else {
+            if (result_array[r].solution_name != '') {
+                label = '<span class="profile-main" title="' + result_array[r].solution_name + '">' + result_array[r].solution_name + '</span>'
+                label += '<span class="profile-sub" title="' + result_array[r].company + '">by ' + result_array[r].company + '</span>'
+            } else {
+                label = result_array[r].company
+            }
+        }
 
-        console.log(count, result_array[r])
+
+        //        console.log(count, result_array[r])
 
         results += '<div class="' + bootstrap_tiles + '">'
             //logo_display += '<a href = "' + result_array[r].url + '" target="_new ">'
             //logo_display += '<a href = "' + result_array[r].route + '">'
         results += '<a href = "#' + result_array[r].slug + '" data-profile="' + result_array[r].id + '">'
-        results += '<img src="' + result_array[r].logo + '" alt="' + result_array[r].title + ' logo"></a><span class="profile-label"' +
-            result_array[r].title + '</span>'
+        results += '<img src="' + result_array[r].logo + '" alt="' + result_array[r].title + ' logo"></a>'
+        results += '<div class="profile-data"><span class="profile-label">' + label + '</span>'
 
 
         results += "<div class='active-filters'>"
@@ -392,7 +418,7 @@ function display_results(count, result_array) {
         results += getFilterInstances(result_array[r].instances) + "</div>"
         if (count > 1) {}
 
-        results += '</div>'
+        results += '</div></div>' //close profile data and profile-wrap
 
 
 
@@ -424,27 +450,6 @@ function displayFilters() {
     console.log("filter_posts", filter_posts);
 
 }
-
-
-/*
-
-function displayDirectory(display_filters, filter_posts) {
-    // console.log("FILTERS", display_filters, filter_posts)
-   
-    for (p in filter_posts) {
-        logo_display += '<div class="' + bootstap_tiles + '">'
-        //logo_display += '<a href = "' + filter_posts[p].url + '" target="_new ">'
-        //logo_display += '<a href = "' + filter_posts[p].route + '">'
-        logo_display += '<a href = "#' + filter_posts[p].slug + '" data-profile="' + filter_posts[p].id + '">'
-        logo_display += '<img src="' + filter_posts[p].logo + '" alt="' + filter_posts[p].title + ' logo"></a><span class="profile-label"' +
-            filter_posts[p].title + '</span></div>'
-    }
-    logo_display += '</div>'
-    jQuery("#profile_logos").html(logo_display)
-
-
-}*/
-
 
 
 
@@ -538,15 +543,19 @@ $(function() {
     //  $("#max-spectators").val("$" + $("#max-spectators").slider("value"));
 });
 
+/***
+ * CLICK ON PROFILE LOGO
+ * 
+ * 
+ * 
+ */
 
-
-$(document).on('click', 'div.profile-button', function(e) {
+$(document).on('click', 'div.profile-button a', function(e) {
     // code here
     //    var this_value = jQuery(this).attr('value')
-    var this_profile = jQuery(jQuery(this)).data('profile')
-
-    console.log(this_profile)
-
+    var this_profile = jQuery(this).data('profile')
+    loadActiveProfile(this_profile);
+    scrollToAnchor('#active-profile');
 });
 
 $(document).on('click', '#filters :checkbox', function() {
@@ -665,26 +674,39 @@ function setData(data) { //sets all content arrays
     pages = setPosts(data.pages)
     profiles = setPosts(data.profile)
     for (p in posts) {
+
         if (profiles[p].type == 'profile') {
+            profiles[p].name = profiles[p].title.rendered
             profile_posts[profiles[p].id] = profiles[p]
+
         } else if (profiles[p].type == 'hardware') {
-            hardwar_posts[profiles[p].id] = profiles[p]
+            hardware_posts[profiles[p].id] = profiles[p]
         }
     }
+
     hardware = data.hardware
     console.log("HRDWARE", hardware)
     for (h in hardware) {
-
+        hardware[h].name = hardware[h].title.rendered
         hardware_posts[hardware[h].id] = hardware[h]
 
     }
-    //  setPosts(data.social)
+    console.log("HARDWARE", hardware_posts)
+        //  setPosts(data.social)
     setCategories(data.categories)
+
+    var taxonomies = "industry,feature,collaboration_type,platform"
+    var taxes = taxonomies.split(",")
+    for (var t = 0; t < taxes.length; t++) {
+        setTaxonomy(data, taxes[t])
+
+    }
+    /*
     setTaxonomy(data, "industry")
     setTaxonomy(data, "feature")
     setTaxonomy(data, "collaboration_type")
     setTaxonomy(data, "platform")
-
+    */
 
 
     setTags(data.tags)
@@ -1478,6 +1500,71 @@ function buildMenuData() {
 
     }
 
+}
+function loadActiveProfile(id) {
+    var this_profile = profile_posts[id]
+    console.log("profile-posts", profile_posts[id], filter_posts[id])
+        /* LOGO */
+    var logo = '<img src="' + filter_posts[id].logo + '" alt="' + this_profile.info.company + ' logo">'
+    $('#profile-template .profile-logo').html(logo);
+
+    /* COMPANY */
+    $('#profile-template .solution_name h4').html(this_profile.info.solution_name);
+
+    /* SOLUTION NAME */
+    $('#profile-template .company h5').html("by: " + this_profile.info.company);
+
+    /* EXCERPT */
+    $('#profile-template .blurb').html(profile_posts[id].excerpt.rendered);
+    /* Use Cases */
+    var use_cases = profile_posts[id].info.use_cases
+    if (use_cases.length > 200) {
+        use_cases = use_cases.substring(0, 200);
+    }
+
+    $('#profile-template .use-cases').html(use_cases + " <a href='" + filter_posts[id].route + "'>more..</a>")
+
+
+    /*TAGS*/
+    var profile_hardware = getProfileTags('Hardware', hardware_posts, this_profile.support_hardware, 'hardware')
+
+    var profile_platform = getProfileTags('Platforms', taxonomies.platform, this_profile.platform, 'platform')
+
+    var profile_industry = getProfileTags('Industries', taxonomies.industry, this_profile.industry, 'industry')
+
+    var profile_feature = getProfileTags('Features', taxonomies.feature, this_profile.feature, 'feature')
+
+    var profile_collaboration_type = getProfileTags('Collaboration Types', taxonomies.collaboration_type, this_profile.collaboration_type, 'collaboration_type')
+
+    var profile_link = '<a href="' + filter_posts[id].route + '" class="profile-link" title="View the full profile of ' + this_profile.info.company + '">For more information on ' + this_profile.info.company + '<br>View their full XR Collaboration Profile</a>'
+
+    $('#profile-template .view-profile').html(profile_link);
+    var template = jQuery('#profile-template').html();
+
+    /* INJECTION */
+    $('#active-profile').html(template)
+
+}
+
+function getProfileTags(label, tag_data, tags, el) {
+    console.log(label, tags, el)
+    var profile_tag_labels = []
+    console.log(tag_data)
+
+    if (tags.length > 0) {
+
+        for (var t = 0; t < tags.length; t++) {
+
+            profile_tag_labels.push(tag_data[tags[t]].name);
+            //   profile_tag_labels.push(hardware_posts[t].title.rendered)
+        }
+        console.log(label + " tags", profile_tag_labels.join(","))
+        var element = '#profile-template .' + el
+        $(element).html("<span class='filter-type'>" + label + ":</span> " + profile_tag_labels.join(", "));
+
+    } else {
+        $('#profile-template .' + el).css("display:none")
+    }
 }
 function setChildCategories(data) {
     for (var i = 0; i < data.length; i++) {

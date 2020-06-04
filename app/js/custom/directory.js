@@ -82,6 +82,9 @@ function getFilterPosts(this_post, filter, value, name) {
         'logo': logo,
         'max_collaborators': profile_posts[this_post].info.max_collaborators,
         'max_spectators': profile_posts[this_post].info.max_spectators,
+        'company': profile_posts[this_post].info.company,
+        'solution_name': profile_posts[this_post].info.solution_name,
+
         'title': profile_posts[this_post].title,
         'url': profile_posts[this_post].info.url,
         'route': '/' + profile_posts[this_post].type +
@@ -139,9 +142,6 @@ function buildFilters(action, tax, value) {
     buildRankedFilters()
 
 
-
-    //displayFilters()
-    //displayDirectory(display_filters, filter_posts)
 
 
 }
@@ -238,24 +238,43 @@ function getFilterInstances(instances) {
 
 }
 
+/**
+ * 
+ * 
+ * THIS MAKES THE DIRECTORY PRINT TO SCREEN
+ * 
+ * 
+ */
 
 function display_results(count, result_array) {
 
     var bootstrap_tiles = 'profile-button ' + getResultColumns(count)
 
     results = '<div class="row display-flex">'
-
+    var label = ''
     for (r = 0; r < result_array.length; r++) {
         this_post = result_array[r].id;
+        if (result_array[r].company == result_array[r].solution_name) {
+            label = '<span class="profile-main" title="' + result_array[r].solution_name + '">' + result_array[r].solution_name + '</span>'
+            label = result_array[r].company
+        } else {
+            if (result_array[r].solution_name != '') {
+                label = '<span class="profile-main" title="' + result_array[r].solution_name + '">' + result_array[r].solution_name + '</span>'
+                label += '<span class="profile-sub" title="' + result_array[r].company + '">by ' + result_array[r].company + '</span>'
+            } else {
+                label = result_array[r].company
+            }
+        }
 
-        console.log(count, result_array[r])
+
+        //        console.log(count, result_array[r])
 
         results += '<div class="' + bootstrap_tiles + '">'
             //logo_display += '<a href = "' + result_array[r].url + '" target="_new ">'
             //logo_display += '<a href = "' + result_array[r].route + '">'
         results += '<a href = "#' + result_array[r].slug + '" data-profile="' + result_array[r].id + '">'
-        results += '<img src="' + result_array[r].logo + '" alt="' + result_array[r].title + ' logo"></a><span class="profile-label"' +
-            result_array[r].title + '</span>'
+        results += '<img src="' + result_array[r].logo + '" alt="' + result_array[r].title + ' logo"></a>'
+        results += '<div class="profile-data"><span class="profile-label">' + label + '</span>'
 
 
         results += "<div class='active-filters'>"
@@ -264,7 +283,7 @@ function display_results(count, result_array) {
         results += getFilterInstances(result_array[r].instances) + "</div>"
         if (count > 1) {}
 
-        results += '</div>'
+        results += '</div></div>' //close profile data and profile-wrap
 
 
 
@@ -296,27 +315,6 @@ function displayFilters() {
     console.log("filter_posts", filter_posts);
 
 }
-
-
-/*
-
-function displayDirectory(display_filters, filter_posts) {
-    // console.log("FILTERS", display_filters, filter_posts)
-   
-    for (p in filter_posts) {
-        logo_display += '<div class="' + bootstap_tiles + '">'
-        //logo_display += '<a href = "' + filter_posts[p].url + '" target="_new ">'
-        //logo_display += '<a href = "' + filter_posts[p].route + '">'
-        logo_display += '<a href = "#' + filter_posts[p].slug + '" data-profile="' + filter_posts[p].id + '">'
-        logo_display += '<img src="' + filter_posts[p].logo + '" alt="' + filter_posts[p].title + ' logo"></a><span class="profile-label"' +
-            filter_posts[p].title + '</span></div>'
-    }
-    logo_display += '</div>'
-    jQuery("#profile_logos").html(logo_display)
-
-
-}*/
-
 
 
 
@@ -410,15 +408,19 @@ $(function() {
     //  $("#max-spectators").val("$" + $("#max-spectators").slider("value"));
 });
 
+/***
+ * CLICK ON PROFILE LOGO
+ * 
+ * 
+ * 
+ */
 
-
-$(document).on('click', 'div.profile-button', function(e) {
+$(document).on('click', 'div.profile-button a', function(e) {
     // code here
     //    var this_value = jQuery(this).attr('value')
-    var this_profile = jQuery(jQuery(this)).data('profile')
-
-    console.log(this_profile)
-
+    var this_profile = jQuery(this).data('profile')
+    loadActiveProfile(this_profile);
+    scrollToAnchor('#active-profile');
 });
 
 $(document).on('click', '#filters :checkbox', function() {

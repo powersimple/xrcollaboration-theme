@@ -57,11 +57,7 @@ function get_post_media( $object ) {
 	
 	}
 
-
-
-
 	return $post_media_urls;
-
 
 
 }
