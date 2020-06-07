@@ -16,7 +16,7 @@ $GLOBALS['REST_tax_filter'] = "filter[orderby]=name&order=asc&per_page=100";
 $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
             "posts"=>"fields=id,type,title,content,slug,excerpt,languages,post_media,featured_media,screen_images,video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             "pages"=>"fields=id,type,title,content,slug,excerpt,languages,post_media,featured_media,screen_images,featured_video,cats,tags,type&".$GLOBALS['REST_post_filter'],
-             "profile"=>"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screen_images,featured_video,type,industry,support_hardware,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter'],
+             "profile"=>"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screenshots,featured_video,type,industry,support_hardware,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter'],
               "hardware"=>"fields=id,type,title,content,slug,excerpt,posts,post_media,languages,info,seo,profiles,featured_media,screen_images,featured_video,type,industry,feature,thumbnail_url,platform,cats,tags&".$GLOBALS['REST_post_filter'],
          //   "resource"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
            // "event"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],

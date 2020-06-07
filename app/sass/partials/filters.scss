@@ -7,24 +7,18 @@ input[type=checkbox].form-checkbox {
 }
 
 .filters {
-    padding: 1em;
+    padding: .5px;
     border-radius: 1em;
     margin-bottom: 2em;
     h3 {
         color: $light_blue;
         font-size: 1rem;
         text-transform: uppercase;
-    }
-}
-
-.data-filter {
-    display: block;
-    .data-label {
-        display: inline-block;
-        vertical-align: middle;
-        margin-top: -15px;
-        white-space: nowrap;
-        overflow: hidden;
+        border-bottom: $light_blue;
+        border-bottom-width: 1px;
+        border-bottom-style: dotted;
+        border-bottom-color: currentcolor;
+        margin-bottom: 5px;
     }
 }
 
@@ -43,20 +37,44 @@ input[type=checkbox].form-checkbox {
 
 .profile-link {
     font-weight: 700;
-    font-size: 1.382em;
+    font-size: em;
+}
+
+#directory-filters {
+    background-color: $dark_gray;
+    background: linear-gradient(135deg, #000000 0%, #373737 28%, #3f3f3f 57%, #1c1c1c 86%, #000 100%);
+    border-radius: 10px;
+    box-shadow: 7px 7px 8px 4px rgba(0, 0, 0, 0.53);
+    h4 {
+        color: $light_blue;
+        padding-top: .5em;
+        text-align: center;
+    }
 }
 
 .accordion-drawer {
     overflow-y: auto;
     max-height: 400px;
     height: auto;
+    background: #ebf1f6;
+    background: linear-gradient(to bottom, #ebf1f6 1%, #ebf1f6 53%, #d5ebfb 100%);
+    padding: 8px;
+    border-radius: 10px;
+    border: 3px grove #fff;
+    margin-bottom: 10px;
 }
 
-#directory-filters {
-    h4 {
-        color: $light_blue;
-        padding-top: .5em;
-        text-align: center;
+.data-filter {
+    display: block;
+    .data-label {
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -15px;
+        white-space: nowrap;
+        overflow: hidden;
+        font-weight: bold;
+        color: #333;
+        max-width: 185px;
     }
 }
 

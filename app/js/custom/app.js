@@ -51,7 +51,7 @@ function initSite() {
     }
     //var filters = "collaboration_type,platform"
 
-    var filters = "hardware_support,collaboration_type,platform,feature,industry"
+    var filters = "collaborators,hardware_support,collaboration_type,platform,feature,industry"
     setFilterAccordion(filters); //directory.js
     //    console.log("profiles", profile_posts);
     //  console.log("hardware", hardware_posts);
@@ -63,6 +63,16 @@ function initSite() {
         autoHeight: false,
         navigation: true
     });
+
+    if (profile_template != undefined) {
+
+        if (profile_template == 'full-profile-template') {
+
+            loadFullProfile(active_id)
+        }
+    } else if (profile_template == 'profile-template') {
+        loadActiveProfiles();
+    }
 
 
 

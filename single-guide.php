@@ -12,7 +12,7 @@
 <head>
     <body>
 <main role="main" id="main">
-
+    <div id="guide">
 <?php
 ob_start();
 
@@ -68,7 +68,7 @@ ob_start();
 
 echo $content;
 ?>
-
+</div>
 </main>
 <?php
 

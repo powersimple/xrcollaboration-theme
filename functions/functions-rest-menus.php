@@ -154,7 +154,8 @@ if ( ! class_exists( 'WP_REST_Menus' ) ) :
                             "post_parent" => $value->post_parent,
                             "classes" => implode(" ",$value->classes),       
                             "description" => $value->description,
-                            'target' => $value->target
+                            'target' => $value->target,
+                            
                             )
                     );
                 }

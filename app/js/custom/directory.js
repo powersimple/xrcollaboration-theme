@@ -6,39 +6,118 @@ var directory_list = [],
 max_collaborators = '',
     max_spectators = ''
 
+function loadActiveProfiles() {
+    console.log(profile_posts);
+    var this_post = 0;
+    var active_profiles = {}
+    var logo = ''
 
+    for (p in profile_posts) {
+        if (profile_posts[p] != undefined) {
+            if (profile_posts[this_post].post_media.logo[0] != undefined) {
+                logo = profile_posts[this_post].post_media.logo[0].full_path
+                this_post = profile_posts[p];
+                active_profiles[p] = {
+
+                    'id': this_post,
+                    'value': value,
+                    'slug': profile_posts[this_post].slug,
+                    'filter': filter,
+                    'name': name,
+                    'instances': [{
+                        filter: filter,
+                        value: value,
+                        name: name
+                    }],
+                    'logo': logo,
+                    'max_collaborators': profile_posts[this_post].info.max_collaborators,
+                    'max_spectators': profile_posts[this_post].info.max_spectators,
+                    'company': profile_posts[this_post].info.company,
+                    'solution_name': profile_posts[this_post].info.solution_name,
+
+                    'title': profile_posts[this_post].title,
+                    'url': profile_posts[this_post].info.url,
+                    'route': '/' + profile_posts[this_post].type +
+                        '/' + profile_posts[this_post].slug
+                }
+
+            }
+
+        }
+
+    }
+    console.log("active", active)
+
+    return active_profiles;
+}
+
+function getFilterPosts(this_post, filter, value, name) {
+
+    var logo = ''
+    if (profile_posts[this_post].post_media.logo[0] != undefined) {
+        logo = profile_posts[this_post].post_media.logo[0].full_path
+    }
+
+
+    return post_data = {
+
+        'id': this_post,
+        'value': value,
+        'slug': profile_posts[this_post].slug,
+        'filter': filter,
+        'name': name,
+        'instances': [{
+            filter: filter,
+            value: value,
+            name: name
+        }],
+        'logo': logo,
+        'max_collaborators': profile_posts[this_post].info.max_collaborators,
+        'max_spectators': profile_posts[this_post].info.max_spectators,
+        'company': profile_posts[this_post].info.company,
+        'solution_name': profile_posts[this_post].info.solution_name,
+
+        'title': profile_posts[this_post].title,
+        'url': profile_posts[this_post].info.url,
+        'route': '/' + profile_posts[this_post].type +
+            '/' + profile_posts[this_post].slug
+    }
+
+}
 
 function setFilterAccordion(lists) {
     var accordion_filters = '<form id="filters">'
     jQuery.each(lists.split(','), function(i, v) {
         active_filters[v] = {}
-        accordion_filters += '<h3>' + v.replace("_", " ") + '</h3>';
-        accordion_filters += '<div class="accordion-drawer">'
-        if (v == 'hardware_support') {
+        if (v != 'collaborators') {
+            accordion_filters += '<h3>' + v.replace("_", " ") + '</h3>';
+            accordion_filters += '<div class="accordion-drawer">'
+            if (v == 'hardware_support') {
 
-            for (h in hardware) {
-                if (hardware[h].profiles.length > 0) {
+                for (h in hardware) {
+                    if (hardware[h].profiles.length > 0) {
 
 
-                    accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + hardware[h].slug + '" data-tax="' + v + '" value="' + hardware[h].id + '"><span class="data-label">' + hardware[h].title.rendered + '</span></span>'
+                        accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + hardware[h].slug + '" data-tax="' + v + '" value="' + hardware[h].id + '"><span class="data-label">' + hardware[h].title.rendered + '</span></span>'
+                    }
+
+                }
+            } else {
+                for (i in taxonomies[v]) {
+                    //   console.log("tax", taxonomies[v])
+
+                    if (taxonomies[v][i].posts.length) {
+                        accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + taxonomies[v][i].slug + '" data-tax="' + v + '" value="' + taxonomies[v][i].id + '"><span class="data-label">' + taxonomies[v][i].name + '</span></span>'
+                    }
+
                 }
 
-            }
-        } else {
-            for (i in taxonomies[v]) {
-                //   console.log("tax", taxonomies[v])
 
-                if (taxonomies[v][i].posts.length) {
-                    accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + taxonomies[v][i].slug + '" data-tax="' + v + '" value="' + taxonomies[v][i].id + '"><span class="data-label">' + taxonomies[v][i].name + '</span></span>'
-                }
+
 
             }
-
-
-
-
+            accordion_filters += '</div>'
         }
-        accordion_filters += '</div>'
     })
     accordion_filters += '</div>'
     jQuery("#filter-accordion").html(accordion_filters)
@@ -47,21 +126,7 @@ function setFilterAccordion(lists) {
 
 }
 
-function sortFilters(filter, value) {
-    var this_filter = {}
-    if (filter === 'hardware_support') {
-        this_filter.name = hardware_posts[value].title.rendered
-        this_filter.posts = hardware_posts[value].profiles
-    } else {
-        this_filter.name = taxonomies[filter][value].name
-        this_filter.posts = taxonomies[filter][value].posts
-    }
-    //    console.log(this_filter)
 
-
-    return this_filter
-
-}
 
 function getFilterPosts(this_post, filter, value, name) {
 
@@ -93,58 +158,7 @@ function getFilterPosts(this_post, filter, value, name) {
 
 }
 
-function buildFilters(action, tax, value) {
-    active_filters[tax]
 
-    var display_filters = {}
-        //  console.log("profile_posts", profile_posts)
-
-
-    if (action === 'add') {
-        active_filters[tax][value] = sortFilters(tax, value)
-            //console.log("added", tax, value, active_filters, )
-
-    } else if (action === 'remove') {
-        //    
-        delete active_filters[tax][value]
-            //        delete filter_posts[value]
-            // console.log(active_filters, "removed", tax, value, active_filters)
-    }
-    filter_posts = {}
-    for (a in active_filters) {
-        for (f in active_filters[a]) {
-            for (p in active_filters[a][f].posts) {
-
-                this_post = active_filters[a][f].posts[p]
-
-
-                if (profile_posts[this_post] != undefined) {
-                    if (filter_posts[this_post] == undefined) {
-
-                        filter_posts[this_post] = getFilterPosts(profile_posts[this_post].id, a, f, active_filters[a][f].name)
-                    } else {
-                        filter_posts[this_post].instances.push({
-                            filter: a,
-                            value: f,
-                            name: active_filters[a][f].name
-                        })
-
-                    }
-                }
-            }
-        }
-    }
-
-
-    console.log("FILTER:", active_filters, action, tax, value)
-    console.log("FILTER posts:", filter_posts, action, tax, value)
-
-    buildRankedFilters()
-
-
-
-
-}
 
 function buildRankedFilters() {
     ranked_filters = {}
@@ -185,7 +199,7 @@ function getResultColumns(count) {
     if (is_even) {
         //   console.log("even", is_even, (count / 2) == parseInt(count / 2))
     }
-    return 'col-xs-6 col-sm-4 col-md-3 col-lg-2'
+    return 'col-xs-6 col-sm-4 col-md-4 col-lg-3'
     if (count == '1') {
         return 'col-offset-xs-4 col-xs-4'
 
@@ -323,53 +337,139 @@ function displayFilters() {
 
 function getStatPosts() {
     //console.log("profile posts", profile_posts)
+    var collaborators = []
     var spectator_lists = [],
         lists_lists = [],
         filter_posts = {}
-    for (i in max.spectators) {
-        //  console.log(spectators[i]);
+        /*    for (i in max.spectators) {
+                //  console.log(spectators[i]);
 
-        for (p = 0; p < max.spectators[i].length; p++) {
-            if (profile_posts[p] != undefined) {
-                filter_posts[p] = getFilterPosts(max.spectators[i][p])
+                for (p = 0; p < max.spectators[i].length; p++) {
+                    if (profile_posts[p] != undefined) {
+                        filter_posts[p] = getFilterPosts(max.spectators[i][p])
 
-                console.log("spectator_posts", i, profile_posts[max.spectators[i][p]].title)
+                        console.log("spectator_posts", i, profile_posts[max.spectators[i][p]].title)
 
-            }
+                    }
 
-        }
-    }
+                }
+            }*/
     for (i in max.collaborators) {
-        //  console.log(collaboratorsi]);
+        //    console.log(i, max.collaborators[i]);
+        for (p in max.collaborators) {
 
-        for (p = 0; p < max.collaborators[i].length; p++) {
             if (profile_posts[p] != undefined) {
+                collaborators.push = max.collaborators[p]
                 console.log("collaborators_posts", i, profile_posts[max.collaborators[i][p]].title)
+                console.log('concat posts', collaborators)
             }
         }
+
     }
+    console.log('concat posts', collaborators)
+    return collaborators
 
 }
 
+function sortFilters(filter, value) {
+    var this_filter = {}
+    if (filter === 'hardware_support') {
+        this_filter.name = hardware_posts[value].title.rendered
+        this_filter.posts = hardware_posts[value].profiles
+    } else if (filter === 'collaborators') {
+        this_filter.name = "Max Collaborators"
+        this_filter.posts = max.collaborators[value]
+
+    } else {
+        this_filter.name = taxonomies[filter][value].name
+        this_filter.posts = taxonomies[filter][value].posts
+    }
+    //    console.log(this_filter)
+
+
+    return this_filter
+
+}
+
+function buildFilters(action, tax, value) {
+    active_filters[tax]
+
+    var display_filters = {}
+        //  console.log("profile_posts", profile_posts)
+
+
+    if (action === 'add') {
+
+        if (tax == 'collaborators') {
+            active_filters[tax] = []
+        }
+
+        active_filters[tax][value] = sortFilters(tax, value)
+
+        console.log("added", tax, value, active_filters)
+            //       console.log("added", tax, value, active_filters)
+
+    } else if (action === 'remove') {
+        //    
+        delete active_filters[tax][value]
+            //        delete filter_posts[value]
+            // console.log(active_filters, "removed", tax, value, active_filters)
+    }
+    filter_posts = {}
+    console.log("C", max.collaborators[value])
+    for (a in active_filters) {
+        for (f in active_filters[a]) {
+            for (p in active_filters[a][f].posts) {
+
+                this_post = active_filters[a][f].posts[p]
+
+
+                if (profile_posts[this_post] != undefined) {
+                    if (filter_posts[this_post] == undefined) {
+
+                        filter_posts[this_post] = getFilterPosts(profile_posts[this_post].id, a, f, active_filters[a][f].name)
+                    } else {
+                        filter_posts[this_post].instances.push({
+                            filter: a,
+                            value: f,
+                            name: active_filters[a][f].name
+                        })
+
+                    }
+                }
+            }
+        }
+    }
+
+
+    console.log("FILTER:", active_filters, action, tax, value)
+    console.log("FILTER posts:", filter_posts, action, tax, value)
+
+    buildRankedFilters()
+
+
+
+
+}
 
 function setMax(label, value) {
 
     var min = parseInt(value) - 4
-    max_posts[label] = {}
+    max_posts[label] = []
     var _obj = {}
     for (var i = min; i <= parseInt(value); i++) {
         if (max[label][i] != undefined) {
-            console.log(label, i, max[label][i])
-            _obj = max[label][i]
-            $.extend(max_posts[label], _obj)
+            //console.log('collab-loop', label, i, max[label][i])
+            max_posts[label][max_posts[label].length] = max[label][i]
         }
 
 
 
     }
+    console.log("setMax", max_posts[label])
+    return max_posts[label]
 
 
-    console.log("max_posts", max_posts)
 
 }
 
@@ -382,14 +482,20 @@ $(function() {
         slide: function(event, ui) {
             var val = ui.value - 4 + '-' + ui.value
             max_collaborators = ui.value
-            setMax('collaborators', max_collaborators)
+            var collaborators = setMax('collaborators', max_collaborators)
+
+            if (active_filters.collaborators != undefined) {
+                buildFilters('remove', 'collaborators', max_collaborators)
+            }
+            buildFilters('add', 'collaborators', max_collaborators)
+
             $("#collaborators").html('Collaborators ' + val);
             $("#max-collaborators span.ui-slider-handle").html(val);
         }
     });
     // $("#collaborators").val("$" + $("#max-collaborators").slider(val));
 });
-
+/*
 
 $(function() {
     $("#max-spectators").slider({
@@ -407,6 +513,7 @@ $(function() {
     });
     //  $("#max-spectators").val("$" + $("#max-spectators").slider("value"));
 });
+*/
 
 /***
  * CLICK ON PROFILE LOGO

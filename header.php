@@ -45,7 +45,9 @@
       xr_path = "<?=get_stylesheet_directory_uri()?>/xr/",
       data_path = "<?=get_stylesheet_directory_uri()?>/data/",
       useWheelNav = false,
-      uploads_path =  "<?=$url['baseurl']?>/"
+      uploads_path =  "<?=$url['baseurl']?>/",
+      profile_template = ''//hack
+      
       
       var hero_slides = [
           <?php $slides = get_slides($post->ID);

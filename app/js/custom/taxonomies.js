@@ -26,7 +26,7 @@ function setTaxonomy(data, tax) {
             taxonomies[tax][data[tax][i].id] = data[tax][i]
         }
     }
-    console.log(tax, taxonomies[tax])
+    // console.log(tax, taxonomies[tax])
 
     return data
 }

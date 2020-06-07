@@ -27,24 +27,26 @@ get_header();
     return  $results;
   }
   
-  $spectators = json_encode(getMetaMax('max_spectators'));
+  //$spectators = json_encode(getMetaMax('max_spectators'));
   $collaborators = json_encode(getMetaMax('max_collaborators'));
 
   
 
 ?>
 <script>
+   var profile_template = 'profile-template'
   var max = {}
-  max.spectators = <?=$spectators?>;
+/*max.spectators = <?=$spectators?>;*/
   max.collaborators = <?=$collaborators?>;
   var profile_mode = 'summary'
 
-  console.log("spectators",max.spectators)
+  //console.log("spectators",max.spectators)
 
-  console.log("collaborators",max.collaborators)
+  //console.log("collaborators",max.collaborators)
 
 jQuery(document).ready(function() {
   getStatPosts()
+ //  loadActiveProfiles()
 });
 
 </script>
@@ -88,9 +90,7 @@ jQuery(document).ready(function() {
         <div class="col-sm-9" id="directory">
         <h1>Directory of Collaborative XR Platforms</h1>
 
-        <div id="active-profile"></div>
-
-        <?php
+        <div id="active-profile"><?php
 
        
 
@@ -99,6 +99,8 @@ jQuery(document).ready(function() {
 
           print do_blocks($post->post_content);
         ?>
+        </div>
+
         
         
         
@@ -111,14 +113,12 @@ jQuery(document).ready(function() {
         
         
         </div>
-        <div class="col-sm-3 bg-dark" id="directory-filters">
+        <div class="col-sm-3" id="directory-filters">
             <h4>Choose Filters below</h4>
             <div class="slider-container"><div id="collaborators">Collaborators</div>
             <div id="max-collaborators" class="slider"></div>
 </div>
-<div class="slider-container"><div id="spectators">Spectators</div>
-              <div id="max-spectators" class="slider"></div>
-</div>
+
             <div id="filter-accordion" class="filters"></div>
         </div>
 

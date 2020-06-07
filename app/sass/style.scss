@@ -29,6 +29,9 @@ DO NOT EDIT IN STYLE.CSS
     @import "partials/video";
     @import "partials/slider";
     @import "partials/sponsors";
+    @import "partials/slick";
+    @import "partials/profile";
+    @import "partials/guide";
     /*
 @import "partials/admin";
 @import "partials/main";
@@ -1464,6 +1467,8 @@ General Styles - Owlcarousel
             color: #fff;
             padding: 5px;
             border-radius: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
         }
         form {
             p {

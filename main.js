@@ -51,7 +51,7 @@ function initSite() {
     }
     //var filters = "collaboration_type,platform"
 
-    var filters = "hardware_support,collaboration_type,platform,feature,industry"
+    var filters = "collaborators,hardware_support,collaboration_type,platform,feature,industry"
     setFilterAccordion(filters); //directory.js
     //    console.log("profiles", profile_posts);
     //  console.log("hardware", hardware_posts);
@@ -63,6 +63,16 @@ function initSite() {
         autoHeight: false,
         navigation: true
     });
+
+    if (profile_template != undefined) {
+
+        if (profile_template == 'full-profile-template') {
+
+            loadFullProfile(active_id)
+        }
+    } else if (profile_template == 'profile-template') {
+        loadActiveProfiles();
+    }
 
 
 
@@ -141,39 +151,118 @@ var directory_list = [],
 max_collaborators = '',
     max_spectators = ''
 
+function loadActiveProfiles() {
+    console.log(profile_posts);
+    var this_post = 0;
+    var active_profiles = {}
+    var logo = ''
 
+    for (p in profile_posts) {
+        if (profile_posts[p] != undefined) {
+            if (profile_posts[this_post].post_media.logo[0] != undefined) {
+                logo = profile_posts[this_post].post_media.logo[0].full_path
+                this_post = profile_posts[p];
+                active_profiles[p] = {
+
+                    'id': this_post,
+                    'value': value,
+                    'slug': profile_posts[this_post].slug,
+                    'filter': filter,
+                    'name': name,
+                    'instances': [{
+                        filter: filter,
+                        value: value,
+                        name: name
+                    }],
+                    'logo': logo,
+                    'max_collaborators': profile_posts[this_post].info.max_collaborators,
+                    'max_spectators': profile_posts[this_post].info.max_spectators,
+                    'company': profile_posts[this_post].info.company,
+                    'solution_name': profile_posts[this_post].info.solution_name,
+
+                    'title': profile_posts[this_post].title,
+                    'url': profile_posts[this_post].info.url,
+                    'route': '/' + profile_posts[this_post].type +
+                        '/' + profile_posts[this_post].slug
+                }
+
+            }
+
+        }
+
+    }
+    console.log("active", active)
+
+    return active_profiles;
+}
+
+function getFilterPosts(this_post, filter, value, name) {
+
+    var logo = ''
+    if (profile_posts[this_post].post_media.logo[0] != undefined) {
+        logo = profile_posts[this_post].post_media.logo[0].full_path
+    }
+
+
+    return post_data = {
+
+        'id': this_post,
+        'value': value,
+        'slug': profile_posts[this_post].slug,
+        'filter': filter,
+        'name': name,
+        'instances': [{
+            filter: filter,
+            value: value,
+            name: name
+        }],
+        'logo': logo,
+        'max_collaborators': profile_posts[this_post].info.max_collaborators,
+        'max_spectators': profile_posts[this_post].info.max_spectators,
+        'company': profile_posts[this_post].info.company,
+        'solution_name': profile_posts[this_post].info.solution_name,
+
+        'title': profile_posts[this_post].title,
+        'url': profile_posts[this_post].info.url,
+        'route': '/' + profile_posts[this_post].type +
+            '/' + profile_posts[this_post].slug
+    }
+
+}
 
 function setFilterAccordion(lists) {
     var accordion_filters = '<form id="filters">'
     jQuery.each(lists.split(','), function(i, v) {
         active_filters[v] = {}
-        accordion_filters += '<h3>' + v.replace("_", " ") + '</h3>';
-        accordion_filters += '<div class="accordion-drawer">'
-        if (v == 'hardware_support') {
+        if (v != 'collaborators') {
+            accordion_filters += '<h3>' + v.replace("_", " ") + '</h3>';
+            accordion_filters += '<div class="accordion-drawer">'
+            if (v == 'hardware_support') {
 
-            for (h in hardware) {
-                if (hardware[h].profiles.length > 0) {
+                for (h in hardware) {
+                    if (hardware[h].profiles.length > 0) {
 
 
-                    accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + hardware[h].slug + '" data-tax="' + v + '" value="' + hardware[h].id + '"><span class="data-label">' + hardware[h].title.rendered + '</span></span>'
+                        accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + hardware[h].slug + '" data-tax="' + v + '" value="' + hardware[h].id + '"><span class="data-label">' + hardware[h].title.rendered + '</span></span>'
+                    }
+
+                }
+            } else {
+                for (i in taxonomies[v]) {
+                    //   console.log("tax", taxonomies[v])
+
+                    if (taxonomies[v][i].posts.length) {
+                        accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + taxonomies[v][i].slug + '" data-tax="' + v + '" value="' + taxonomies[v][i].id + '"><span class="data-label">' + taxonomies[v][i].name + '</span></span>'
+                    }
+
                 }
 
-            }
-        } else {
-            for (i in taxonomies[v]) {
-                //   console.log("tax", taxonomies[v])
 
-                if (taxonomies[v][i].posts.length) {
-                    accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' + taxonomies[v][i].slug + '" data-tax="' + v + '" value="' + taxonomies[v][i].id + '"><span class="data-label">' + taxonomies[v][i].name + '</span></span>'
-                }
+
 
             }
-
-
-
-
+            accordion_filters += '</div>'
         }
-        accordion_filters += '</div>'
     })
     accordion_filters += '</div>'
     jQuery("#filter-accordion").html(accordion_filters)
@@ -182,21 +271,7 @@ function setFilterAccordion(lists) {
 
 }
 
-function sortFilters(filter, value) {
-    var this_filter = {}
-    if (filter === 'hardware_support') {
-        this_filter.name = hardware_posts[value].title.rendered
-        this_filter.posts = hardware_posts[value].profiles
-    } else {
-        this_filter.name = taxonomies[filter][value].name
-        this_filter.posts = taxonomies[filter][value].posts
-    }
-    //    console.log(this_filter)
 
-
-    return this_filter
-
-}
 
 function getFilterPosts(this_post, filter, value, name) {
 
@@ -228,58 +303,7 @@ function getFilterPosts(this_post, filter, value, name) {
 
 }
 
-function buildFilters(action, tax, value) {
-    active_filters[tax]
 
-    var display_filters = {}
-        //  console.log("profile_posts", profile_posts)
-
-
-    if (action === 'add') {
-        active_filters[tax][value] = sortFilters(tax, value)
-            //console.log("added", tax, value, active_filters, )
-
-    } else if (action === 'remove') {
-        //    
-        delete active_filters[tax][value]
-            //        delete filter_posts[value]
-            // console.log(active_filters, "removed", tax, value, active_filters)
-    }
-    filter_posts = {}
-    for (a in active_filters) {
-        for (f in active_filters[a]) {
-            for (p in active_filters[a][f].posts) {
-
-                this_post = active_filters[a][f].posts[p]
-
-
-                if (profile_posts[this_post] != undefined) {
-                    if (filter_posts[this_post] == undefined) {
-
-                        filter_posts[this_post] = getFilterPosts(profile_posts[this_post].id, a, f, active_filters[a][f].name)
-                    } else {
-                        filter_posts[this_post].instances.push({
-                            filter: a,
-                            value: f,
-                            name: active_filters[a][f].name
-                        })
-
-                    }
-                }
-            }
-        }
-    }
-
-
-    console.log("FILTER:", active_filters, action, tax, value)
-    console.log("FILTER posts:", filter_posts, action, tax, value)
-
-    buildRankedFilters()
-
-
-
-
-}
 
 function buildRankedFilters() {
     ranked_filters = {}
@@ -320,7 +344,7 @@ function getResultColumns(count) {
     if (is_even) {
         //   console.log("even", is_even, (count / 2) == parseInt(count / 2))
     }
-    return 'col-xs-6 col-sm-4 col-md-3 col-lg-2'
+    return 'col-xs-6 col-sm-4 col-md-4 col-lg-3'
     if (count == '1') {
         return 'col-offset-xs-4 col-xs-4'
 
@@ -458,53 +482,139 @@ function displayFilters() {
 
 function getStatPosts() {
     //console.log("profile posts", profile_posts)
+    var collaborators = []
     var spectator_lists = [],
         lists_lists = [],
         filter_posts = {}
-    for (i in max.spectators) {
-        //  console.log(spectators[i]);
+        /*    for (i in max.spectators) {
+                //  console.log(spectators[i]);
 
-        for (p = 0; p < max.spectators[i].length; p++) {
-            if (profile_posts[p] != undefined) {
-                filter_posts[p] = getFilterPosts(max.spectators[i][p])
+                for (p = 0; p < max.spectators[i].length; p++) {
+                    if (profile_posts[p] != undefined) {
+                        filter_posts[p] = getFilterPosts(max.spectators[i][p])
 
-                console.log("spectator_posts", i, profile_posts[max.spectators[i][p]].title)
+                        console.log("spectator_posts", i, profile_posts[max.spectators[i][p]].title)
 
-            }
+                    }
 
-        }
-    }
+                }
+            }*/
     for (i in max.collaborators) {
-        //  console.log(collaboratorsi]);
+        //    console.log(i, max.collaborators[i]);
+        for (p in max.collaborators) {
 
-        for (p = 0; p < max.collaborators[i].length; p++) {
             if (profile_posts[p] != undefined) {
+                collaborators.push = max.collaborators[p]
                 console.log("collaborators_posts", i, profile_posts[max.collaborators[i][p]].title)
+                console.log('concat posts', collaborators)
             }
         }
+
     }
+    console.log('concat posts', collaborators)
+    return collaborators
 
 }
 
+function sortFilters(filter, value) {
+    var this_filter = {}
+    if (filter === 'hardware_support') {
+        this_filter.name = hardware_posts[value].title.rendered
+        this_filter.posts = hardware_posts[value].profiles
+    } else if (filter === 'collaborators') {
+        this_filter.name = "Max Collaborators"
+        this_filter.posts = max.collaborators[value]
+
+    } else {
+        this_filter.name = taxonomies[filter][value].name
+        this_filter.posts = taxonomies[filter][value].posts
+    }
+    //    console.log(this_filter)
+
+
+    return this_filter
+
+}
+
+function buildFilters(action, tax, value) {
+    active_filters[tax]
+
+    var display_filters = {}
+        //  console.log("profile_posts", profile_posts)
+
+
+    if (action === 'add') {
+
+        if (tax == 'collaborators') {
+            active_filters[tax] = []
+        }
+
+        active_filters[tax][value] = sortFilters(tax, value)
+
+        console.log("added", tax, value, active_filters)
+            //       console.log("added", tax, value, active_filters)
+
+    } else if (action === 'remove') {
+        //    
+        delete active_filters[tax][value]
+            //        delete filter_posts[value]
+            // console.log(active_filters, "removed", tax, value, active_filters)
+    }
+    filter_posts = {}
+    console.log("C", max.collaborators[value])
+    for (a in active_filters) {
+        for (f in active_filters[a]) {
+            for (p in active_filters[a][f].posts) {
+
+                this_post = active_filters[a][f].posts[p]
+
+
+                if (profile_posts[this_post] != undefined) {
+                    if (filter_posts[this_post] == undefined) {
+
+                        filter_posts[this_post] = getFilterPosts(profile_posts[this_post].id, a, f, active_filters[a][f].name)
+                    } else {
+                        filter_posts[this_post].instances.push({
+                            filter: a,
+                            value: f,
+                            name: active_filters[a][f].name
+                        })
+
+                    }
+                }
+            }
+        }
+    }
+
+
+    console.log("FILTER:", active_filters, action, tax, value)
+    console.log("FILTER posts:", filter_posts, action, tax, value)
+
+    buildRankedFilters()
+
+
+
+
+}
 
 function setMax(label, value) {
 
     var min = parseInt(value) - 4
-    max_posts[label] = {}
+    max_posts[label] = []
     var _obj = {}
     for (var i = min; i <= parseInt(value); i++) {
         if (max[label][i] != undefined) {
-            console.log(label, i, max[label][i])
-            _obj = max[label][i]
-            $.extend(max_posts[label], _obj)
+            //console.log('collab-loop', label, i, max[label][i])
+            max_posts[label][max_posts[label].length] = max[label][i]
         }
 
 
 
     }
+    console.log("setMax", max_posts[label])
+    return max_posts[label]
 
 
-    console.log("max_posts", max_posts)
 
 }
 
@@ -517,14 +627,20 @@ $(function() {
         slide: function(event, ui) {
             var val = ui.value - 4 + '-' + ui.value
             max_collaborators = ui.value
-            setMax('collaborators', max_collaborators)
+            var collaborators = setMax('collaborators', max_collaborators)
+
+            if (active_filters.collaborators != undefined) {
+                buildFilters('remove', 'collaborators', max_collaborators)
+            }
+            buildFilters('add', 'collaborators', max_collaborators)
+
             $("#collaborators").html('Collaborators ' + val);
             $("#max-collaborators span.ui-slider-handle").html(val);
         }
     });
     // $("#collaborators").val("$" + $("#max-collaborators").slider(val));
 });
-
+/*
 
 $(function() {
     $("#max-spectators").slider({
@@ -542,6 +658,7 @@ $(function() {
     });
     //  $("#max-spectators").val("$" + $("#max-spectators").slider("value"));
 });
+*/
 
 /***
  * CLICK ON PROFILE LOGO
@@ -685,14 +802,14 @@ function setData(data) { //sets all content arrays
     }
 
     hardware = data.hardware
-    console.log("HRDWARE", hardware)
+        //  console.log("HRDWARE", hardware)
     for (h in hardware) {
         hardware[h].name = hardware[h].title.rendered
         hardware_posts[hardware[h].id] = hardware[h]
 
     }
-    console.log("HARDWARE", hardware_posts)
-        //  setPosts(data.social)
+    //console.log("HARDWARE", hardware_posts)
+    //  setPosts(data.social)
     setCategories(data.categories)
 
     var taxonomies = "industry,feature,collaboration_type,platform"
@@ -1522,7 +1639,7 @@ function loadActiveProfile(id) {
         use_cases = use_cases.substring(0, 200);
     }
 
-    $('#profile-template .use-cases').html(use_cases + " <a href='" + filter_posts[id].route + "'>more..</a>")
+    $('#profile-template .use-cases').html(use_cases) // + " <a href='" + filter_posts[id].route + "'>more..</a>"
 
 
     /*TAGS*/
@@ -1536,7 +1653,7 @@ function loadActiveProfile(id) {
 
     var profile_collaboration_type = getProfileTags('Collaboration Types', taxonomies.collaboration_type, this_profile.collaboration_type, 'collaboration_type')
 
-    var profile_link = '<a href="' + filter_posts[id].route + '" class="profile-link" title="View the full profile of ' + this_profile.info.company + '">For more information on ' + this_profile.info.company + '<br>View their full XR Collaboration Profile</a>'
+    var profile_link = '<a href="' + filter_posts[id].route + '" class="profile-link" target="_new"  title="View the full profile of ' + this_profile.info.company + '">For more information on ' + this_profile.info.company + '<br>View their full XR Collaboration Profile</a>'
 
     $('#profile-template .view-profile').html(profile_link);
     var template = jQuery('#profile-template').html();
@@ -1546,11 +1663,223 @@ function loadActiveProfile(id) {
 
 }
 
-function getProfileTags(label, tag_data, tags, el) {
-    console.log(label, tags, el)
-    var profile_tag_labels = []
-    console.log(tag_data)
 
+function loadFullProfile(id) {
+
+    var this_profile = profile_posts[id]
+        /* LOGO */
+    console.log(this_profile)
+
+
+
+
+
+
+    /* COMPANY */
+    $('#full-profile-template .solution_name h1').html(this_profile.info.solution_name);
+
+    /* SOLUTION NAME */
+    $('#full-profile-template .company h2').html("by: " + this_profile.info.company);
+
+    /* EXCERPT */
+    $('#full-profile-template .blurb').html(profile_posts[id].excerpt.rendered);
+
+    var demo_video = profile_posts[id].info.demo_video
+    console.log("demo video", demo_video)
+
+    if (demo_video != undefined && demo_video != undefined != '') {
+        if (demo_video.includes('youtu')) {
+            $('#full-profile-template .demo-video').html(embedYouTubeVideo(demo_video));
+        }
+    }
+
+
+    $('#full-profile-template .profile-contact').html(getProfileContact(profile_posts[id].info));
+
+
+    /* Use Cases */
+    var use_cases = profile_posts[id].info.use_cases
+    if (use_cases.length > 200) {
+        //        use_cases = use_cases.substring(0, 200);
+    }
+
+    var route = '/' + profile_posts[id].type +
+        '/' + profile_posts[id].slug
+    $('#full-profile-template .use-cases').html(use_cases)
+
+
+    /*TAGS*/
+    var profile_hardware = getProfileTags('Hardware', hardware_posts, this_profile.support_hardware, 'hardware')
+
+    var profile_platform = getProfileTags('Platforms', taxonomies.platform, this_profile.platform, 'platform')
+
+    var profile_industry = getProfileTags('Industries', taxonomies.industry, this_profile.industry, 'industry')
+
+    var profile_feature = getProfileTags('Features', taxonomies.feature, this_profile.feature, 'feature')
+
+    var profile_collaboration_type = getProfileTags('Collaboration Types', taxonomies.collaboration_type, this_profile.collaboration_type, 'collaboration_type')
+
+    //   var profile_link = '<a href="' + filter_posts[id].route + '" class="profile-link" title="View the full profile of ' + this_profile.info.company + '">For more information on ' + this_profile.info.company + '<br>View their full XR Collaboration Profile</a>'
+
+    //$('#full-profile-template .view-profile').html(profile_link);
+    var logo_path = profile_posts[id].post_media.logo[0].full_path
+    var logo = '<img src="' + logo_path + '" alt="' + this_profile.info.company + ' logo">'
+    $('#full-profile-template .profile-logo').html(logo);
+    if (this_profile.post_media != undefined) {
+
+
+
+
+        var heros = getHeroImages(id)
+        if (heros.length > 0) {
+
+
+            var hero = heros[0].laptop
+        }
+        if (hero != undefined) {
+            $('#profile-hero').css('background-image', 'url(' + hero + ')');
+        } else {
+            $('#profile-hero').css('display', 'none');
+            $('#main').css('margin-top', '100px;');
+        }
+    }
+
+    var template = jQuery('#full-profile-template').html();
+
+    /* INJECTION */
+
+
+    $('#full-profile').html(template)
+
+}
+
+
+function getProfileContact(info) {
+    console.log(info)
+    var contact = {}
+
+    if (info.url == undefined) { contact.url = '' }
+
+    if (info.email == undefined) { contact.email = '' }
+
+    for (f in info) {
+        //  console.log(f, info[f])
+        if (f == 'url') {
+
+            contact[f] = '<a class="contact" href="' + info[f] + '" target=_new" title="' + info[f] + '">Website</a><br>'
+
+        } else if (f == 'email') {
+            if (info[f] != undefined) {
+                contact[f] = '<a class="contact" href="mailto:' + info[f] + '"title="email' + info[f] + '">email</a><br>'
+            } else {
+                contact[f] = ''
+            }
+        } else {
+            contact[f] = '<a class="contact fa fa-' + f + '" href="' + info[f] + '" target=_new" title="' + info[f] + '"></a><br>'
+        }
+
+    }
+    result = contact.url + contact.email
+    result += showSocial(info, 'linkedin');
+    result += showSocial(info, 'twitter');
+    result += showSocial(info, 'facebook');
+    result += showSocial(info, 'instagram');
+    return result;
+
+
+}
+
+function showSocial(info, f) {
+    if (info[f] != undefined) {
+        return info[f] = '<a class="contact social-icon fa fa-' + f + '" href="' + info[f] + '" target=_new" title="' + info[f] + '"></a>'
+    } else {
+        return ''
+    }
+
+}
+
+function getHeroImages(id) {
+
+    profile_data = profile_posts[id]
+    console.log(profile_data)
+    if (profile_data.post_media.screenshot.length > 0) {
+        var screenshots_array = profile_data.post_media.screenshot
+        var screenshots_data = []
+
+        if (screenshots_array.length > 0) {
+            for (var s = 0; s < screenshots_array.length; s++) {
+                this_image = screenshots_array[s]
+                if (this_image.meta.sizes != undefined) {
+                    var image_data = {
+                        path: this_image.path,
+                        alt: this_image.alt,
+                        title: this_image.title,
+                        mobile: uploads_path + this_image.path + this_image.meta.sizes.medium,
+                        tablet: uploads_path + this_image.path + this_image.meta.sizes.medium_large,
+                        laptop: uploads_path + this_image.path + this_image.meta.sizes.large,
+                        desktop: uploads_path + this_image.path + this_image.meta.sizes.hero,
+
+                    }
+                    screenshots_data.push(image_data)
+                } else if (this_image.file != '') {
+                    if (this_image.full_path != undefined) {
+                        var image_data = {
+                            full_path: this_image.full_path
+                        }
+                        screenshots_data.push(image_data)
+                    }
+                }
+            }
+            return screenshots_data
+        }
+
+    } else {
+        return []
+    }
+
+    console.log("heros", screenshots_data)
+
+}
+
+
+
+
+
+
+function embedYouTubeVideo(url) {
+    var ID = '';
+    url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    if (url[2] !== undefined) {
+        ID = url[2].split(/[^0-9a-z_\-]/i);
+        ID = ID[0];
+    } else {
+        ID = url;
+    }
+    return '<div class="video-wrap"><iframe  src="//www.youtube.com/embed/' + ID + '?" frameborder="0" allowfullscreen></iframe></div>'
+
+}
+
+
+
+jQuery(function() {
+    $(".mail").keyup(function() {
+        var VAL = this.value;
+
+        var email = new RegExp('^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$');
+
+        if (email.test(VAL)) {
+            alert('Great, you entered an E-Mail-address');
+        }
+    });
+});
+
+
+function getProfileTags(label, tag_data, tags, el) {
+    //console.log(label, tags, el)
+    var profile_tag_labels = []
+
+    var element = '#' + profile_template + ' .' + el
+        //console.log(element)
     if (tags.length > 0) {
 
         for (var t = 0; t < tags.length; t++) {
@@ -1559,13 +1888,104 @@ function getProfileTags(label, tag_data, tags, el) {
             //   profile_tag_labels.push(hardware_posts[t].title.rendered)
         }
         console.log(label + " tags", profile_tag_labels.join(","))
-        var element = '#profile-template .' + el
+
         $(element).html("<span class='filter-type'>" + label + ":</span> " + profile_tag_labels.join(", "));
 
     } else {
-        $('#profile-template .' + el).css("display:none")
+        $(element).css("display:none")
     }
 }
+
+function loadProfile(id) {
+    return profile_posts[id]
+
+}
+var gotoslide = function(slide){
+  //console.log("click on slick dot ", slide);
+   setSlideContent(notch, menus['wheel-menu'].linear_nav[slide].object_id)
+    $( '.slideshow' ).slickGoTo(parseInt(slide));
+}
+
+jQuery('.slick-dots li button').on('click', function (e) {
+   e.stopPropagation(); // use this
+  //console.log("slick dot clicked")
+});
+
+function setSlideShow(menu){
+  jQuery('.slideshow').slick({
+  //	autoplay: true,
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 1000,
+    fade: true,
+    cssEase:  'linear',
+    focusoOnSelect: true,
+    //nextArrow: '<i class="slick-arrow slick-next"></i>',
+    //prevArrow: '<i class="slick-arrow slick-prev"></i>',
+  });
+
+   //console.log("set slideshow")
+}
+function setSlide(slide,id){
+  /*
+  these carousel slides are created here, but their content is populated dynamically
+  because it was unreliable populating the content in a loop
+  see setSlideContent in app.js
+  */
+  slide = '\n<div><div id="slide'+id+'" data-id="'+id+'" class="slide-wrap">'
+  slide += '\n\t<h2></h2>'
+  slide += '\n\t<div class="img-wrap"></div>'
+  slide += '\n\t<section><div class="content"></div></section>'
+  slide +='\n</div></div>\n';
+  return slide
+}
+
+function setSlides(m){
+  var id="0"
+  var content = ''
+  var title = ''
+  var slides = ''
+//console.log("Begin Render Slides",m,"|")
+ 
+  if(posts == undefined){
+    //console.log("No Posts Data Yet",  posts)
+    window.setTimeout(setSlides(m), 100);//without this, we cannot relay that the post data is available yet
+  } else {
+  
+  for(i=0;menus[m].linear_nav[i];i++){
+    //console.log("slides", menus[m].linear_nav[i])
+     id = menus[m].linear_nav[i].object_id.toString()
+  
+      slides += setSlide(i,id)
+   
+  }
+ //console.log("slides rendered",slides)
+
+  jQuery('#'+m+'-content').html(slides);
+ 
+  }
+}
+
+var $carousel = jQuery('.slideshow');
+jQuery(document).on('keydown', function(e) {
+    if(e.keyCode == 37) {
+        $carousel.slick('slickPrev');
+    }
+    if(e.keyCode == 39) {
+        $carousel.slick('slickNext');
+    }
+});
+
+jQuery('a[data-slide]').click(function(e) {
+       // console.log("click on slick dot ", slide);
+  e.preventDefault();
+  var slide = jQuery(this).data('slide');
+  //console.log("click on slick dot ", slide);
+  setSlideContent(notch, menus['wheel-menu'].linear_nav[slide].object_id)
+  //$carousel.slick('slickGoTo', slideno);
+
+});
 function setChildCategories(data) {
     for (var i = 0; i < data.length; i++) {
         categories[data[i].id] = data[i]
@@ -1594,7 +2014,7 @@ function setTaxonomy(data, tax) {
             taxonomies[tax][data[tax][i].id] = data[tax][i]
         }
     }
-    console.log(tax, taxonomies[tax])
+    // console.log(tax, taxonomies[tax])
 
     return data
 }

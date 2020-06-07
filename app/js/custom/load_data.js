@@ -108,14 +108,14 @@ function setData(data) { //sets all content arrays
     }
 
     hardware = data.hardware
-    console.log("HRDWARE", hardware)
+        //  console.log("HRDWARE", hardware)
     for (h in hardware) {
         hardware[h].name = hardware[h].title.rendered
         hardware_posts[hardware[h].id] = hardware[h]
 
     }
-    console.log("HARDWARE", hardware_posts)
-        //  setPosts(data.social)
+    //console.log("HARDWARE", hardware_posts)
+    //  setPosts(data.social)
     setCategories(data.categories)
 
     var taxonomies = "industry,feature,collaboration_type,platform"

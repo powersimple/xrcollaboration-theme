@@ -42,7 +42,7 @@ add_action( 'rest_api_init', 'register_post_media' );
 
 function get_post_media( $object ) { 
 
-	$postmeta_media_fields = "hero,_thumbnail_id,featured_video,screen_image,logo";
+	$postmeta_media_fields = "hero,_thumbnail_id,featured_video,screen_image,screenshot,logo";
 
 	
 	foreach(explode(",",$postmeta_media_fields) as $key  => $field){
@@ -336,7 +336,7 @@ function get_post_tags($object){
 		
     function get_profile_info( $object ) {
         $post_id = $object['id'];
-        $fields = "company,solution_name, unique_value_proposition,tagline,use_cases,max_spectators,max_collaborators,demo_video,url, description,email,facebook,flickr,GitHub,google_plus,instagram,linkedin,location,medium,pinterest,rss,skype,slack,telegram,Tumblr,twitter,vimeo,website,wikipedia,youtube,acronym,name,apply_url,blog_url,conference_url,contact_url,events_url,jobs_url,logo_svgtag,logo_url";
+        $fields = "company,solution_name, unique_value_proposition,tagline,use_cases,max_spectators,max_collaborators,demo_video,video_embed_code,url, description,email,facebook,flickr,GitHub,google_plus,instagram,linkedin,location,medium,pinterest,rss,skype,slack,telegram,Tumblr,twitter,vimeo,website,wikipedia,youtube,acronym,name,apply_url,blog_url,conference_url,contact_url,events_url,jobs_url,logo_svgtag,logo_url";
 
         $profile_info = array();
 
@@ -349,6 +349,35 @@ function get_post_tags($object){
         return $profile_info;
 	}
 	
+
+/*
+	Screen Images
+
+*/
+add_action( 'rest_api_init', 'register_screenshots' );
+ function register_screenshots() {
+ 
+
+	register_rest_field( array('profile'), 'screenshots', array(
+		'get_callback' => 'get_screenshots'
+
+		)
+	);
+}
+ 
+function get_screenshots( $object ) {
+
+ return get_post_meta($object['id'],"screenshot") ;//from functions.php,
+}
+
+
+
+
+
+
+
+
+
 
 add_action( 'rest_api_init', 'register_support_hardware' );
 		
