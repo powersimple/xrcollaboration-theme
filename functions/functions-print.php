@@ -192,10 +192,10 @@ function wp_get_menu_array($current_menu) {
 }
 
 
-function sectionMenu($menu,$image_field,$cols){
+function xsectionMenu($menu,$image_field,$cols){
         $section_menu = wp_get_menu_array($menu);
         if($cols == 4){
-            $default_cols = 'col-sm-3';
+            $default_cols = 'col xs-6 col-sm-3';
         } else if ($cols == 3){
             $default_cols = 'col-sm-4';
         }
@@ -203,7 +203,7 @@ function sectionMenu($menu,$image_field,$cols){
         ob_start();
 
 
-        print "<table align='center' class='$menu section_menu'><tr>";
+        print "<div align='center' class='$menu section_menu'><div class='row display-flex'>";
         $counter = 1;
         foreach($section_menu as $key){
             $colspan = '';
@@ -222,10 +222,10 @@ function sectionMenu($menu,$image_field,$cols){
             }
             if(in_array("left-1-col",@$key['classes'])){
                
-                print "<td class='$this_class'></td>";
+                print "<div class='$this_class'></div>";
             }
 
-            print "<td $colspan class='$this_class'>";
+            print "<div n class='$this_class display-flex'>";
             if(@$title){
                
               print "<a href='$url' target='_blank'><img src='$key[$image_field]' alt='$title logo'><BR><strong>$title</strong>";
@@ -236,31 +236,122 @@ function sectionMenu($menu,$image_field,$cols){
              print "</a>";
                     
             }
-            print "</td>";
+            print "</div>";
             if(in_array("right-1-col",@$key['classes'])){
                
-                print "<td class='$this_class'></td>";
+                print "<div class='$this_class'></div>";
             }
             if($cols == '4' && (($counter/4) == intval($counter/4))){
-                print "</tr></tr>";
+               // print "</tr><tr class='row display-flex'>";
             } else if($cols == '3' && (($counter/3) == intval($counter/3))){
-                print "</tr></tr>";
+             //   print "</tr><tr class='row display-flex'>";
                 
 
             } 
             if(in_array("lead-sponsor",@$key['classes'])){
-                print "</tr></tr>";
+              //  print "</tr><tr class='row display-flex'>";
                 // skips counting for first row.    
 
             } else{ 
                 $counter++;
             }
         }
-        print "</tr></table>";
+        print "</div></div>";
  
         return ob_get_clean();
       
 }
+
+
+function sectionMenu($menu,$image_field,$cols){
+    $section_menu = wp_get_menu_array($menu);
+    if($cols == 4){
+        $default_cols = 'col-sm-3';
+    } else if ($cols == 3){
+        $default_cols = 'col-sm-4';
+    }
+    
+    ob_start();
+
+
+    print "<table align='center' class='$menu section_menu'><tr y-flex'>";
+    $counter = 1;
+    foreach($section_menu as $key){
+        $colspan = '';
+        if(in_array("lead-sponsor",@$key['classes'])){
+            if($cols == 4){
+                $span = 2;
+            } else if ($cols ==3){
+                $span = 1;
+            }
+            $colspan = "colspan = $span";
+        }
+        extract($key);
+        $this_class = trim(implode(" ",@$key['classes']));
+        if( $this_class == ''){
+            $this_class = "$default_cols";
+        }
+        if(in_array("left-1-col",@$key['classes'])){
+           
+            print "<td class='$this_class'></td>";
+        }
+
+        print "<td $colspan class='$this_class display-flex'>";
+        if(@$title){
+           
+          print "<a href='$url' target='_blank'><img src='$key[$image_field]' alt='$title logo'><BR><strong>$title</strong>";
+               if(@$company){
+                    print "<br>".$company;
+                    
+                    }
+         print "</a>";
+                
+        }
+        print "</td>";
+        if(in_array("right-1-col",@$key['classes'])){
+           
+            print "<td class='$this_class'></td>";
+        }
+        if($cols == '4' && (($counter/4) == intval($counter/4))){
+            print "</tr></tr>";
+        } else if($cols == '3' && (($counter/3) == intval($counter/3))){
+            print "</tr></tr>";
+            
+
+        } 
+        if(in_array("lead-sponsor",@$key['classes'])){
+            print "</tr></tr>";
+            // skips counting for first row.    
+
+        } else{ 
+            $counter++;
+        }
+    }
+    print "</tr></table>";
+
+    return ob_get_clean();
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getHardwareGroup($parent_id){
     $hardware_list = getHardwareListing($parent_id);
    
@@ -303,6 +394,15 @@ function getHardwareGroup($parent_id){
     return $hardware;
 }
 
+function replace_page_breaks($content){
+   
+    
+
+ //$content = str_replace("<!--nextpage-->",'<hr class="page-break">',$content); 
+    
+
+
+}
 
 
 function replace_vars($content,$slug,$link_type="link"){
@@ -337,21 +437,20 @@ function replace_vars($content,$slug,$link_type="link"){
 
 
     
-
-
-    $content = str_replace("<!--nextpage-->",'<hr class="page-break">',$content); 
     
+
+
+   
     
     return $content;
 }
-function print_footer(){
-    global $page_counter;
+function print_footer($page_counter){
     ob_start();
     print '<div class="row page-footer">&copy;2020 XR IGNITE INC - PLEASE SHARE THIS PUBLICATION! - <a href="https://xrcollaboration.com"><strong>XR</strong>COLLABORATION.COM</a><br><span class="dots">';
     include __DIR__."/../images/footer-dots-01.svg";
-    print "<span class='page_number'>$page_counter</span>";
+    print "</span><span class='page_number'>$page_counter</span>";
     print '</div>';
-    $page_counter++;
+
     return ob_get_clean();
 }
 

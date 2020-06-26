@@ -1,10 +1,34 @@
+function displayValidField() {
+
+}
+
+
 function loadActiveProfile(id) {
     var this_profile = profile_posts[id]
     console.log("profile-posts", profile_posts[id], filter_posts[id])
         /* LOGO */
-    var logo = '<img src="' + filter_posts[id].logo + '" alt="' + this_profile.info.company + ' logo">'
-    $('#profile-template .profile-logo').html(logo);
+        var logo = ''
+        if (profile_posts[id].post_media.logo != undefined) {
+            
+            var logo_path = this_profile.post_media.logo[0].full_path
+            console.log("logo path",logo_path)
+            var logo = '<img src="' + logo_path + '" alt="' + this_profile.info.company + ' logo">'
+            
+        } else { logo = ''}
 
+            var route = '/' + profile_posts[id].type + '/' + profile_posts[id].slug
+
+            if (this_profile.post_media != undefined) {
+
+            var logo_path = this_profile.post_media.logo[0].full_path
+            console.log("logo path",logo_path)
+            var logo = '<img src="' + logo_path + '" alt="' + this_profile.info.company + ' logo">'
+
+            console.log("logo",logo)
+            
+            //$('#full-profile-template .profile-logo').html(logo);
+            }
+            $('#profile-template .profile-logo').html(logo);
     /* COMPANY */
     $('#profile-template .solution_name h4').html(this_profile.info.solution_name);
 
@@ -14,12 +38,17 @@ function loadActiveProfile(id) {
     /* EXCERPT */
     $('#profile-template .blurb').html(profile_posts[id].excerpt.rendered);
     /* Use Cases */
-    var use_cases = profile_posts[id].info.use_cases
-    if (use_cases.length > 200) {
-        use_cases = use_cases.substring(0, 200);
+    if (profile_posts[id].info.use_cases != undefined) {
+        var use_cases = profile_posts[id].info.use_cases
+        if (use_cases.length > 200) {
+            use_cases = use_cases.substring(0, 200);
+        }
     }
 
     $('#profile-template .use-cases').html(use_cases) // + " <a href='" + filter_posts[id].route + "'>more..</a>"
+
+    var route = '/' + profile_posts[id].type + '/' + profile_posts[id].slug
+
 
 
     /*TAGS*/
@@ -33,7 +62,7 @@ function loadActiveProfile(id) {
 
     var profile_collaboration_type = getProfileTags('Collaboration Types', taxonomies.collaboration_type, this_profile.collaboration_type, 'collaboration_type')
 
-    var profile_link = '<a href="' + filter_posts[id].route + '" class="profile-link" target="_new"  title="View the full profile of ' + this_profile.info.company + '">For more information on ' + this_profile.info.company + '<br>View their full XR Collaboration Profile</a>'
+    var profile_link = '<a href="' + route + '" class="profile-link" target="_new"  title="View the full profile of ' + this_profile.info.company + '">For more information on ' + this_profile.info.company + '<br>View their full XR Collaboration Profile</a>'
 
     $('#profile-template .view-profile').html(profile_link);
     var template = jQuery('#profile-template').html();
@@ -48,7 +77,7 @@ function loadFullProfile(id) {
 
     var this_profile = profile_posts[id]
         /* LOGO */
-    console.log(this_profile)
+  //  console.log(this_profile)
 
 
 
@@ -78,13 +107,13 @@ function loadFullProfile(id) {
 
 
     /* Use Cases */
-    var use_cases = profile_posts[id].info.use_cases
-    if (use_cases.length > 200) {
-        //        use_cases = use_cases.substring(0, 200);
+    if (profile_posts[id].info.use_cases != undefined) {
+        var use_cases = profile_posts[id].info.use_cases
+        if (use_cases.length > 200) {
+            //        use_cases = use_cases.substring(0, 200);
+        }
     }
 
-    var route = '/' + profile_posts[id].type +
-        '/' + profile_posts[id].slug
     $('#full-profile-template .use-cases').html(use_cases)
 
 

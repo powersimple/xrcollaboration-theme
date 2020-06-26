@@ -44,12 +44,17 @@ input[type=checkbox].form-checkbox {
     background-color: $dark_gray;
     background: linear-gradient(135deg, #000000 0%, #373737 28%, #3f3f3f 57%, #1c1c1c 86%, #000 100%);
     border-radius: 10px;
-    box-shadow: 7px 7px 8px 4px rgba(0, 0, 0, 0.53);
+    box-shadow: -5px 2px 5px 3px rgba(0, 0, 0, 0.53);
+    margin-bottom:20px;
     h4 {
         color: $light_blue;
         padding-top: .5em;
         text-align: center;
     }
+}
+.get-listed{
+    text-align: center;
+    font-weight: 700;
 }
 
 .accordion-drawer {

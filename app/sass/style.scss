@@ -159,66 +159,20 @@ DO NOT EDIT IN STYLE.CSS
     #hiddenCanvas {
         display: none;
     }
-    /*--------------------------------------------------------------
-	Common
---------------------------------------------------------------*/
-    
-    h1 {
-        font-size: 24pt;
-        font-weight: 700;
-        line-height: 26pt;
-        margin-bottom: 12pt;
-    }
-    
-    h2 {
-        font-size: 20pt;
-        font-weight: 600;
-    }
-    
-    h3 {
-        font-size: 16pt;
-        font-weight: 600;
-    }
-    
-    h4 {
-        font-size: 14pt;
-        font-weight: 600;
-    }
-    
-    a.toc-h1 {
-        font-size: 12pt;
-        font-weight: 700;
-    }
-    
-    a.toc-h2 {
-        font-size: 11pt;
-        font-weight: 600;
-        padding-left: .5in;
-    }
-    
-    a.toc-h3 {
-        font-size: 10pt;
-        font-weight: 400;
-        padding-left: 1in;
-        white-space: nowrap;
-    }
-    
-    a.toc-h4 {
-        font-size: 9pt;
-        font-weight: 400;
-        padding-left: 1.2in;
-    }
-    
+
     html,
     body {
         min-height: 100vh;
         display: block;
+        max-width:100%;
+        overflow-x: hidden;
+        @media(px){
+          
+        }
     }
     
     html {
-        overflow-y: scroll;
-        overflow-x: hidden;
-        -ms-overflow-style: scrollbar;
+      
     }
     
     body {
@@ -1452,7 +1406,7 @@ General Styles - Owlcarousel
         background-color: $darkest_gray;
         color: #fff;
         h2 {
-            color: $blue;
+            color: $light_blue;
         }
         input,
         textarea,
@@ -1479,7 +1433,7 @@ General Styles - Owlcarousel
     
     .home-section {
         position: relative;
-        background-color: #fff;
+        background: rgba(10, 10, 10,0.9);
         background-repeat: no-repeat;
         background-position: center center;
         width: 100%;

@@ -155,6 +155,8 @@ if ( ! class_exists( 'WP_REST_Menus' ) ) :
                             "classes" => implode(" ",$value->classes),       
                             "description" => $value->description,
                             'target' => $value->target,
+                            'xfn' => $value->xfn,
+                            
                             
                             )
                     );

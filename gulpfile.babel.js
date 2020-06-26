@@ -1,4 +1,4 @@
-var localhost = 'http://xrcollaboration.192.168.1.16.xip.io:8888' // SET local dev url here
+var localhost = 'http://xrcollaboration.192.168.1.24.xip.io:8888' // SET local dev url here
 const { gulp, src, dest, watch } = require('gulp'),
     sass = require('gulp-sass'),
     minifyCSS = require('gulp-csso'),

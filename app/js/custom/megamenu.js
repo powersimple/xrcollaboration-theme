@@ -40,7 +40,7 @@ function getMegaMenu(items, parent_classes) {
             ulclass = this_item.classes + '-ul'
 
         }
-        //console.log(this_item)
+    
 
         if (this_item.classes != undefined) {
             if (this_item.classes.indexOf('mega-drop-down')) {
@@ -68,6 +68,7 @@ function getMegaMenu(items, parent_classes) {
             if (this_item.object == 'gradelevel') {
                 //   console.log("obj", this_item)
             }
+           
             switch (this_item.object) {
                 case "feature":
                     link = this_item.url
@@ -93,7 +94,10 @@ function getMegaMenu(items, parent_classes) {
                     // default: link = '#';
             }
             //    console.log(this_item)
-
+            if(this_item.xfn != ''){
+                this_item.url += '#'+this_item.xfn
+                link += '#'+this_item.xfn
+            }
             if (this_item.url == '') {
                 //menu_items += '<' + outer + ' ' + classes + '><span>' + this_item.title + '</span>' this needs to open the dropdown
                 if (this_item.target != '') {

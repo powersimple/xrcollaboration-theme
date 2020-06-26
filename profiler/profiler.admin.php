@@ -198,6 +198,11 @@ function setProfileContactInfo( $meta_boxes ) { // this shows the box were
 				'name' => esc_html__( 'Company', 'metabox-online-generator' ),
 			),
 			array(
+				'id' => 'solution_name',
+				'type' => 'text',
+				'name' => esc_html__( 'Solution Name', 'metabox-online-generator' ),
+			),
+			array(
 				'id' => 'contact_name',
 				'type' => 'text',
 				'name' => esc_html__( 'Contact Name', 'metabox-online-generator' ),

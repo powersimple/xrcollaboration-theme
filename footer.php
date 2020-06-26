@@ -55,15 +55,9 @@
     fbq('track', 'PageView');
 
 
-    document.addEventListener( 'wpcf7mailsent', function( event ) {
-      var pdf = '/wp-content/uploads/2020/05/XR-Collaboration-V4.pdf'
-
-  var link = document.createElement('a');
-      link.href = pdf;
-      link.download = 'XR-Collaboration-A-Global-Resource-Guide.pdf';
-      link.dispatchEvent(new MouseEvent('click'));
    
-}, false );
+
+  
 </script>
 <noscript><img height="1" width="1" style="display:none"
                src="https://www.facebook.com/tr?id=270382797454860&ev=PageView&noscript=1"

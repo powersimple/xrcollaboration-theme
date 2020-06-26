@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800&display=swap");
 #header,
 footer,
-#sponsor-footer {
+#sponsor-footer,
+#pojo-a11y-toolbar,
+#directory-filters {
   display: none; }
 
 html,
@@ -29,13 +31,11 @@ tr {
 
 section {
   clear: both;
-  page-break-after: always;
   max-width: 8.5in;
   position: relative; }
 
 section:last-child {
   clear: both;
-  page-break-before: always;
   max-width: 8.5in;
   position: relative; }
 
@@ -114,7 +114,6 @@ li {
   .container {
     max-width: 100%; }
   hr.page-break {
-    page-break-after: always;
     max-width: 100%;
     display: block;
     position: relative;
@@ -244,14 +243,29 @@ a.toc-h4 {
     table.video-conferencing td a strong {
       font-size: 10pt; } }
 
+section.print-page {
+  page-break-after: always; }
+
 .page-footer {
   display: block;
   position: absolute;
-  top: 10.25in;
+  top: 10.5in;
   text-align: center;
   width: 100%;
   left: 0;
   padding: 0px; }
+  .page-footer span.page_number {
+    background: #1b7d8e !important;
+    color: #fff !important;
+    padding: 3px;
+    border-radius: 50%;
+    width: .25in;
+    height: .25in;
+    padding: 3px;
+    right: 1in;
+    position: absolute;
+    font-weight: 700;
+    text-align: center; }
   .page-footer .dots {
     width: 25%;
     left: 50%;
@@ -270,9 +284,6 @@ a.toc-h4 {
     line-height: 100%; }
     #t-o-c ul li ul {
       padding-left: 0px; }
-
-#pojo-a11y-toolbar {
-  display: none; }
 
 .col-left {
   padding-left: 0px; }

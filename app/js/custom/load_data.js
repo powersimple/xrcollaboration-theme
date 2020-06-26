@@ -6,6 +6,7 @@
 var posts = {},
     pages = {},
     profiles = {},
+    profiles_array = [],
     hardware = {},
     taxonomies = {},
     categories = {},
@@ -52,7 +53,7 @@ function getStaticJSON(filename, callback, dest) {
         url: json_data, // the url
         data: '',
         success: function(data, textStatus, request) {
-            console.log("load json", data);
+         //   console.log("load json", data);
             //      data_loaded.push(callback);
             return data,
 
@@ -96,17 +97,20 @@ function setData(data) { //sets all content arrays
     posts = setPosts(data.posts)
     pages = setPosts(data.pages)
     profiles = setPosts(data.profile)
+
+  //  console.log("profiles",profiles)
     for (p in posts) {
 
         if (profiles[p].type == 'profile') {
             profiles[p].name = profiles[p].title.rendered
             profile_posts[profiles[p].id] = profiles[p]
+            profiles_array.push(profiles[p]);
 
         } else if (profiles[p].type == 'hardware') {
             hardware_posts[profiles[p].id] = profiles[p]
         }
     }
-
+    profiles_array = sort_array('title',profiles_array)
     hardware = data.hardware
         //  console.log("HRDWARE", hardware)
     for (h in hardware) {
@@ -138,6 +142,30 @@ function setData(data) { //sets all content arrays
     initSite()
     data_loaded = true;
 }
+
+
+function sort_array (prop, arr) {
+    prop = prop.split('.');
+    var len = prop.length;
+    
+    arr.sort(function (a, b) {
+        var i = 0;
+        while( i < len ) {
+            a = a[prop[i]];
+            b = b[prop[i]];
+            i++;
+        }
+        if (a < b) {
+            return -1;
+        } else if (a > b) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+    return arr;
+};
+
 
 function setPosts(data) { // special function for the any post type
 

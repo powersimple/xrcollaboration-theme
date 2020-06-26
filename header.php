@@ -3,7 +3,7 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="profile" href="https://gmpg.org/xfn/11">
     <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri();?>/images/icons/favicon.ico" />
 <?php wp_head(); 
     $url = wp_upload_dir();
@@ -46,6 +46,7 @@
       data_path = "<?=get_stylesheet_directory_uri()?>/data/",
       useWheelNav = false,
       uploads_path =  "<?=$url['baseurl']?>/",
+      slug = "<?=$post->post_name;?>",
       profile_template = ''//hack
       
       

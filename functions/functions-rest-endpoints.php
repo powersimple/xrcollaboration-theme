@@ -11,27 +11,77 @@ Sort: For sanity's sake, it's best that you sort posts by ID, so when inspecting
 Hence, the REST_post_filter variable below.
 */
 $GLOBALS['REST_post_filter'] = "filter[orderby]=ID&order=asc&per_page=100";// handles order and pagination
+$GLOBALS['REST_post_filter_name_sort'] = "filter[orderby]=post_title&order=asc&per_page=100";
 $GLOBALS['REST_tax_filter'] = "filter[orderby]=name&order=asc&per_page=100";
+function my_json_decode($s) {
+    $s = str_replace(
+        array('"',  "'"),
+        array('\"', '"'),
+        $s
+    );
+    $s = preg_replace('/(\w+):/i', '"\1":', $s);
+    return json_decode(sprintf('{%s}', $s));
+}
+
+function iterateEndpoint($field,$name,$query){
+        $endpoint_array = array();
+       // print $iterations;
+        global $wpdb;
+        if($field == 'post_type'){
+
+           $iterations = 2;
+           $sql = "select id from wp_posts where post_status='publish' and $field='$name'";
+           $q = $wpdb->get_results($sql);
+        } else {
+
+        }
+
+            
+        if((count($q)/100) > floor(count($q)/100)){
+                        //print   $iterations = count($q);
+             $iterations = floor((count($q)/100))+1;
+            
+
+
+        } else {
+            $iterations = 1;
+        }
+
+       
+
+        for($i=1;$i<=$iterations;$i++){
+             
+           array_push($endpoint_array,$query."&page=$i");
+        }    
+       // var_dump($endpoint_array);
+        //die();
+            return $endpoint_array;
+        
+
+}
 
 $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
             "posts"=>"fields=id,type,title,content,slug,excerpt,languages,post_media,featured_media,screen_images,video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             "pages"=>"fields=id,type,title,content,slug,excerpt,languages,post_media,featured_media,screen_images,featured_video,cats,tags,type&".$GLOBALS['REST_post_filter'],
-             "profile"=>"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screenshots,featured_video,type,industry,support_hardware,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter'],
-              "hardware"=>"fields=id,type,title,content,slug,excerpt,posts,post_media,languages,info,seo,profiles,featured_media,screen_images,featured_video,type,industry,feature,thumbnail_url,platform,cats,tags&".$GLOBALS['REST_post_filter'],
+        //    "profile"=>"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screen_images,featured_video,type,industry,support_hardware,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter'],
+         "profile"=>iterateEndpoint('post_type','profile',"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screen_images,featured_video,type,industry,support_hardware,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter_name_sort']),
+            "hardware"=>"fields=id,type,title,content,slug,excerpt,posts,post_media,languages,info,seo,profiles,featured_media,screen_images,featured_video,type,industry,feature,thumbnail_url,platform,cats,tags&".$GLOBALS['REST_post_filter'],
          //   "resource"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
            // "event"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             //"product"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             //"person"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             //"sponsor"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             //"social"=>"fields=id,type,title,content,slug,excerpt,featured_media,social_url&".$GLOBALS['REST_post_filter'],
-            "categories"=>"fields=id,name,count,slug,description,posts,children".$GLOBALS['REST_tax_filter'],
-            "feature"=>"fields=id,name,count,slug,description,posts,children".$GLOBALS['REST_tax_filter'],
-            "collaboration_type"=>"fields=id,name,count,slug,description,posts,children".$GLOBALS['REST_tax_filter'],
-            "platform"=>"fields=id,name,count,slug,description,posts,children".$GLOBALS['REST_tax_filter'],
-            "industry"=>"fields=id,name,count,slug,description,posts,children".$GLOBALS['REST_tax_filter'],
+            "categories"=>"fields=id,name,count,slug,description,posts,children&".$GLOBALS['REST_tax_filter'],
+            "feature"=>"fields=id,name,count,slug,description,posts,children&".$GLOBALS['REST_tax_filter'],
+            "collaboration_type"=>"fields=id,name,count,slug,description,posts,children&".$GLOBALS['REST_tax_filter'],
+            "platform"=>"fields=id,name,count,slug,description,posts,children&".$GLOBALS['REST_tax_filter'],
+            "industry"=>"fields=id,name,count,slug,description,posts,children&".$GLOBALS['REST_tax_filter'],
             "tags"=>"fields=id,name,slug,posts&".$GLOBALS['REST_tax_filter'],
             "menus"=>"menus",
-           "media"=>"fields=id,data&".$GLOBALS['REST_post_filter']
+            "media"=>"fields=id,data&".$GLOBALS['REST_post_filter'],
+           // "collaborators"=>"fields=meta_value&".$GLOBALS['REST_post_filter'],
+           
         );
 
 // for WPML Comment this out if you aren't using it.
@@ -49,11 +99,19 @@ require_once("functions-wpml-languages.php");
                 print "<strong>ENDPOINTS:</strong>
                 <ul>";
         }
-        
+      //  $url = $url_path.$key;
         foreach($GLOBALS['REST_CONFIG'] as $key => $value){//loops through the array of endpoints above
+             if(is_array($value)){
+           
+                
+               
+           } else {
+               $url = $url_path.$key."?".$value; // default, value passes params in REST_CONFIG array
 
-           $url = $url_path.$key."?".$value; // default, value passes params in REST_CONFIG array
-     
+
+           } 
+    
+           
             if(function_exists('icl_object_id')){// if WPML is here. 
                 if($value == 'language'){ //language = $key, will not work with arguments
                     //see path registrations in WPML Languages
@@ -61,13 +119,48 @@ require_once("functions-wpml-languages.php");
                 }
 
             }
-
-           
+            
+            
            $server = $server_path.$key.".json";
            if(@$_GET['publish']){
             
+            if(is_array($value)){
+             //  $url = $url_path.$key."?".$value; // default, value passes params in REST_CONFIG array
+             $result_array = array();
+             foreach($value as $it => $qstring){
+                 $url = $url_path.$key."?".$qstring;
+                 
+                 if($it == 0){
+                    // print $url;die();
+                    $api_json = getJSON($url);
+                   //var_dump($api_json); 
+                    $result_array = json_decode(getJSON($url),true);
+                   
+                    
 
-            $content[$key] = json_decode(getJSON($url));
+                   //  print $api_json;
+                    //  $result_array = $api_data;
+                     
+
+                 } else {
+                     $this_api_hit = json_decode(getJSON($url),true);
+                     foreach($this_api_hit as $nextkey=>$value){
+                     array_push($result_array,$value);
+                     }
+                 }
+
+               
+             }
+
+
+             $content[$key] = $result_array;
+
+           } else {
+                $url = $url_path.$key."?".$value; 
+                $content[$key] = json_decode(getJSON($url));
+
+           } 
+           
 
            // writeJSON($server,)$content[$key];
            }
@@ -99,6 +192,7 @@ require_once("functions-wpml-languages.php");
     }
     function getJSON($data_path){
         return file_get_contents($data_path);
+
     }
 
     function writeJSON($file_path,$data){

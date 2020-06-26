@@ -56,7 +56,7 @@ function initSite() {
     //    console.log("profiles", profile_posts);
     //  console.log("hardware", hardware_posts);
 
-
+    console.log("PROFILE TEMPLATE","style:background:#000;color:#f00;")
     jQuery("#filter-accordion").accordion({
         header: "h3",
         collapsible: true,
@@ -64,16 +64,21 @@ function initSite() {
         navigation: true
     });
 
-    if (profile_template != undefined) {
+    if (slug != undefined) {
+        if (slug == 'directory') {
+            console.log("DIRECTORY","style:background:#000;color:#f00;")
+            getStatPosts()
+            loadActiveProfiles();
+        }
 
+        
+    } 
+    if (profile_template != undefined) {
         if (profile_template == 'full-profile-template') {
 
             loadFullProfile(active_id)
         }
-    } else if (profile_template == 'profile-template') {
-        loadActiveProfiles();
     }
-
 
 
 }

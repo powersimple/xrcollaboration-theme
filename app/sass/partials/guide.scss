@@ -178,42 +178,20 @@
                 width: 100%;
                 height: 100%;
             }
+           
+
+        }
+         @media(max-width:768px){
+            padding:3px;
+            a{    
+            font-size:8pt;
+            }
         }
     }
     .newpage {
         margin-top: 1in;
     }
-    @media print {
-        table.video-conferencing {
-            width: 100%;
-            position: relative;
-            td a strong {
-                font-size: 10pt;
-            }
-        }
-        .page-footer {
-            display: block;
-            position: absolute;
-            top: 10.25in;
-            text-align: center;
-            width: 100%;
-            left: 0;
-            padding: 0px;
-            .dots {
-                width: 25%;
-                left: 50%;
-                margin-left: -12.5%;
-                display: block;
-                position: absolute;
-            }
-            a {
-                color: blue;
-            }
-            strong {
-                font-weight: 700;
-            }
-        }
-    }
+
     #t-o-c {
         ul {
             margin-top: .5em;

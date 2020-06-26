@@ -64,6 +64,8 @@ function setMenuItem(slug, item) {
     this_item.url = item.url
     this_item.description = item.description
     this_item.slug = slug
+    this_item.xfn = item.xfn
+
 
 
     this_item.children = [] //this array is populated in Set Menu
@@ -225,7 +227,9 @@ function buildMenuData() {
                                     "object": menus[m].items[nested_children[g]].object,
                                     "object_id": menus[m].items[nested_children[g]].object_id, // the post id
                                     "classes": menus[m].items[nested_children[g]].classes,
-                                    "description": menus[m].items[nested_children[g]].description
+                                    "description": menus[m].items[nested_children[g]].description,
+                                    "description": menus[m].items[nested_children[g]].xfn,
+                                    
                                 }
                             )
 
@@ -242,7 +246,9 @@ function buildMenuData() {
                                 "object_id": menus[m].items[this_menu[a].children[c]].object_id, // the post id
                                 "classes": menus[m].items[this_menu[a].children[c]].classes,
                                 "description": menus[m].items[this_menu[a].children[c]].description,
-                                "children": grandchildren,
+                                "xfn": menus[m].items[this_menu[a].children[c]].xfn,
+                                
+                                "children": grandchildren
 
                             }
                         )
@@ -260,7 +266,8 @@ function buildMenuData() {
                         "object_id": this_menu[a].object_id, //the post_id
                         "children": children,
                         "classes": this_menu[a].classes,
-                        "description": this_menu[a].description
+                        "description": this_menu[a].description,
+                        "xfn": this_menu[a].xfn
                     })
 
                 }

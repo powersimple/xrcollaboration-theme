@@ -16,9 +16,7 @@ get_header();
           array_push($post_ids,$post_results->post_id);
         }
       
-      
-      
-      $results[$value->meta_value] = $post_ids;
+          $results[$value->meta_value] = $post_ids;
         }
 
 
@@ -34,7 +32,7 @@ get_header();
 
 ?>
 <script>
-   var profile_template = 'profile-template'
+   var profile_template = 'directory'
   var max = {}
 /*max.spectators = <?=$spectators?>;*/
   max.collaborators = <?=$collaborators?>;
@@ -42,11 +40,11 @@ get_header();
 
   //console.log("spectators",max.spectators)
 
-  //console.log("collaborators",max.collaborators)
+  console.log("collaborators",max.collaborators)
 
 jQuery(document).ready(function() {
-  getStatPosts()
- //  loadActiveProfiles()
+  
+   
 });
 
 </script>
@@ -84,13 +82,26 @@ jQuery(document).ready(function() {
 <main role="main">
 
   <section class="module" id="<?php echo @$slug?>" role="region">
+ 
 <div class="row">
     <div class="container">
-        
-        <div class="col-sm-9" id="directory">
-        <h1>Directory of Collaborative XR Platforms</h1>
+    <h1>Directory of Collaborative XR Platforms</h1>
+    <div class="col-sm-3" id="directory-filters">
+            <h4>Choose Filters below</h4>
+            <div class="slider-container"><div id="collaborators">Collaborators</div>
+            <div id="max-collaborators" class="slider"></div>
+</div>
 
-        <div id="active-profile"><?php
+            <div id="filter-accordion" class="filters"></div>
+            
+
+            
+        </div>
+        <div class="col-sm-9" id="directory">
+       
+
+        <div id="active-profile">
+        <?php
 
        
 
@@ -113,16 +124,8 @@ jQuery(document).ready(function() {
         
         
         </div>
-        <div class="col-sm-3" id="directory-filters">
-            <h4>Choose Filters below</h4>
-            <div class="slider-container"><div id="collaborators">Collaborators</div>
-            <div id="max-collaborators" class="slider"></div>
-</div>
-
-            <div id="filter-accordion" class="filters"></div>
-        </div>
-
-
+      
+        <div class="get-listed"><a href="/list-your-platform/">Don't see your platform?<br>Get Listed in our Directory</a></div>
 
 
   

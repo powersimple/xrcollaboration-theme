@@ -170,23 +170,23 @@ h6 {
   color: #1b7d8e; }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 800; }
 
 h2 {
-  font-size: 2rem;
-  font-weight: 700; }
-
-h3 {
   font-size: 1.618rem;
   font-weight: 700; }
 
-h4 {
+h3 {
   font-size: 1.382rem;
+  font-weight: 700; }
+
+h4 {
+  font-size: 1rem;
   font-weight: 600; }
 
 h5 {
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: 600; }
 
 h6 {
@@ -475,34 +475,14 @@ blockquote {
       border-radius: 10px;
       width: 100%;
       height: 100%; }
+  @media (max-width: 768px) {
+    #guide .section_menu td {
+      padding: 3px; }
+      #guide .section_menu td a {
+        font-size: 8pt; } }
 
 #guide .newpage {
   margin-top: 1in; }
-
-@media print {
-  #guide table.video-conferencing {
-    width: 100%;
-    position: relative; }
-    #guide table.video-conferencing td a strong {
-      font-size: 10pt; }
-  #guide .page-footer {
-    display: block;
-    position: absolute;
-    top: 10.25in;
-    text-align: center;
-    width: 100%;
-    left: 0;
-    padding: 0px; }
-    #guide .page-footer .dots {
-      width: 25%;
-      left: 50%;
-      margin-left: -12.5%;
-      display: block;
-      position: absolute; }
-    #guide .page-footer a {
-      color: blue; }
-    #guide .page-footer strong {
-      font-weight: 700; } }
 
 #guide #t-o-c ul {
   margin-top: .5em; }
@@ -571,6 +551,20 @@ blockquote {
     list-style: none;
     margin: 0;
     padding: 0; }
+  #megamenu ul.dropdown {
+    overflow-y: auto;
+    max-height: 61.8vh; }
+    @media (max-width: 767px) {
+      #megamenu ul.dropdown {
+        max-height: 250px;
+        overflow-y: scroll; } }
+  #megamenu ul.drop-down-ul {
+    overflow-y: auto;
+    max-height: 61.8vh; }
+    @media (max-width: 767px) {
+      #megamenu ul.drop-down-ul {
+        max-height: 250px;
+        overflow-y: scroll; } }
   #megamenu li,
   #megamenu li {
     font-size: 1em !important;
@@ -578,11 +572,14 @@ blockquote {
   #megamenu a,
   #megamenu a:hover,
   #megamenu a.active,
-  #megamenu a:active,
   #megamenu a:visited,
   #megamenu a:focus {
     color: #fefefe;
     text-decoration: none; }
+  #megamenu a:hover,
+  #megamenu a.active,
+  #megamenu a:visited {
+    background-color: #1b7d8e !important; }
   #megamenu .content {
     margin: 50px 100px 0px 100px; }
   #megamenu .exo-menu {
@@ -794,10 +791,10 @@ blockquote {
   #megamenu .mega-drop-down a:hover + .mega-menu,
   #megamenu li.flyout-mega > a:hover + .flyout-mega-wrap {
     display: block; }
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     #megamenu .exo-menu > li > a {
       display: block;
-      padding: 14px 22px; }
+      padding: 16px 22px 15px; }
     #megamenu .mega-menu,
     #megamenu .flyout-mega-wrap,
     #megamenu .Images,
@@ -1009,11 +1006,16 @@ input[type=checkbox].form-checkbox {
   background-color: #787373;
   background: linear-gradient(135deg, #000000 0%, #373737 28%, #3f3f3f 57%, #1c1c1c 86%, #000 100%);
   border-radius: 10px;
-  box-shadow: 7px 7px 8px 4px rgba(0, 0, 0, 0.53); }
+  box-shadow: -5px 2px 5px 3px rgba(0, 0, 0, 0.53);
+  margin-bottom: 20px; }
   #directory-filters h4 {
     color: #3cbbd6;
     padding-top: .5em;
     text-align: center; }
+
+.get-listed {
+  text-align: center;
+  font-weight: 700; }
 
 .accordion-drawer {
   overflow-y: auto;
@@ -1336,7 +1338,8 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
     font-weight: 600;
     border: 3px groove #1b7d8e;
-    margin-top: -2px; }
+    margin-top: -2px;
+    margin-left: -20px; }
 
 .ui-widget-overlay {
   position: fixed;
@@ -2309,34 +2312,14 @@ table.authors {
       border-radius: 10px;
       width: 100%;
       height: 100%; }
+  @media (max-width: 768px) {
+    #guide .section_menu td {
+      padding: 3px; }
+      #guide .section_menu td a {
+        font-size: 8pt; } }
 
 #guide .newpage {
   margin-top: 1in; }
-
-@media print {
-  #guide table.video-conferencing {
-    width: 100%;
-    position: relative; }
-    #guide table.video-conferencing td a strong {
-      font-size: 10pt; }
-  #guide .page-footer {
-    display: block;
-    position: absolute;
-    top: 10.25in;
-    text-align: center;
-    width: 100%;
-    left: 0;
-    padding: 0px; }
-    #guide .page-footer .dots {
-      width: 25%;
-      left: 50%;
-      margin-left: -12.5%;
-      display: block;
-      position: absolute; }
-    #guide .page-footer a {
-      color: blue; }
-    #guide .page-footer strong {
-      font-weight: 700; } }
 
 #guide #t-o-c ul {
   margin-top: .5em; }
@@ -2473,56 +2456,12 @@ li {
 #hiddenCanvas {
   display: none; }
 
-/*--------------------------------------------------------------
-	Common
---------------------------------------------------------------*/
-h1 {
-  font-size: 24pt;
-  font-weight: 700;
-  line-height: 26pt;
-  margin-bottom: 12pt; }
-
-h2 {
-  font-size: 20pt;
-  font-weight: 600; }
-
-h3 {
-  font-size: 16pt;
-  font-weight: 600; }
-
-h4 {
-  font-size: 14pt;
-  font-weight: 600; }
-
-a.toc-h1 {
-  font-size: 12pt;
-  font-weight: 700; }
-
-a.toc-h2 {
-  font-size: 11pt;
-  font-weight: 600;
-  padding-left: .5in; }
-
-a.toc-h3 {
-  font-size: 10pt;
-  font-weight: 400;
-  padding-left: 1in;
-  white-space: nowrap; }
-
-a.toc-h4 {
-  font-size: 9pt;
-  font-weight: 400;
-  padding-left: 1.2in; }
-
 html,
 body {
   min-height: 100vh;
-  display: block; }
-
-html {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -ms-overflow-style: scrollbar; }
+  display: block;
+  max-width: 100%;
+  overflow-x: hidden; }
 
 body {
   background: #fff;
@@ -3551,7 +3490,7 @@ General Styles - Owlcarousel
   background-color: #101619;
   color: #fff; }
   .darkbg h2 {
-    color: #1b7d8e; }
+    color: #3cbbd6; }
   .darkbg input,
   .darkbg textarea,
   .darkbg select option {
@@ -3571,7 +3510,7 @@ General Styles - Owlcarousel
 
 .home-section {
   position: relative;
-  background-color: #fff;
+  background: rgba(10, 10, 10, 0.9);
   background-repeat: no-repeat;
   background-position: center center;
   width: 100%;

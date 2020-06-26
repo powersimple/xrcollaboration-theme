@@ -102,4 +102,12 @@ foreach($pages as $key => $value){
   }
   ?>
   </main>
+  <script>
+var link = document.createElement('a');
+      link.href = pdf;
+      link.download = 'XR-Collaboration-A-Global-Resource-Guide.pdf';
+      link.dispatchEvent(new MouseEvent('click'));
+   
+}, false );
+  </script>
   <?php get_footer(); ?>

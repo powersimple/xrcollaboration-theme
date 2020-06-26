@@ -45,16 +45,35 @@ foreach($guide_content as $key => $value){
         
     </section>
   <?php
-    
+     $page_counter++;
     } else {
 ?>
-  <section class="module <?=$page_layout_template?>" id="<?php echo $value->post_name;?>" role="region">
+  <section class="module <?=$page_layout_template?> print-page" id="<?php echo $value->post_name;?>" role="region">
 <div class="row">
 <div class="container">
 
     <?php
+    $content = $value->post_content;
+          $page_breaks = substr_count($content,"<!--nextpage-->");
+       
+      ///  $content = str_replace("<!--nextpage-->",'<hr class="page-break">',$value->post_content); 
         
-        echo do_blocks($value->post_content);
+         $break_counter = 0;
+    if($page_breaks>0){
+        while($break_counter<$page_breaks){
+           $footer =  print_footer($page_counter).'</div><div></section><section class="module print-page" role="region"><div class="row">
+<div class="container">';
+           $break_counter++;
+          str_replace("<!--nextpage-->",$footer,$content,$break_counter);
+            
+
+            $page_counter++;
+        }
+
+    }
+        $content .= print_footer($page_counter);
+        $page_counter++;
+        echo do_blocks($content);
         
     ?>
     
