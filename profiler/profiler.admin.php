@@ -20,110 +20,132 @@
 		'id' => 'hardware_specs',
 		'title' => esc_html__( 'Hardware Specs', 'omniscience-profiler' ),
 		'post_types' => array('hardware' ),
-		'context' => 'side',
+		'context' => 'normal',
 		'priority' => 'high',
 		'autosave' => 'false',
 		'fields' => array(
-			array(
-				'id' => 'device_name',
-				'type' => 'text',
-				'name' => esc_html__( 'Device', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'url',
-				'type' => 'text',
-				'name' => esc_html__( 'Website URL', 'metabox-online-generator' ),
-			),
+			array('type' => 'heading','name' => esc_html__( 'About', 'mbg' ),),
+			array('id' => 'availability_date','type' => 'date','name' => esc_html__( 'Availability date', 'mbg' ),),
+			array('id' => 'colors','type' => 'text','name' => esc_html__( 'Color', 'mbg' ),),
+			array('id' => 'model_asset_url','type' => 'text','name' => esc_html__( 'Model asset link', 'mbg' ),),
+			array('id' => 'video_urls','type' => 'text','name' => esc_html__( 'Video links', 'mbg' ),),
+			array('id' => 'device_name','type' => 'text','name' => esc_html__( 'Device', 'mbg' ),),
+			array('id' => 'marketing_url','type' => 'text','name' => esc_html__( 'Website URL', 'mbg' ),),
+			array('id' => 'specifications_url','type' => 'text','name' => esc_html__( 'Specs URL', 'mbg' ),),
 
-			array(
-				'id' => 'specs_url',
-				'type' => 'text',
-				'name' => esc_html__( 'Specs URL', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'MSRP',
-				'type' => 'text',
-				'name' => esc_html__( 'MSRP', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'os',
-				'type' => 'text',
-				'name' => esc_html__( 'Operating System', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'fov',
-				'type' => 'text',
-				'name' => esc_html__( 'Field of View', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'resolution',
-				'type' => 'text',
-				'name' => esc_html__( 'Resolution Per Eye', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'optics',
-				'type' => 'text',
-				'name' => esc_html__( 'Optics', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'refresh_rate',
-				'type' => 'text',
-				'name' => esc_html__( 'Refresh Rate', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'connectivity',
-				'type' => 'text',
-				'name' => esc_html__( 'Connectivity (port)', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'weight',
-				'type' => 'text',
-				'name' => esc_html__( 'Weight', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'controllers',
-				'type' => 'text',
-				'name' => esc_html__( 'Controllers', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'sensors',
-				'type' => 'textarea',
-				'name' => esc_html__( 'Sensors (SLAM)', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'untethered',
-				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
-				'type' => 'checkbox',
-				'desc' => esc_html__( 'Untethered', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'hand_tracking',
-				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
-				'type' => 'checkbox',
-				'desc' => esc_html__( 'Hand Tracking', 'metabox-online-generator' )
-			),
-			array(
-				'id' => 'gaze_tracking',
-				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
-				'type' => 'checkbox',
-				'desc' => esc_html__( 'Gaze Tracking', 'metabox-online-generator' )
-			),
-			array(
-				'id' => 'spatial_audio',
-				'name' => esc_html__( 'Checkbox', 'metabox-online-generator' ),
-				'type' => 'checkbox',
-				'desc' => esc_html__( 'Spatial Audio', 'metabox-online-generator' )
-			),
-			array(
-				'id' => 'acccessories',
-				'type' => 'textarea',
-				'name' => esc_html__( 'Accessories', 'metabox-online-generator' ),
-			),
-			array(
-				'id' => 'system_requirements',
-				'type' => 'textarea',
-				'name' => esc_html__( 'System Requirements', 'metabox-online-generator' ),
-			),
+			array('type' => 'divider'),
+			array('type' => 'heading','name' => esc_html__( 'Casting', 'mbg' ),),
+
+			array('id' => 'airplay','type' => 'checkbox','name' => esc_html__( 'AirPlay', 'mbg' ),),
+			array('id' => 'chromecast','type' => 'checkbox','name' => esc_html__( 'ChromeCast', 'mbg' ),),
+			array('id' => 'native_app','type' => 'checkbox','name' => esc_html__( 'Native App', 'mbg' ),),
+
+			array('type' => 'divider'),
+			array('type' => 'heading','name' => esc_html__( 'Communications', 'mbg' ),),
+			array('id' => 'gps','type' => 'checkbox','name' => esc_html__( 'GPS', 'mbg' ),),
+			array('id' => 'wireless_link','type' => 'checkbox','name' => esc_html__( 'Wireless link to PC', 'mbg' ),),
+			array('id' => 'wired_link','type' => 'checkbox','name' => esc_html__( 'Wired link to PC', 'mbg' ),),
+			array('id' => 'bluetooth','type' => 'select_advanced','name'     => esc_html__( 'Bluetooth', 'mbg' ),
+				'options'=>array(
+					'3.0' => esc_html__( '3.0', 'online-generator' ),
+                    '4.0' => esc_html__( '4.0', 'online-generator' ),
+                    '4.1' => esc_html__( '4.1', 'online-generator' ),
+                    '4.2' => esc_html__( '4.2', 'online-generator' ),
+                    '5.0' => esc_html__( '5.0', 'online-generator' ),
+                    '5.1' => esc_html__( '5.1', 'online-generator' ),
+                    '5.2' => esc_html__( '5.2', 'online-generator' ),
+				
+				),
+				
+				'multiple'=>true,),
+
+
+
+			array('id' => 'wifi','type' => 'text','name' => esc_html__( 'WiFi', 'mbg' ),),
+			array('id' => 'cellular','type' => 'select_advanced','name'=> esc_html__( 'cellular', 'mbg' ),
+				'options'=>array(
+					'4G'  => esc_html__( '4G', 'online-generator' ),
+                    'LTE' => esc_html__( 'LTE', 'online-generator' ),
+					'5G'  => esc_html__( '5G', 'online-generator' ),
+				),
+				'multiple'=>true,),
+
+			array('type' => 'divider'),
+			array('type' => 'heading','name' => esc_html__( 'Features', 'mbg' ),),
+
+			array('id' => 'gaze_tracking','type' => 'checkbox','name' => esc_html__( 'Gaze Tracking', 'mbg' ),),
+			array('id' => 'hand_tracking','type' => 'checkbox','name' => esc_html__( 'Hand Tracking', 'mbg' ),),
+			array('id' => 'browser','type' => 'checkbox','name' => esc_html__( 'Browser', 'mbg' ),),
+			array('id' => 'spatial_audio','type' => 'checkbox','name' => esc_html__( 'Spatial Audio', 'mbg' ),),
+			array('id' => 'accessories','type' => 'textarea','name' => esc_html__( 'Accessories', 'mbg' ),),
+			
+			
+			array('type' => 'divider'),
+			array('type' => 'heading','name' => esc_html__( 'Form Factor', 'mbg' ),),
+
+			array('id' => 'fov','type' => 'number','name' => esc_html__( 'Field of View', 'mbg' ),),
+			array('id' => 'mobile_tethered','type' => 'checkbox','name' => esc_html__( 'Tethers to mobile phone', 'mbg' ),),
+			array('id' => 'battery_capacity','type' => 'text','name' => esc_html__( 'Battery Capacity', 'mbg' ),),
+			array('id' => 'user_glasses_supported','type' => 'checkbox','name' => esc_html__( 'User Glasses Supported', 'mbg' ),),
+			array('id' => 'usb','type' => 'multiple','name' => esc_html__( 'USB', 'mbg' ),),
+			array('id' => 'ipd_adjustables','type' => 'select_advanced','name'     => esc_html__( 'IPD Adjustable ', 'mbg' ),'options'=>array( 
+					'None'                => esc_html__( 'None', 'online-generator' ),
+                    'Manual-Fixed Choice' => esc_html__( 'Manual-Fixed Choice', 'online-generator' ),
+                    'Manual-Variable'     => esc_html__( 'Manual-Variable', 'online-generator' ),
+					'Automatic'           => esc_html__( 'Automatic', 'online-generator' ),),
+					'multiple'=>true,),
+
+
+
+			array('id' => 'prescription_supported','type' => 'checkbox','name' => esc_html__( 'Prescription Supported', 'mbg' ),),
+			array('id' => 'weight','type' => 'number','name' => esc_html__( 'Weight ', 'mbg' ),),
+			array('id' => 'blackout_capability','type' => 'checkbox','name' => esc_html__( 'Blackout Capability', 'mbg' ),),
+			array('id' => 'safety_glass','type' => 'checkbox','name' => esc_html__( 'Safety Glass', 'mbg' ),),
+			array('id' => 'safety_hazardous_certification','type' => 'text','name' => esc_html__( 'Hazardous Certifications', 'mbg' ),),
+			array('id' => 'accessibility_features','type' => 'text','name' => esc_html__( 'Accessibility Features', 'mbg' ),),
+			array('id' => 'illumination','type' => 'checkbox','name' => esc_html__( 'Flash/scene illumination', 'mbg' ),),
+			
+			array('type' => 'divider'),
+			array('type' => 'heading','name' => esc_html__( 'Input', 'mbg' ),),
+
+			array('id' => 'controllers','type' => 'text','name' => esc_html__( 'Controllers', 'mbg' ),),
+			array('id' => 'tracking','type' => 'select_advanced','name'     => esc_html__( 'Tracking ', 'mbg' ),'options'=>array(
+					'3DoF' => esc_html__( '3DoF', 'online-generator' ),
+                    '6DoF' => esc_html__( '6DoF', 'online-generator' ),),'multiple'=>true,),
+
+			array('id' => 'speech_recognition','type' => 'select_advanced','name'     => esc_html__( 'Speech Recognition', 'mbg' ),'options'=>array(  'none'    => esc_html__( 'none', 'online-generator' ),
+                    'online'  => esc_html__( 'online', 'online-generator' ),
+                    'offline' => esc_html__( 'offline', 'online-generator' ),),'multiple'=>true,),
+
+			array('id' => 'touch_surface','type' => 'checkbox','name' => esc_html__( 'Touch Surface', 'mbg' ),),
+
+			array('type' => 'divider'),
+			array('type' => 'heading','name' => esc_html__( 'Platform', 'mbg' ),),
+
+			array('id' => 'ios_app','type' => 'checkbox','name' => esc_html__( 'iOS App', 'mbg' ),),
+			array('id' => 'android_app','type' => 'checkbox','name' => esc_html__( 'Android App', 'mbg' ),),
+			array('id' => 'oculus','type' => 'checkbox','name' => esc_html__( 'Oculus', 'mbg' ),),
+			array('id' => 'steam','type' => 'checkbox','name' => esc_html__( 'Steam', 'mbg' ),),
+			array('id' => 'sidequest','type' => 'checkbox','name' => esc_html__( 'SideQuest', 'mbg' ),),
+			array('id' => 'hololens_store','type' => 'checkbox','name' => esc_html__( 'Hololens Store', 'mbg' ),),
+			array('id' => 'device_os','type' => 'text','name' => esc_html__( 'Device Operating System', 'mbg' ),),
+
+			array('type' => 'divider'),
+			array('type' => 'heading','name' => esc_html__( 'Specs', 'mbg' ),),
+
+			array('id' => 'sensors','type' => 'textarea','name' => esc_html__( 'Sensors ', 'mbg' ),),
+			array('id' => 'os_support','type' => 'select_advanced','name'     => esc_html__( 'OS Support', 'mbg' ),'options'=>array( 'Windows,' => esc_html__( 'Windows,', 'online-generator' ),
+                    'MacOS,'   => esc_html__( 'MacOS,', 'online-generator' ),
+                    'iOS,'     => esc_html__( 'iOS,', 'online-generator' ),
+                    'Android'  => esc_html__( 'Android', 'online-generator' ),
+                    'Linux'    => esc_html__( 'Linux', 'online-generator' ),),'multiple'=>true,),
+			array('id' => 'storage_capacity','type' => 'num','name' => esc_html__( 'Storage Capacity ', 'mbg' ),),
+			array('id' => 'ram','type' => 'num','name' => esc_html__( 'RAM ', 'mbg' ),),
+			array('id' => 'GPU','type' => 'text','name' => esc_html__( 'GPU', 'mbg' ),),
+			array('id' => 'CPU','type' => 'text','name' => esc_html__( 'CPU', 'mbg' ),),
+			array('id' => 'optics','type' => 'text','name' => esc_html__( 'Optics', 'mbg' ),),
+			array('id' => 'processors','type' => 'text','name' => esc_html__( 'Processors', 'mbg' ),),
+
 		
 		),
 	);
@@ -148,27 +170,27 @@ function setProfileTaxonomyData( $meta_boxes ) { // this shows the box were
 			array(
 				'id' => 'features',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Features', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Features', 'mbg' ),
 			),
 			array(
 				'id' => 'platform',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Platform', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Platform', 'mbg' ),
 			),
 			array(
 				'id' => 'industries',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Industries', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Industries', 'mbg' ),
 			),
 			array(
 				'id' => 'industry_subtags',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Industry Subtags', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Industry Subtags', 'mbg' ),
 			),
 			array(
 				'id' => 'feature_subtags',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Feature Subtags', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Feature Subtags', 'mbg' ),
 			)
 
 		
@@ -195,67 +217,67 @@ function setProfileContactInfo( $meta_boxes ) { // this shows the box were
 				array(
 				'id' => 'company',
 				'type' => 'text',
-				'name' => esc_html__( 'Company', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Company', 'mbg' ),
 			),
 			array(
 				'id' => 'solution_name',
 				'type' => 'text',
-				'name' => esc_html__( 'Solution Name', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Solution Name', 'mbg' ),
 			),
 			array(
 				'id' => 'contact_name',
 				'type' => 'text',
-				'name' => esc_html__( 'Contact Name', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Contact Name', 'mbg' ),
 			),
 			array(
 				'id' => 'contact_title',
 				'type' => 'text',
-				'name' => esc_html__( 'Contact Title', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Contact Title', 'mbg' ),
 			),
 			array(
 				'id' => 'contact_email',
 				'type' => 'text',
-				'name' => esc_html__( '(private) Contact Email', 'metabox-online-generator' ),
+				'name' => esc_html__( '(private) Contact Email', 'mbg' ),
 			),
 			array(
 				'id' => 'profile_email',
 				'type' => 'email',
-				'name' => esc_html__( '(public) Email Address', 'metabox-online-generator' ),
+				'name' => esc_html__( '(public) Email Address', 'mbg' ),
 			),
 			array(
 				'id' => 'phone',
 				'type' => 'text',
-				'name' => esc_html__( 'Phone Number', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Phone Number', 'mbg' ),
 			),
 			array(
 				'id' => 'address',
 				'type' => 'text',
-				'name' => esc_html__( 'Address', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Address', 'mbg' ),
 			),
 			array(
 				'id' => 'address2',
 				'type' => 'text',
-				'name' => esc_html__( 'Address 2', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Address 2', 'mbg' ),
 			),
 			array(
 				'id' => 'city',
 				'type' => 'text',
-				'name' => esc_html__( 'City', 'metabox-online-generator' ),
+				'name' => esc_html__( 'City', 'mbg' ),
 			),
 			array(
 				'id' => 'state',
 				'type' => 'text',
-				'name' => esc_html__( 'State / Province', 'metabox-online-generator' ),
+				'name' => esc_html__( 'State / Province', 'mbg' ),
 			),
 			array(
 				'id' => 'postal_code',
 				'type' => 'text',
-				'name' => esc_html__( 'Postal Code', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Postal Code', 'mbg' ),
 			),
 			array(
 				'id' => 'country',
 				'type' => 'text',
-				'name' => esc_html__( 'Country', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Country', 'mbg' ),
 			),
 		
 		),
@@ -271,7 +293,7 @@ function selectThis( $meta_boxes ) {
 
 	$meta_boxes[] = array(
 		'id' => 'hardware',
-		'title' => esc_html__( 'HARDWARE!', 'metabox-online-generator' ),
+		'title' => esc_html__( 'HARDWARE!', 'mbg' ),
 		'post_types' => array('profile'),
 		'context' => 'side',
 		'priority' => 'default',
@@ -280,7 +302,7 @@ function selectThis( $meta_boxes ) {
 			array(
 				'id' => $prefix . 'hardware',
 				'type' => 'post',
-				'name' => esc_html__( 'Hardware', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Hardware', 'mbg' ),
 				'post_type' => 'hardware',
 				'field_type' => 'checkbox_list',
 				'query_args' => array(
@@ -315,13 +337,13 @@ function setProfileURL( $meta_boxes ) { // this shows the box were
 				'id' => $prefix . 'logo',
 				'type' => 'image_advanced',
 				'name' => esc_html__( 'Logo', 'omniscience-profiler' ),
-				//'desc' => esc_html__( 'Size to 1920x1280', 'metabox-online-generator' ),
+				//'desc' => esc_html__( 'Size to 1920x1280', 'mbg' ),
 			),
 			array(
 				'id' => 'screenshot',
 				'type' => 'image_advanced',
-				'name' => esc_html__( 'Screenshots', 'metabox-online-generator' ),
-				'desc' => esc_html__( 'submitted with', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Screenshots', 'mbg' ),
+				'desc' => esc_html__( 'submitted with', 'mbg' ),
 				'force_delete' => false,
 				'max_file_uploads' => '10',
 				'options' => array(),
@@ -331,33 +353,33 @@ function setProfileURL( $meta_boxes ) { // this shows the box were
 			array(
 				'id' => $prefix . 'use_cases',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Use Cases', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Use Cases', 'mbg' ),
 			),
 						array(
 				'id' => $prefix . 'tagline',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Tagline', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Tagline', 'mbg' ),
 			),
 						array(
 				'id' => $prefix . 'unique_value_proposition',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Unique Value Proposition', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Unique Value Proposition', 'mbg' ),
 			),
 						array(
 				'id' => $prefix . 'collaboration_types',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Collaboration Types', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Collaboration Types', 'mbg' ),
 			),
 					
 						array(
 				'id' => $prefix . 'max_spectators',
 				'type' => 'number',
-				'name' => esc_html__( 'Max spectators', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Max spectators', 'mbg' ),
 			),
 						array(
 				'id' => $prefix . 'max_collaborators',
 				'type' => 'number',
-				'name' => esc_html__( 'Max Collaborators', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Max Collaborators', 'mbg' ),
 			),
 					array(
 					'id' =>  'demo_video',
@@ -559,17 +581,17 @@ function setProfileResearch( $meta_boxes ) { // this shows the box where the scr
 			array(
 				'id' => 'search_content',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Saved Search', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Saved Search', 'mbg' ),
 			),
 			array(
 				'id' => 'scraped_content',
 				'type' => 'textarea',
-				'name' => esc_html__( 'Saved Scrape', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Saved Scrape', 'mbg' ),
 			),
 			array(
 				'id' => 'lang',
 				'type' => 'text',
-				'name' => esc_html__( 'Language', 'metabox-online-generator' ),
+				'name' => esc_html__( 'Language', 'mbg' ),
 				'size' => 5,
 			),
 		),

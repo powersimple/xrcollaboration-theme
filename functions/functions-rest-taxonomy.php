@@ -25,6 +25,7 @@ function register_posts_by_integration() {
 
 	register_rest_field( 'integration', 'posts', array(
 		'get_callback' => 'get_posts_by_integration',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -63,6 +64,7 @@ function register_posts_by_collaboration_type() {
 
 	register_rest_field( 'collaboration_type', 'posts', array(
 		'get_callback' => 'get_posts_by_collaboration_type',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -101,6 +103,7 @@ function register_posts_by_platform() {
 
 	register_rest_field( 'platform', 'posts', array(
 		'get_callback' => 'get_posts_by_platform',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -139,6 +142,7 @@ function register_posts_by_feature() {
 
 	register_rest_field( 'feature', 'posts', array(
 		'get_callback' => 'get_posts_by_feature',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -177,6 +181,7 @@ function register_posts_by_industry() {
 
 	register_rest_field( 'industry', 'posts', array(
 		'get_callback' => 'get_posts_by_industry',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -362,6 +367,7 @@ function register_posts_by_tag() {
 	register_rest_field( 'tag', 'posts', array(
 		'get_callback' => 'get_posts_by_tag',
 		'schema' => null,
+		'permission_callback' => '__return_true',
 		)
 	);
 }
@@ -424,6 +430,7 @@ function register_category_children() {
 	//this registers the children field
 	register_rest_field( array('category'), 'children', array(
 		'get_callback' => 'get_cat_children',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);

@@ -12,7 +12,9 @@
  function register_languages() {
 
 	register_rest_field( get_post_types() , 'languages', array(
-		'get_callback' => 'getPostLanguages',// callback 
+        'get_callback' => 'getPostLanguages',
+        
+                     'permission_callback' => '__return_true',// callback 
 		'schema' => null,
 		)
     );
@@ -26,7 +28,9 @@ add_action( 'rest_api_init', 'register_taxonomy_languages' );
 function register_taxonomy_languages() {
  
 	register_rest_field( 'category', 'languages', array(
-		'get_callback' => 'getTaxomomyLanguages',
+        'get_callback' => 'getTaxomomyLanguages',
+        'permission_callback' => '__return_true',
+
 		'schema' => null,
 		)
 	);
@@ -214,7 +218,9 @@ function getWPMLData(){ // callback used by initRestLanguages register_rest_rout
                     "/".$args['language_code']."/", //adds language code as last part of url ex: /wp-json/wp/v2/sv/
                         array(
                             'methods' => 'GET',
-                            'callback' => 'getWPMLData'//fires this callback which sorts content by type.
+                            'callback' => 'getWPMLData',//fires this callback which sorts content by type.
+                            		'permission_callback' => '__return_true',
+
                         )
                     );//end register routes
                 });//end add action

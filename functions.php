@@ -24,7 +24,9 @@ require_once("profiler/profiler.php");
 
 require_once("scraper/simple_html_dom.php");
 require_once("functions/functions-print.php");
-
+	require_once("functions/functions-post-access.php");
+	
+	
 
 add_theme_support('post-thumbnails', array(
 'post',
@@ -52,9 +54,7 @@ add_theme_support('post-thumbnails', array(
 			
 		}
 	
-	
-	
-	
+
 	
 		/* 	PASS ID AND IT RETURNS OBJECT OF SIZES BY URL */
 		function getThumbnailVersions($id){

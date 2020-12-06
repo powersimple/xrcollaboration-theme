@@ -17,6 +17,7 @@ add_action( 'rest_api_init', function () {
 		register_rest_route( 'myroutes', '/menu', array(
 		'methods' => 'GET',
 		'callback' => 'get_menu',
+		'permission_callback' => '__return_true',
 		'schema' => null
 		) 
 
@@ -34,7 +35,8 @@ add_action( 'rest_api_init', 'register_post_media' );
  
 
 	register_rest_field( ['post','page','profile'], 'post_media', array(
-		'get_callback' => 'get_post_media'
+		'get_callback' => 'get_post_media',
+		'permission_callback' => '__return_true'
 
 		)
 	);
@@ -73,7 +75,8 @@ add_action( 'rest_api_init', 'register_media_data' );
  
 
 	register_rest_field( 'attachment', 'data', array(//THE ROUTE IS MEDIA/the type is attachment
-		'get_callback' => 'get_media_data'
+		'get_callback' => 'get_media_data',
+		'permission_callback' => '__return_true'
 
 		)
 	);
@@ -153,6 +156,7 @@ function register_social_url() {
 
 	register_rest_field( ['social'], 'social_url', array(
 		'get_callback' => 'get_social_url',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -172,6 +176,7 @@ function register_hardware_profiles() {
 
 	register_rest_field( ['hardware'], 'profiles', array(
 		'get_callback' => 'get_hardware_profiles',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -201,6 +206,7 @@ function register_thumbnail_url() {
 
 	register_rest_field( ['profile','page','post'], 'thumbnail_url', array(
 		'get_callback' => 'get_thumbnail_url',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -222,6 +228,7 @@ add_action( 'rest_api_init', 'register_thumbnail_url_versions' );
 
 	register_rest_field( array('profile','page','post'), 'thumbnail_versions', array(
 		'get_callback' => 'get_thumbnail_versions',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -241,7 +248,8 @@ add_action( 'rest_api_init', 'register_screen_images' );
  
 
 	register_rest_field( array('profile','page','post'), 'screen_images', array(
-		'get_callback' => 'get_screen_images'
+		'get_callback' => 'get_screen_images',
+		'permission_callback' => '__return_true'
 
 		)
 	);
@@ -263,6 +271,7 @@ add_action( 'rest_api_init', 'register_featured_video' );
 
 	register_rest_field( array('profile','post','page'), 'featured_video', array(
 		'get_callback' => 'get_featured_video',
+		'permission_callback' => '__return_true',
 		'schema' => null,
 		)
 	);
@@ -294,7 +303,8 @@ add_action( 'rest_api_init', 'register_post_cats' );
 function register_post_cats() {
 
 		register_rest_field( array('profile','post','page'), 'cats', array(
-			'get_callback' => 'get_post_cats',
+			'get_callback' => 'get_post_cats',			
+			'permission_callback' => '__return_true',
 			'schema' => null,
 		)
 	);
@@ -313,6 +323,7 @@ function register_post_tags() {
 
 		register_rest_field( array('profile','post','page'), 'tags', array(
 			'get_callback' => 'get_post_tags',
+			'permission_callback' => '__return_true',
 			'schema' => null,
 		)
 	);
@@ -359,7 +370,9 @@ add_action( 'rest_api_init', 'register_screenshots' );
  
 
 	register_rest_field( array('profile'), 'screenshots', array(
-		'get_callback' => 'get_screenshots'
+		'get_callback' => 'get_screenshots',
+		'permission_callback' => '__return_true',
+
 
 		)
 	);
@@ -385,6 +398,7 @@ add_action( 'rest_api_init', 'register_support_hardware' );
 		
 		register_rest_field( 'profile', 'support_hardware', array(
 			'get_callback' => 'get_profile_hardware',
+			'permission_callback' => '__return_true',
 			'schema' => null,
 			)
 		);
@@ -501,6 +515,7 @@ function register_max_collaborators() {
 		
 		register_rest_field( 'seo', 'seo', array(
 			'get_callback' => 'get_seo_info',
+			'permission_callback' => '__return_true',
 			'schema' => null,
 			)
 		);
@@ -561,6 +576,7 @@ function register_max_collaborators() {
 		
 		register_rest_field( 'project', 'project_info', array(
 			'get_callback' => 'get_project_info',
+			'permission_callback' => '__return_true',
 			'schema' => null,
 			)
 		);
