@@ -53,6 +53,9 @@ function initSite() {
 
     var filters = "collaborators,hardware_support,collaboration_type,platform,feature,industry"
     setFilterAccordion(filters); //directory.js
+    
+    
+    
     //    console.log("profiles", profile_posts);
     //  console.log("hardware", hardware_posts);
 

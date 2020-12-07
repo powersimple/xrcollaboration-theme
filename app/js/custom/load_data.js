@@ -93,11 +93,11 @@ if (data_loaded == false) {
 }
 
 function setData(data) { //sets all content arrays
-    // console.log("setData", data)
+     console.log("setData", data)
     posts = setPosts(data.posts)
     pages = setPosts(data.pages)
     profiles = setPosts(data.profile)
-
+   
   //  console.log("profiles",profiles)
     for (p in posts) {
 
@@ -118,6 +118,7 @@ function setData(data) { //sets all content arrays
         hardware_posts[hardware[h].id] = hardware[h]
 
     }
+    
     //console.log("HARDWARE", hardware_posts)
     //  setPosts(data.social)
     setCategories(data.categories)

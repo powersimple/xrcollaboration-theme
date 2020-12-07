@@ -26,6 +26,39 @@ add_action( 'rest_api_init', function () {
 } );
 
 
+
+
+
+function get_hardware_specs() {
+	# Change 'menu' to your own navigation slug.
+	
+	
+
+
+
+    return json_encode(getHardwareFields());
+}
+
+add_action( 'rest_api_init', function () {
+		register_rest_route( 'myroutes', '/hardware_specs', array(
+		'methods' => 'GET',
+		'callback' => 'getHardwareFields()',
+		'permission_callback' => '__return_true'
+	
+			),
+
+		 
+
+
+	);
+} );
+
+
+
+
+
+
+
 /* 
 	media
 */
@@ -180,6 +213,12 @@ function register_hardware_profiles() {
 		'schema' => null,
 		)
 	);
+	register_rest_field( ['hardware'], 'meta', array(
+		'get_callback' => 'get_hardware_meta',
+		'permission_callback' => '__return_true',
+		'schema' => null,
+		)
+	);
 }
  
 function get_hardware_profiles( $object ) {
@@ -195,6 +234,21 @@ global $wpdb;
  return $posts;//from functions.php,
 }
 
+function get_hardware_meta( $object ) {
+	
+global $wpdb;
+	$q = $wpdb->get_results("select meta_key, meta_value from wp_postmeta where post_id = $object[id] order by post_id");
+	$meta = array();
+	foreach($q as $key=>$value){
+		if((substr($value->meta_key,0,1)!="_")&&(($value->meta_value!='')&&($value->meta_value != 0))){
+			$meta[$value->meta_key]=$value->meta_value;
+		}
+	}
+
+
+
+ return  $meta;//from functions.php,
+}
 
 
 /* 

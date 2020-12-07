@@ -65,7 +65,7 @@ $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
             "pages"=>"fields=id,type,title,content,slug,excerpt,languages,post_media,featured_media,screen_images,featured_video,cats,tags,type&".$GLOBALS['REST_post_filter'],
         //    "profile"=>"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screen_images,featured_video,type,industry,support_hardware,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter'],
          "profile"=>iterateEndpoint('post_type','profile',"fields=id,type,title,content,slug,excerpt,post_media,languages,info,seo,featured_media,screen_images,featured_video,type,industry,support_hardware,feature,thumbnail_url,collaboration_type,platform,cats,tags&".$GLOBALS['REST_post_filter_name_sort']),
-            "hardware"=>"fields=id,type,title,content,slug,excerpt,posts,post_media,languages,info,seo,profiles,featured_media,screen_images,featured_video,type,industry,feature,thumbnail_url,platform,cats,tags&".$GLOBALS['REST_post_filter'],
+            "hardware"=>"fields=id,type,title,content,slug,excerpt,posts,post_media,languages,info,seo,profiles,meta,featured_media,screen_images,featured_video,type,industry,feature,thumbnail_url,platform,cats,tags&".$GLOBALS['REST_post_filter'],
          //   "resource"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
            // "event"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
             //"product"=>"fields=id,type,title,content,slug,excerpt,languages,project_info,featured_media,screen_images,featured_video,type,cats,tags&".$GLOBALS['REST_post_filter'],
@@ -79,6 +79,7 @@ $GLOBALS['REST_CONFIG'] =array(//An array of url arguments
             "industry"=>"fields=id,name,count,slug,description,posts,children&".$GLOBALS['REST_tax_filter'],
             "tags"=>"fields=id,name,slug,posts&".$GLOBALS['REST_tax_filter'],
             "menus"=>"menus",
+            "hardware_specs"=>"fields=id,name,slug,posts&".$GLOBALS['REST_tax_filter'],
             "media"=>"fields=id,data&".$GLOBALS['REST_post_filter'],
            // "collaborators"=>"fields=meta_value&".$GLOBALS['REST_post_filter'],
            
@@ -181,8 +182,11 @@ require_once("functions-wpml-languages.php");
             
             writeJSON($server_path."content.json",$content);
             print $content;
+
+
             die();//kills the page load so you can see the endpoint urls
         }
+       
 
       
       //writeJSON($posts_path,$file_path);

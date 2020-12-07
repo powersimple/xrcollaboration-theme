@@ -146,6 +146,55 @@ function register_video_meta() {
 }
 
 
+ function getHardwareFields(){
+        global $wpdb;
+    $sql = "SELECT field_group, field, label  FROM hardware_fields order by field_group";
+    $q = $wpdb->get_results($sql);
+    $results = array();
+    $last_field_group = '';
+    foreach($q as $key => $value){
+     //var_dump($value);
+        if($value->field_group != $last_field_group){
+         $results[$value->field_group] = array();
+        }
+
+        array_push(
+				$results[$value->field_group],
+					array(
+						"field"=>$value->field,
+						"label"=>$value->label,
+						"profiles"=>getHardwareSpecPosts($value->field)
+					)
+				);
+
+        $last_field_group = $value->field_group;
+
+    }
+
+    return  $results;
+  }
+
+
+  function getHardwareSpecPosts($field){
+      global $wpdb;
+    $sql = "SELECT post_id from wp_postmeta where meta_key= 'field'";
+    $q = $wpdb->get_results($sql);
+    $results = array();
+    foreach($q as $key => $value){
+		array_push($results,$value->post_ids);
+
+    }
+
+    return  $results;
+  }
+
+
+
+
+
+
+
+
 
 
 
@@ -235,5 +284,9 @@ $children = get_children( array("post_parent"=>$parent_id,'post_type'=>'hardware
 		return $child_list;
 
 }
+
+
+
+
 
 ?>

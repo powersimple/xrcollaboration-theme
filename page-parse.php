@@ -139,9 +139,9 @@ function stripLabel($string){
             extract((array) $value);
       print "<li>$id $term<";
             if(is_taxonomy_hierarchical($taxonomy )){
-            var_dump(wp_insert_term($term,$taxonomy,array('description'=>"$description",'parent'=>$parent)));
+          //  var_dump(wp_insert_term($term,$taxonomy,array('description'=>"$description",'parent'=>$parent)));
             } else {
-            var_dump(wp_insert_term($term,$taxonomy,array('description'=>"$description")));
+         //   var_dump(wp_insert_term($term,$taxonomy,array('description'=>"$description")));
                 
             }
             print "</li>";

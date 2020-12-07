@@ -103,7 +103,10 @@ foreach($pages as $key => $value){
   ?>
   </main>
   <script>
-var link = document.createElement('a');
+    document.addEventListener( 'wpcf7mailsent', function( event ) {
+      var pdf = '/wp-content/uploads/2020/05/XR-Collaboration-V4.pdf'
+
+  var link = document.createElement('a');
       link.href = pdf;
       link.download = 'XR-Collaboration-A-Global-Resource-Guide.pdf';
       link.dispatchEvent(new MouseEvent('click'));

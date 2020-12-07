@@ -208,6 +208,64 @@ function get_posts_by_industry( $object ) {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+	hardware_spec
+
+*/
+add_action( 'rest_api_init', 'register_posts_by_hardware_spec' );
+ 
+function register_posts_by_hardware_spec() {
+ 
+
+	register_rest_field( 'hardware_spec', 'posts', array(
+		'get_callback' => 'get_posts_by_hardware_spec',
+		'permission_callback' => '__return_true',
+		'schema' => null,
+		)
+	);
+}
+ 
+function get_posts_by_hardware_spec( $object ) {
+
+	$args = array(
+    'post_type'      => array('profile'), 
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'fields' => 'ids',
+    'tax_query' => array(
+			array(
+				'taxonomy' => 'hardware_spec',
+				'field'    => 'term_id',
+				'terms'    => $object['id']
+			)
+		)
+	);
+	
+		
+	return get_posts($args); 
+}
+
+
+
+
+
+
+
+
+
 /*
 
 	feature

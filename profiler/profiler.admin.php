@@ -24,23 +24,33 @@
 		'priority' => 'high',
 		'autosave' => 'false',
 		'fields' => array(
+			//ABOUT GROUP
 			array('type' => 'heading','name' => esc_html__( 'About', 'mbg' ),),
+
+			array('id' => 'device_name','type' => 'text','name' => esc_html__( 'Device', 'mbg' ),),
+			array('id' => 'MSRP','type' => 'text','name' => esc_html__( 'MSRP', 'mbg' ),),
+			
 			array('id' => 'availability_date','type' => 'date','name' => esc_html__( 'Availability date', 'mbg' ),),
 			array('id' => 'colors','type' => 'text','name' => esc_html__( 'Color', 'mbg' ),),
+			array('id' => 'hero_image_url','type' => 'text','name' => esc_html__( 'Model asset link', 'mbg' ),),
 			array('id' => 'model_asset_url','type' => 'text','name' => esc_html__( 'Model asset link', 'mbg' ),),
 			array('id' => 'video_urls','type' => 'text','name' => esc_html__( 'Video links', 'mbg' ),),
-			array('id' => 'device_name','type' => 'text','name' => esc_html__( 'Device', 'mbg' ),),
 			array('id' => 'marketing_url','type' => 'text','name' => esc_html__( 'Website URL', 'mbg' ),),
 			array('id' => 'specifications_url','type' => 'text','name' => esc_html__( 'Specs URL', 'mbg' ),),
 
 			array('type' => 'divider'),
+	// CASTING GROUP
 			array('type' => 'heading','name' => esc_html__( 'Casting', 'mbg' ),),
 
+		
 			array('id' => 'airplay','type' => 'checkbox','name' => esc_html__( 'AirPlay', 'mbg' ),),
 			array('id' => 'chromecast','type' => 'checkbox','name' => esc_html__( 'ChromeCast', 'mbg' ),),
+			array('id' => 'miracast','type' => 'checkbox','name' => esc_html__( 'ChromeCast', 'mbg' ),),
 			array('id' => 'native_app','type' => 'checkbox','name' => esc_html__( 'Native App', 'mbg' ),),
 
 			array('type' => 'divider'),
+
+			//COMMS GROUP
 			array('type' => 'heading','name' => esc_html__( 'Communications', 'mbg' ),),
 			array('id' => 'gps','type' => 'checkbox','name' => esc_html__( 'GPS', 'mbg' ),),
 			array('id' => 'wireless_link','type' => 'checkbox','name' => esc_html__( 'Wireless link to PC', 'mbg' ),),
@@ -71,9 +81,11 @@
 				'multiple'=>true,),
 
 			array('type' => 'divider'),
+			//FEATURES GROUP
+
 			array('type' => 'heading','name' => esc_html__( 'Features', 'mbg' ),),
 
-			array('id' => 'gaze_tracking','type' => 'checkbox','name' => esc_html__( 'Gaze Tracking', 'mbg' ),),
+			array('id' => 'eye_tracking','type' => 'checkbox','name' => esc_html__( 'Eye Tracking', 'mbg' ),),
 			array('id' => 'hand_tracking','type' => 'checkbox','name' => esc_html__( 'Hand Tracking', 'mbg' ),),
 			array('id' => 'browser','type' => 'checkbox','name' => esc_html__( 'Browser', 'mbg' ),),
 			array('id' => 'spatial_audio','type' => 'checkbox','name' => esc_html__( 'Spatial Audio', 'mbg' ),),
@@ -81,6 +93,7 @@
 			
 			
 			array('type' => 'divider'),
+			// FORM FACTOR GROUP
 			array('type' => 'heading','name' => esc_html__( 'Form Factor', 'mbg' ),),
 
 			array('id' => 'fov','type' => 'number','name' => esc_html__( 'Field of View', 'mbg' ),),
@@ -106,6 +119,8 @@
 			array('id' => 'illumination','type' => 'checkbox','name' => esc_html__( 'Flash/scene illumination', 'mbg' ),),
 			
 			array('type' => 'divider'),
+
+			//INPUT GROUP
 			array('type' => 'heading','name' => esc_html__( 'Input', 'mbg' ),),
 
 			array('id' => 'controllers','type' => 'text','name' => esc_html__( 'Controllers', 'mbg' ),),
@@ -120,6 +135,8 @@
 			array('id' => 'touch_surface','type' => 'checkbox','name' => esc_html__( 'Touch Surface', 'mbg' ),),
 
 			array('type' => 'divider'),
+
+			//Platform Group
 			array('type' => 'heading','name' => esc_html__( 'Platform', 'mbg' ),),
 
 			array('id' => 'ios_app','type' => 'checkbox','name' => esc_html__( 'iOS App', 'mbg' ),),
@@ -128,9 +145,15 @@
 			array('id' => 'steam','type' => 'checkbox','name' => esc_html__( 'Steam', 'mbg' ),),
 			array('id' => 'sidequest','type' => 'checkbox','name' => esc_html__( 'SideQuest', 'mbg' ),),
 			array('id' => 'hololens_store','type' => 'checkbox','name' => esc_html__( 'Hololens Store', 'mbg' ),),
+			array('id' => 'viveport','type' => 'checkbox','name' => esc_html__( 'Viveport', 'mbg' ),),
+	
+			array('id' => 'other_platfrom','type' => 'checkbox','name' => esc_html__( 'Other Platform', 'mbg' ),),
+			
 			array('id' => 'device_os','type' => 'text','name' => esc_html__( 'Device Operating System', 'mbg' ),),
 
 			array('type' => 'divider'),
+
+			// TECHNICAL SPECS GROUP
 			array('type' => 'heading','name' => esc_html__( 'Specs', 'mbg' ),),
 
 			array('id' => 'sensors','type' => 'textarea','name' => esc_html__( 'Sensors ', 'mbg' ),),
@@ -146,6 +169,12 @@
 			array('id' => 'optics','type' => 'text','name' => esc_html__( 'Optics', 'mbg' ),),
 			array('id' => 'processors','type' => 'text','name' => esc_html__( 'Processors', 'mbg' ),),
 
+			array('id' => 'refresh_rates','type' => 'text','name' => esc_html__( 'Refresh Rates', 'mbg' ),),
+			array('id' => 'per_eye_resolution','type' => 'text','name' => esc_html__( 'Per Eye Resolution', 'mbg' ),),
+			array('id' => 'ports','type' => 'text','name' => esc_html__( 'Ports', 'mbg' ),),
+
+
+			
 		
 		),
 	);
