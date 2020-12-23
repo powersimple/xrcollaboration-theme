@@ -817,7 +817,7 @@ function shuffle(array) {
   }
 
 function setHardwareAccordion(lists){
- var accordion_filters = '<form id="filters">'
+ var accordion_filters = '<form id="hardware-filters">'
  //console.log(lists)
     jQuery.each(lists, function(i, v) {
         active_filters[v] = {}
@@ -825,10 +825,10 @@ function setHardwareAccordion(lists){
         accordion_filters += '<h3>' + i + '</h3>';
            accordion_filters += '<div class="accordion-drawer">'
         for(i=0;i<v.length;i++){
-           
-                
+          // console.log("field",v[i].field,v[i].field_type)
+            if(v[i].field_type == 'checkbox'){     
                   accordion_filters += '<span class="data-filter"><input class="form-checkbox" type="checkbox" name="' +  v[i].field + '" data-tax="' + v + '" value="' + v[i].field + '"><span class="data-label">' + v[i].label + '</span></span>'
-            
+            }
         }
 
         if (v != 'collaborators') {
@@ -898,11 +898,16 @@ function getHardwareCard(id){
     hardware_card+='<h4>'+hardware_posts[id].title.rendered+'</h4>'
     hardware_card+='';
     hardware_card+='<ul>';
-    for(m in hardware_posts[id].meta){
-        hardware_card+='<li>'+displayHardwareMeta(m,hardware_posts[m].meta.title.rendered);
-        hardware_card+='</li>';
+    if(hardware_posts[id] != undefined){
+          console.log("hardware_posts",hardware_posts[id])
+        if(hardware_posts[id].meta != undefined){
+            for(m in hardware_posts[id].meta){
+                console.log(m)
+                hardware_card+='<li>'+displayHardwareMeta(m,hardware_posts[id].meta);
+                hardware_card+='</li>';
+            }
+        }
     }
-   
     
     hardware_card+='</ul>';
     
@@ -914,10 +919,29 @@ function getHardwareCard(id){
 }
 function displayHardwareMeta(m, meta){
 
-
-    return hardware_fields[m]
+    console.log(meta)
+    return meta.title.rendered
 
 }
+
+$(document).on('click', '#hardware-filters :checkbox', function() {
+    // code here
+    var this_value = jQuery(this).attr('value')
+    var this_tax = jQuery(this).data('tax')
+    jQuery('#active-profile').html('')
+        //console.log(taxonomies[this_tax][this_value].posts)
+    if (this.checked) {
+        //console.log("checked")
+        buildFilters("add", this_tax, this_value)
+    } else {
+        //console.log("unchecked")
+        buildFilters("remove", this_tax, this_value)
+
+        // the checkbox is now no longer checked
+    }
+
+
+});
 // pass the type in the route
 // param = url arguments for the REST API
 // callback is a dynamic function name 

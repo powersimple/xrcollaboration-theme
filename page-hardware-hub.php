@@ -1,6 +1,11 @@
 <?php
  if(@$_GET['publish_specs']){
-           
+            header('Content-Type: application/json');
+            $content = json_encode(getHardwareFields(),true); // writes the whole shebang into a json packet
+            
+            writeJSON($server_path."hardware.json",$content);
+            print $content;
+
             
             die();//kills the page load so you can see the endpoint urls
         }
@@ -50,7 +55,7 @@ jQuery(document).ready(function() {
             <h4>Choose Filters below</h4>
             
 
-            <div id="hardware-accordion" class="filters"></div>
+            <div id="hardware-accordion" class="hardware-filters"></div>
             
 
             
@@ -95,17 +100,18 @@ jQuery(document).ready(function() {
 </section>
   </main>
   <script>
-  
+  var hardware_fields = <?= json_encode(getHardwareFields()); ?>;
 jQuery(document).ready(function() {
 
 
     setHardwareAccordion(hardware_fields); //hardware_hub.js
   var hardware_results = displayHardwareResults();
      jQuery("#profile_logos").html(hardware_results)
+     console.log("hardware",hardware_fields)
 
 });
- var hardware_fields = <?= json_encode(getHardwareFields()); ?>;
-  console.log("hardware",hardware_fields)
+ 
+  
   </script>
   <?php 
 
