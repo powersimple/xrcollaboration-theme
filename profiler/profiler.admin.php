@@ -30,7 +30,7 @@
 			array('id' => 'device_name','type' => 'text','name' => esc_html__( 'Device', 'mbg' ),),
 			array('id' => 'MSRP','type' => 'text','name' => esc_html__( 'MSRP', 'mbg' ),),
 			
-			array('id' => 'availability_date','type' => 'date','name' => esc_html__( 'Availability date', 'mbg' ),),
+		//	array('id' => 'availability_date','type' => 'date','name' => esc_html__( 'Availability date', 'mbg' ),),
 			array('id' => 'colors','type' => 'text','name' => esc_html__( 'Color', 'mbg' ),),
 			array('id' => 'hero_image_url','type' => 'text','name' => esc_html__( 'Model asset link', 'mbg' ),),
 			array('id' => 'model_asset_url','type' => 'text','name' => esc_html__( 'Model asset link', 'mbg' ),),
@@ -46,13 +46,13 @@
 			array('id' => 'airplay','type' => 'checkbox','name' => esc_html__( 'AirPlay', 'mbg' ),),
 			array('id' => 'chromecast','type' => 'checkbox','name' => esc_html__( 'ChromeCast', 'mbg' ),),
 			array('id' => 'miracast','type' => 'checkbox','name' => esc_html__( 'ChromeCast', 'mbg' ),),
-			array('id' => 'native_app','type' => 'checkbox','name' => esc_html__( 'Native App', 'mbg' ),),
+	//		array('id' => 'native_app','type' => 'checkbox','name' => esc_html__( 'Native App', 'mbg' ),),
 
 			array('type' => 'divider'),
 
 			//COMMS GROUP
 			array('type' => 'heading','name' => esc_html__( 'Communications', 'mbg' ),),
-			array('id' => 'gps','type' => 'checkbox','name' => esc_html__( 'GPS', 'mbg' ),),
+			//array('id' => 'gps','type' => 'checkbox','name' => esc_html__( 'GPS', 'mbg' ),),
 			array('id' => 'wireless_link','type' => 'checkbox','name' => esc_html__( 'Wireless link to PC', 'mbg' ),),
 			array('id' => 'wired_link','type' => 'checkbox','name' => esc_html__( 'Wired link to PC', 'mbg' ),),
 			array('id' => 'bluetooth','type' => 'select_advanced','name'     => esc_html__( 'Bluetooth', 'mbg' ),
@@ -87,7 +87,7 @@
 
 			array('id' => 'eye_tracking','type' => 'checkbox','name' => esc_html__( 'Eye Tracking', 'mbg' ),),
 			array('id' => 'hand_tracking','type' => 'checkbox','name' => esc_html__( 'Hand Tracking', 'mbg' ),),
-			array('id' => 'browser','type' => 'checkbox','name' => esc_html__( 'Browser', 'mbg' ),),
+			//array('id' => 'browser','type' => 'checkbox','name' => esc_html__( 'Browser', 'mbg' ),),
 			array('id' => 'spatial_audio','type' => 'checkbox','name' => esc_html__( 'Spatial Audio', 'mbg' ),),
 			array('id' => 'accessories','type' => 'textarea','name' => esc_html__( 'Accessories', 'mbg' ),),
 			
@@ -147,9 +147,9 @@
 			array('id' => 'hololens_store','type' => 'checkbox','name' => esc_html__( 'Hololens Store', 'mbg' ),),
 			array('id' => 'viveport','type' => 'checkbox','name' => esc_html__( 'Viveport', 'mbg' ),),
 	
-			array('id' => 'other_platfrom','type' => 'checkbox','name' => esc_html__( 'Other Platform', 'mbg' ),),
+		//	array('id' => 'other_platfrom','type' => 'checkbox','name' => esc_html__( 'Other Platform', 'mbg' ),),
 			
-			array('id' => 'device_os','type' => 'text','name' => esc_html__( 'Device Operating System', 'mbg' ),),
+		//	array('id' => 'device_os','type' => 'text','name' => esc_html__( 'Device Operating System', 'mbg' ),),
 
 			array('type' => 'divider'),
 
@@ -167,15 +167,15 @@
 			array('id' => 'GPU','type' => 'text','name' => esc_html__( 'GPU', 'mbg' ),),
 			array('id' => 'CPU','type' => 'text','name' => esc_html__( 'CPU', 'mbg' ),),
 			array('id' => 'optics','type' => 'text','name' => esc_html__( 'Optics', 'mbg' ),),
-			array('id' => 'processors','type' => 'text','name' => esc_html__( 'Processors', 'mbg' ),),
+		//	array('id' => 'processors','type' => 'text','name' => esc_html__( 'Processors', 'mbg' ),),
 
 			array('id' => 'refresh_rates','type' => 'text','name' => esc_html__( 'Refresh Rates', 'mbg' ),),
 			array('id' => 'per_eye_resolution','type' => 'text','name' => esc_html__( 'Per Eye Resolution', 'mbg' ),),
 			array('id' => 'ports','type' => 'text','name' => esc_html__( 'Ports', 'mbg' ),),
 
-
+array('type' => 'divider'),
 			
-		
+		array('id' => 'discontinued','type' => 'checkbox','name' => esc_html__( 'Discontinued', 'mbg' ),),
 		),
 	);
 

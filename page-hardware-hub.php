@@ -60,8 +60,8 @@ jQuery(document).ready(function() {
 
             
         </div>
-        <div class="col-sm-9" id="directory">
-       
+        <div class="col-sm-9" id="hardware-directory">
+        
 
         <div id="active-profile">
         <?php
@@ -81,7 +81,7 @@ jQuery(document).ready(function() {
       
         
           <div id="active_filters"></div>
-          <div id="profile_logos"></div>
+          <div id="active_profiles"></div>
         
         
         

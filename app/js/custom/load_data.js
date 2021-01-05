@@ -26,8 +26,10 @@ var posts = {},
     data_loaded = false,
 
     profile_posts = {},
-    hardware_posts = {}
-
+    hardware_posts = {},
+    hardware_specs = {}   
+    hardware_filters = {},
+    hardware_filter_count = 0
 state.featured = {
     'transition': {
         'type': 'flip',
@@ -116,9 +118,28 @@ function setData(data) { //sets all content arrays
     for (h in hardware) {
         hardware[h].name = hardware[h].title.rendered
         hardware_posts[hardware[h].id] = hardware[h]
+        for(m in hardware[h].meta){
+            //console.log("spec",m,hardware[h].id,hardware[h].meta[m])
+            if(hardware_specs[m] == undefined){
+                hardware_specs[m] = {}
+            }
+            if(hardware_specs[m][hardware[h].meta[m]] == undefined){
+                hardware_specs[m][hardware[h].meta[m]] = []
+                hardware_specs[m][hardware[h].meta[m]].push(hardware[h].id)
+
+            } else {
+                hardware_specs[m][hardware[h].meta[m]].push(hardware[h].id)
+
+            }
+
+           
+        }
+
 
     }
     
+    
+
     //console.log("HARDWARE", hardware_posts)
     //  setPosts(data.social)
     setCategories(data.categories)
@@ -166,7 +187,6 @@ function sort_array (prop, arr) {
     });
     return arr;
 };
-
 
 function setPosts(data) { // special function for the any post type
 

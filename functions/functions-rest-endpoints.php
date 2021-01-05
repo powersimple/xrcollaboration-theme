@@ -32,6 +32,11 @@ function iterateEndpoint($field,$name,$query){
            $iterations = 2;
            $sql = "select id from wp_posts where post_status='publish' and $field='$name'";
            $q = $wpdb->get_results($sql);
+        } else if($field == 'media'){
+
+           $iterations = 2;
+           $sql = "select id from wp_posts where post_status='publish' and $field='$name'";
+           $q = $wpdb->get_results($sql);
         } else {
 
         }

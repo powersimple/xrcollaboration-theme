@@ -148,7 +148,7 @@ function register_video_meta() {
 
  function getHardwareFields(){
         global $wpdb;
-    $sql = "SELECT field_group, field, label, field_type  FROM hardware_fields order by field_group";
+    $sql = "SELECT *  FROM hardware_fields order by field_group";
     $q = $wpdb->get_results($sql);
     $results = array();
     $last_field_group = '';
@@ -164,7 +164,11 @@ function register_video_meta() {
 						"field"=>$value->field,
 						"label"=>$value->label,
 						"field_type"=>$value->field_type,
+						"active"=>$value->active,
+						"before_value"=>$value->before_value,
+						"after_value"=>$value->after_value,
 						
+
 						"profiles"=>getHardwareSpecPosts($value->field)
 					)
 				);

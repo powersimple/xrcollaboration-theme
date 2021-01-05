@@ -10,14 +10,15 @@ $conf_year = "6th";
 get_header(); 
 $featured_video = get_post_meta($post->ID,"featured_video",true);
 $thumbnail = getThumbnail(get_post_meta($post->ID,"_thumbnail_id",true));
-                    
+///OLD HERO PATH wp-content/uploads/2020/05/XRC-HeroVideo.mp4
+         
 ?>
 
 <section class="home-section home-parallax home-fade  id="home">
 
       <div id="bg-video" class="hero-video">
           
-          <video   playsinline autoplay muted loop poster="<?=$thumbnail?>" id="bgvideo" name="media"><source src="/wp-content/uploads/2020/05/XRC-HeroVideo.mp4" type="video/mp4"></video>
+          <video   playsinline autoplay muted loop poster="<?=$thumbnail?>" id="bgvideo" name="media"><source src="/hero/XRC-Hero-2021b.mp4" type="video/mp4"></video>
 </video>
       </div>
 

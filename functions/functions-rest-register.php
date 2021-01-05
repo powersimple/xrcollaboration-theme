@@ -27,7 +27,7 @@ add_action( 'rest_api_init', function () {
 
 
 
-
+/* 
 
 function get_hardware_specs() {
 	# Change 'menu' to your own navigation slug.
@@ -36,7 +36,7 @@ function get_hardware_specs() {
 
 
 
-    return json_encode(getHardwareFields());
+    return array("a"=>"b");
 }
 
 add_action( 'rest_api_init', function () {
@@ -55,11 +55,52 @@ add_action( 'rest_api_init', function () {
 
 
 
+/*
+
+	hardware_specs
+
+*/
+add_action( 'rest_api_init', 'register_hardware_specs' );
+ 
+function register_hardware_specs() {
+ 
+
+	register_rest_field( 'hardware_specs', 'posts', array(
+		'get_callback' => 'get_hardware_specs',
+		'permission_callback' => '__return_true',
+		'schema' => null,
+		)
+	);
+}
+ 
+function get_hardware_specs( $object ) {
+
+	$args = array(
+    'post_type'      => array('hardare'), 
+    'posts_per_page' => -1,
+    'post_status'    => 'publish',
+    'fields' => 'ids'
+	);
+	
+		
+	return $object; 
+}
 
 
 
 
-/* 
+
+
+
+
+
+
+
+
+
+/*
+
+
 	media
 */
 
@@ -67,7 +108,7 @@ add_action( 'rest_api_init', 'register_post_media' );
  function register_post_media() {
  
 
-	register_rest_field( ['post','page','profile'], 'post_media', array(
+	register_rest_field( ['post','page','profile','hardware'], 'post_media', array(
 		'get_callback' => 'get_post_media',
 		'permission_callback' => '__return_true'
 
