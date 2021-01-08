@@ -285,9 +285,10 @@ function displayHardwareMeta(meta){
 
 
 function displayHardwareResult(id){
-  console.log("hardware item",id,hardware_posts[id])
+ // console.log("hardware item",id,hardware_posts[id])
     var this_item = hardware_posts[id]
     var image_path = image_path = "/wp-content/uploads/2020/12/placeholder-hmd.jpg"
+
     if(this_item.featured_media != 0){
       image_path = this_item.post_media._thumbnail_id[0].full_path
     } 
@@ -295,15 +296,30 @@ function displayHardwareResult(id){
     var hardware_profile = '<h4>'+this_item.title.rendered+'</h4>'
     hardware_profile += '<img src="'+image_path+'" alt="image of '+this_item.title.rendered+'">'
     hardware_profile += displayHardwareMeta(this_item.meta)
-       
-    return hardware_profile
+     return hardware_profile
     
 }
 
 
+function displayAllHardwareResults(){
+      
+ console.log("all", hardware_posts)
+    var matched = '<div class="hardware-list row display-flex">'
+    
+    for(h in hardware_posts){
+      console.log("h",h)
+          
+                matched += '<div class="hardware-item col-xs-12 col-sm-6 col-md-4 col-lg-4">'+displayHardwareResult(h)+'</div>'
+           
+    }
+    matched += '</div>'
+    $("#active_profiles").html(matched)
+//      jQuery("#profile_logos").html(hardware_results)
+}
+
 function displayHardwareResults(results){
     
-// console.log('results', results, hardware_posts )
+//console.log('results', results, hardware_posts )
     var matched = '<div class="hardware-list row display-flex">'
     for(r=0;r<results.length;r++){
 
@@ -314,6 +330,8 @@ function displayHardwareResults(results){
     matched += '</div>'
     $("#active_profiles").html(matched)
 }
+
+
 
 
 $(document).on('click', '#hardware-filters :checkbox', function() {

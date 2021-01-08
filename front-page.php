@@ -1,5 +1,4 @@
 
-
 <?php
 global $year;
 $year = "2019";
@@ -15,14 +14,16 @@ $thumbnail = getThumbnail(get_post_meta($post->ID,"_thumbnail_id",true));
 ?>
 
 <section class="home-section home-parallax home-fade  id="home">
-
       <div id="bg-video" class="hero-video">
           
-          <video   playsinline autoplay muted loop poster="<?=$thumbnail?>" id="bgvideo" name="media"><source src="/hero/XRC-Hero-2021b.mp4" type="video/mp4"></video>
+          <video   playsinline autoplay muted loop poster="<?=$thumbnail?>" id="bgvideo" name="media"><source src="/hero/XRCHero2021c.mp4" type="video/mp4"></video>
 </video>
       </div>
 
        
+      <div id="home-tagline"><h1>The future is collaborative</h1>
+<h2>Tools and resources for bringing teams, classrooms, and communities closer together with immersive technologies</h2></div>
+
       </section>
       <main class="main" role="main">
 

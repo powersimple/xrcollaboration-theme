@@ -22,7 +22,8 @@ get_header();
 
 ?>
 <script>
-   var profile_template = 'directory'
+   var profile_template = 'hardware'
+
   var max = {}
 /
 jQuery(document).ready(function() {
@@ -80,6 +81,11 @@ jQuery(document).ready(function() {
         
       
         
+          <div id="psa">          
+          <a href="/cleanbox/"><img class="banner-product" src="/wp-content/uploads/2021/01/omniclean-2-1.png"></a>
+          <p><img class="banner-logo" src="/wp-content/uploads/2021/01/cleanbox-1.png">Virtual meetings are the new normal, driving the need for reliable device hygiene solutions. Cleanbox Technology makes it easy to decontaminate XR headsets, eyewear, surgical and protective masks, and personal electronics.</p>
+          <a class="wp-block-button__link" href="/cleanbox/">LEARN MORE</a>
+          </div>
           <div id="active_filters"></div>
           <div id="active_profiles"></div>
         
@@ -102,12 +108,11 @@ jQuery(document).ready(function() {
   <script>
   var hardware_fields = <?= json_encode(getHardwareFields()); ?>;
 jQuery(document).ready(function() {
-
-
+  
     setHardwareAccordion(hardware_fields); //hardware_hub.js
-  var hardware_results = displayHardwareResults();
+  var hardware_results = displayAllHardwareResults();
      jQuery("#profile_logos").html(hardware_results)
-     console.log("hardware",hardware_fields)
+   //  console.log("hardware",hardware_fields)
 
 });
  

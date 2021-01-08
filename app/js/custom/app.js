@@ -59,7 +59,7 @@ function initSite() {
     //    console.log("profiles", profile_posts);
     //  console.log("hardware", hardware_posts);
 
-    console.log("PROFILE TEMPLATE","style:background:#000;color:#f00;")
+    console.log("PROFILE TEMPLATE",slug,"style:background:#000;color:#f00;")
     jQuery("#filter-accordion").accordion({
         header: "h3",
         collapsible: true,
@@ -76,7 +76,19 @@ function initSite() {
 
         
     } 
+
+    if (slug != undefined) {
+        if (slug == 'hardware-hub') {
+            displayAllHardwareResults();
+        }
+
+        
+    } 
+   
+    
+    
     if (profile_template != undefined) {
+        
         if (profile_template == 'full-profile-template') {
 
             loadFullProfile(active_id)

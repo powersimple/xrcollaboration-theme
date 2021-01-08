@@ -148,7 +148,7 @@ function register_video_meta() {
 
  function getHardwareFields(){
         global $wpdb;
-    $sql = "SELECT *  FROM hardware_fields order by field_group";
+    $sql = "SELECT *  FROM hardware_fields where field_group_order > 0 order by field_group_order";
     $q = $wpdb->get_results($sql);
     $results = array();
     $last_field_group = '';
@@ -233,6 +233,7 @@ function display_videos($videos){
 	<?php
 	
 	return ob_get_clean();	
+
 }
 
 function getHardwareProperties($hardware){
